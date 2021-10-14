@@ -59,7 +59,7 @@ class _SubscribeButton extends StatelessWidget {
         context
             .read(subscriptionStatusProvider(searchQuery).notifier)
             .subscribe();
-        showQuickSnackBarMessage(context, 'Added to subscriptions');
+        showSnackBarMessage(context, 'Added to subscriptions');
       },
       icon: Icon(Icons.star_border),
     );
@@ -78,7 +78,7 @@ class _UnsubscribeButton extends StatelessWidget {
         context
             .read(subscriptionStatusProvider(searchQuery).notifier)
             .unsubscribe();
-        showQuickSnackBarMessage(context, 'Removed from subscriptions');
+        showSnackBarMessage(context, 'Removed from subscriptions');
       },
       icon: Icon(Icons.star),
     );

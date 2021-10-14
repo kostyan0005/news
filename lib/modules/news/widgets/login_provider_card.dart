@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class LoginProviderCard extends StatelessWidget {
   final VoidCallback onTap;
   final IconData providerIcon;
-  final String providerName;
+  final String? providerName;
+  final String? alternativeText;
 
   const LoginProviderCard({
     required this.onTap,
     required this.providerIcon,
-    required this.providerName,
-  });
+    this.providerName,
+    this.alternativeText,
+  }) : assert(providerName != null || alternativeText != null);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class LoginProviderCard extends StatelessWidget {
       elevation: 2,
       margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: ListTile(
           dense: true,
           leading: Icon(
@@ -27,7 +29,9 @@ class LoginProviderCard extends StatelessWidget {
             size: 18,
           ),
           title: Text(
-            'Sign in with $providerName',
+            alternativeText != null
+                ? alternativeText!
+                : 'Sign in with $providerName',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,

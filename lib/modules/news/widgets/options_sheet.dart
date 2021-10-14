@@ -72,7 +72,7 @@ class _SaveInkWell extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.read(savedNewsRepositoryProvider).savePiece(piece);
-        showQuickSnackBarMessage(context, 'Added to saved news');
+        showSnackBarMessage(context, 'Added to saved news');
         Navigator.pop(context);
       },
       child: ListTile(
@@ -93,7 +93,7 @@ class _RemoveInkWell extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.read(savedNewsRepositoryProvider).removePiece(pieceId);
-        showQuickSnackBarMessage(context, 'Removed from saved news');
+        showSnackBarMessage(context, 'Removed from saved news');
         Navigator.pop(context);
       },
       child: ListTile(

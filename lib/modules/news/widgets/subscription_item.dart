@@ -23,7 +23,7 @@ class SubscriptionItem extends StatelessWidget {
               context
                   .read(subscriptionsRepositoryProvider)
                   .unsubscribe(subscription.text);
-              showQuickSnackBarMessage(context, 'Removed from subscriptions');
+              showSnackBarMessage(context, 'Removed from subscriptions');
             },
             icon: Icon(Icons.delete_outlined),
           ),
