@@ -21,9 +21,8 @@ class HomeTabFrame extends StatelessWidget {
         return [
           SliverAppBar(
             leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(SearchTextPage.routeName);
-              },
+              onPressed: () =>
+                  Navigator.pushNamed(context, SearchTextPage.routeName),
               icon: Icon(Icons.search),
             ),
             title: Text(title),
@@ -35,6 +34,7 @@ class HomeTabFrame extends StatelessWidget {
                   builder: (_) => ProfileDialog(),
                 ),
                 icon: CircleAvatar(
+                  // todo: display avatar when signed in
                   child: Icon(Icons.person),
                 ),
               ),

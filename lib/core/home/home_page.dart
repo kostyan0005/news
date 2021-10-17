@@ -15,7 +15,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final index = watch(bottomBarIndexProvider);
     return Scaffold(
-      body: watch(anonymousSingInProvider).maybeMap(
+      body: watch(anonymousSingInProvider).maybeWhen(
         data: (_) => IndexedStack(
           index: index,
           children: [

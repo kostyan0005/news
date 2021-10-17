@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class LoginProviderCard extends StatelessWidget {
   final VoidCallback onTap;
   final IconData providerIcon;
-  final String? providerName;
-  final String? alternativeText;
+  final String providerName;
+  final bool isSignedIn;
 
   const LoginProviderCard({
     required this.onTap,
     required this.providerIcon,
-    this.providerName,
-    this.alternativeText,
-  }) : assert(providerName != null || alternativeText != null);
+    required this.providerName,
+    required this.isSignedIn,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,11 @@ class LoginProviderCard extends StatelessWidget {
             size: 18,
           ),
           title: Text(
-            alternativeText != null
-                ? alternativeText!
-                : 'Sign in with $providerName',
+            providerName.isEmpty
+                ? 'Sign out'
+                : isSignedIn
+                    ? 'Connect with $providerName'
+                    : 'Sign in with $providerName',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
