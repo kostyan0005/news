@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:news/core/auth/account_already_in_use_dialog.dart';
 import 'package:news/utils/snackbar_utils.dart';
+import 'package:twitter_login/twitter_login.dart';
 
 final authRepositoryProvider = Provider((_) => AuthRepository());
 
@@ -57,7 +58,7 @@ class AuthRepository {
           return;
         }
       } else {
-        // log an unexpected error
+        // log unexpected error
         Logger().e(e.message, e, s);
         success = false;
       }
@@ -71,29 +72,20 @@ class AuthRepository {
   }
 
   Future<void> connectWithGoogle(BuildContext context) async {
-    // trigger authentication flow
     final googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) {
-      // authentication flow was aborted
-      return;
-    }
+    if (googleUser == null) return;
 
-    // create credential from access and id tokens
     final googleAuth = await googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
-    // connect to firebase with above credential
     await _connectWithCredential(credential, context, 'Google');
   }
 
   Future<void> connectWithFacebook(BuildContext context) async {
-    // trigger authentication flow
     final loginResult = await FacebookAuth.instance.login();
     final loginStatus = loginResult.status;
 
     if (loginStatus == LoginStatus.cancelled) {
-      // authentication flow was aborted
       return;
     } else if (loginStatus != LoginStatus.success) {
       Logger().e(loginResult.message);
@@ -101,11 +93,31 @@ class AuthRepository {
       return;
     }
 
-    // create credential from access token
     final credential =
         FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-    // connect to firebase with above credential
     await _connectWithCredential(credential, context, 'Facebook');
+  }
+
+  Future<void> connectWithTwitter(BuildContext context) async {
+    final twitterLogin = TwitterLogin(
+        apiKey: '5GmPG67Y0HUNTLEPHdUGU7wbw',
+        apiSecretKey: 'FiT1tYYfXkJzD2Vxz5z0B1qWL7SEGCGC7JgkoSXUtquhtHOUqH',
+        redirectURI: 'example://');
+
+    final authResult = await twitterLogin.login();
+    final authStatus = authResult.status;
+
+    if (authStatus == TwitterLoginStatus.cancelledByUser) {
+      return;
+    } else if (authStatus == TwitterLoginStatus.error) {
+      Logger().e(authResult.errorMessage);
+      _showUnexpectedErrorMessage(context);
+      return;
+    }
+
+    final credential = TwitterAuthProvider.credential(
+        accessToken: authResult.authToken!,
+        secret: authResult.authTokenSecret!);
+    await _connectWithCredential(credential, context, 'Twitter');
   }
 }

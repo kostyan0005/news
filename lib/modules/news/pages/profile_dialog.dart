@@ -99,12 +99,12 @@ class ProfileDialog extends ConsumerWidget {
                                       IconSpan(FontAwesomeIcons.google),
                                     if (withFacebook)
                                       IconSpan(FontAwesomeIcons.facebook),
-                                    if (withApple)
-                                      IconSpan(FontAwesomeIcons.apple),
                                     if (withTwitter)
                                       IconSpan(FontAwesomeIcons.twitter),
                                     if (withGithub)
                                       IconSpan(FontAwesomeIcons.github),
+                                    if (withApple && Platform.isIOS)
+                                      IconSpan(FontAwesomeIcons.apple),
                                   ],
                                 ),
                               ),
@@ -150,20 +150,12 @@ class ProfileDialog extends ConsumerWidget {
                                     providerName: 'Facebook',
                                     isSignedIn: isSignedIn,
                                   ),
-                                if (Platform.isIOS && !withApple)
-                                  LoginProviderCard(
-                                    // todo: implement
-                                    onTap: () =>
-                                        showNotImplementedMessage(context),
-                                    providerIcon: FontAwesomeIcons.apple,
-                                    providerName: 'Apple',
-                                    isSignedIn: isSignedIn,
-                                  ),
                                 if (!withTwitter)
                                   LoginProviderCard(
                                     // todo: implement
-                                    onTap: () =>
-                                        showNotImplementedMessage(context),
+                                    onTap: () => context
+                                        .read(authRepositoryProvider)
+                                        .connectWithTwitter(context),
                                     providerIcon: FontAwesomeIcons.twitter,
                                     providerName: 'Twitter',
                                     isSignedIn: isSignedIn,
@@ -175,6 +167,15 @@ class ProfileDialog extends ConsumerWidget {
                                         showNotImplementedMessage(context),
                                     providerIcon: FontAwesomeIcons.github,
                                     providerName: 'GitHub',
+                                    isSignedIn: isSignedIn,
+                                  ),
+                                if (!withApple && Platform.isIOS)
+                                  LoginProviderCard(
+                                    // todo: implement
+                                    onTap: () =>
+                                        showNotImplementedMessage(context),
+                                    providerIcon: FontAwesomeIcons.apple,
+                                    providerName: 'Apple',
                                     isSignedIn: isSignedIn,
                                   ),
                                 SizedBox(
