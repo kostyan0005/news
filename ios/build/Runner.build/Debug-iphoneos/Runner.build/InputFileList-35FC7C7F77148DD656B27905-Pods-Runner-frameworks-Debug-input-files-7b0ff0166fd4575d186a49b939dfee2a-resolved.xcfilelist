@@ -1,0 +1,27 @@
+/Users/a1/AndroidStudioProjects/news/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/AppAuth/AppAuth.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/BoringSSL-GRPC/openssl_grpc.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/FBAEMKit/FBAEMKit.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/FBSDKCoreKit/FBSDKCoreKit.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/FBSDKCoreKit_Basics/FBSDKCoreKit_Basics.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/FBSDKLoginKit/FBSDKLoginKit.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/FirebaseAuth/FirebaseAuth.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/FirebaseCore/FirebaseCore.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/FirebaseFirestore/FirebaseFirestore.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/GTMAppAuth/GTMAppAuth.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/GTMSessionFetcher/GTMSessionFetcher.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/GoogleDataTransport/GoogleDataTransport.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/GoogleUtilities/GoogleUtilities.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/PromisesObjC/FBLPromises.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/abseil/absl.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/flutter_facebook_auth/flutter_facebook_auth.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/flutter_webview_plugin/flutter_webview_plugin.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/gRPC-C++/grpcpp.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/gRPC-Core/grpc.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/leveldb-library/leveldb.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/nanopb/nanopb.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/share_plus/share_plus.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/twitter_login/twitter_login.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/url_launcher/url_launcher.framework
+/Users/a1/AndroidStudioProjects/news/ios/build/Debug-iphoneos/webview_flutter_wkwebview/webview_flutter_wkwebview.framework

@@ -10,20 +10,20 @@ const _kAccountAlreadyInUseMessage =
 void showAccountAlreadyInUseDialog(BuildContext context) {
   showDialog(
     context: context,
-    builder: (context) => AlertDialog(
+    builder: (dialogContext) => AlertDialog(
       title: Text('Account already in use'),
       content: Text(_kAccountAlreadyInUseMessage),
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.pop(context);
-            context.read(authRepositoryProvider).signOut();
+            Navigator.pop(dialogContext);
+            context.read(authRepositoryProvider).signOut(context);
           },
           style: TextButton.styleFrom(primary: Colors.red),
           child: Text('Sign out'),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(dialogContext),
           style: TextButton.styleFrom(primary: Colors.blue),
           child: Text('Dismiss'),
         ),

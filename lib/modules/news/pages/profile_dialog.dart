@@ -25,168 +25,191 @@ class ProfileDialog extends ConsumerWidget {
         final withTwitter = status.withTwitter;
         final withGithub = status.withGithub;
 
-        return Dialog(
-          backgroundColor: Theme.of(context).primaryColorDark,
-          insetPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 64,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: Icon(Icons.close),
-                      color: Colors.white,
-                      iconSize: 21,
-                      splashRadius: 21,
+        return ScaffoldMessenger(
+          child: Builder(
+            builder: (context) => Scaffold(
+              backgroundColor: Colors.transparent,
+              body: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () => Navigator.pop(context),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Dialog(
+                    backgroundColor: Theme.of(context).primaryColorDark,
+                    insetPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 64,
                     ),
-                    Text(
-                      'Profile',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 50,
-                    ),
-                  ],
-                ),
-                Theme(
-                  data:
-                      Theme.of(context).copyWith(dividerColor: Colors.white12),
-                  child: ExpansionTile(
-                    title: Text(
-                      'Sign in/out',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                    subtitle: RichText(
-                      text: TextSpan(
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 15,
-                        ),
+                    child: SingleChildScrollView(
+                      child: Column(
                         children: [
-                          if (!isSignedIn)
-                            TextSpan(
-                              text: 'Not signed in',
-                            )
-                          else
-                            TextSpan(
-                              text: 'Connected with',
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: Icon(Icons.close),
+                                color: Colors.white,
+                                iconSize: 21,
+                                splashRadius: 21,
+                              ),
+                              Text(
+                                'Profile',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 50,
+                              ),
+                            ],
+                          ),
+                          Theme(
+                            data: Theme.of(context)
+                                .copyWith(dividerColor: Colors.white12),
+                            child: ExpansionTile(
+                              title: Text(
+                                'Sign in/out',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              subtitle: RichText(
+                                text: TextSpan(
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 15,
+                                  ),
+                                  children: [
+                                    if (!isSignedIn)
+                                      TextSpan(
+                                        text: 'Not signed in',
+                                      )
+                                    else
+                                      TextSpan(
+                                        text: 'Connected with',
+                                      ),
+                                    if (withGoogle)
+                                      IconSpan(FontAwesomeIcons.google),
+                                    if (withFacebook)
+                                      IconSpan(FontAwesomeIcons.facebook),
+                                    if (withApple)
+                                      IconSpan(FontAwesomeIcons.apple),
+                                    if (withTwitter)
+                                      IconSpan(FontAwesomeIcons.twitter),
+                                    if (withGithub)
+                                      IconSpan(FontAwesomeIcons.github),
+                                  ],
+                                ),
+                              ),
+                              tilePadding: _tilePadding,
+                              iconColor: Colors.white,
+                              collapsedIconColor: Colors.white,
+                              children: [
+                                if (isSignedIn)
+                                  LoginProviderCard(
+                                    onTap: () => context
+                                        .read(authRepositoryProvider)
+                                        .signOut(context),
+                                    providerIcon: Icons.logout,
+                                    providerName: '',
+                                    isSignedIn: isSignedIn,
+                                  ),
+                                if (isSignedIn)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 7),
+                                    child: Text(
+                                      'or',
+                                      style: TextStyle(
+                                        color: Colors.white70,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                if (!withGoogle)
+                                  LoginProviderCard(
+                                    onTap: () => context
+                                        .read(authRepositoryProvider)
+                                        .connectWithGoogle(context),
+                                    providerIcon: FontAwesomeIcons.google,
+                                    providerName: 'Google',
+                                    isSignedIn: isSignedIn,
+                                  ),
+                                if (!withFacebook)
+                                  LoginProviderCard(
+                                    onTap: () => context
+                                        .read(authRepositoryProvider)
+                                        .connectWithFacebook(context),
+                                    providerIcon: FontAwesomeIcons.facebook,
+                                    providerName: 'Facebook',
+                                    isSignedIn: isSignedIn,
+                                  ),
+                                if (Platform.isIOS && !withApple)
+                                  LoginProviderCard(
+                                    // todo: implement
+                                    onTap: () =>
+                                        showNotImplementedMessage(context),
+                                    providerIcon: FontAwesomeIcons.apple,
+                                    providerName: 'Apple',
+                                    isSignedIn: isSignedIn,
+                                  ),
+                                if (!withTwitter)
+                                  LoginProviderCard(
+                                    // todo: implement
+                                    onTap: () =>
+                                        showNotImplementedMessage(context),
+                                    providerIcon: FontAwesomeIcons.twitter,
+                                    providerName: 'Twitter',
+                                    isSignedIn: isSignedIn,
+                                  ),
+                                if (!withGithub)
+                                  LoginProviderCard(
+                                    // todo: implement
+                                    onTap: () =>
+                                        showNotImplementedMessage(context),
+                                    providerIcon: FontAwesomeIcons.github,
+                                    providerName: 'GitHub',
+                                    isSignedIn: isSignedIn,
+                                  ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                              ],
                             ),
-                          if (withGoogle) IconSpan(FontAwesomeIcons.google),
-                          if (withFacebook) IconSpan(FontAwesomeIcons.facebook),
-                          if (withApple) IconSpan(FontAwesomeIcons.apple),
-                          if (withTwitter) IconSpan(FontAwesomeIcons.twitter),
-                          if (withGithub) IconSpan(FontAwesomeIcons.github),
+                          ),
+                          ListTile(
+                            // todo: implement
+                            onTap: () => showNotImplementedMessage(context),
+                            contentPadding: _tilePadding,
+                            title: Text(
+                              'Notification settings',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          ListTile(
+                            // todo: implement
+                            onTap: () => showNotImplementedMessage(context),
+                            contentPadding: _tilePadding,
+                            title: Text(
+                              'Language and region',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
                         ],
                       ),
                     ),
-                    tilePadding: _tilePadding,
-                    iconColor: Colors.white,
-                    collapsedIconColor: Colors.white,
-                    children: [
-                      if (isSignedIn)
-                        LoginProviderCard(
-                          onTap: () =>
-                              context.read(authRepositoryProvider).signOut(),
-                          providerIcon: Icons.logout,
-                          providerName: '',
-                          isSignedIn: isSignedIn,
-                        ),
-                      if (isSignedIn)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 7),
-                          child: Text(
-                            'or',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      if (!withGoogle)
-                        LoginProviderCard(
-                          // todo: test
-                          onTap: () => context
-                              .read(authRepositoryProvider)
-                              .connectWithGoogle(context),
-                          providerIcon: FontAwesomeIcons.google,
-                          providerName: 'Google',
-                          isSignedIn: isSignedIn,
-                        ),
-                      if (!withFacebook)
-                        LoginProviderCard(
-                          // todo: implement
-                          onTap: () => showNotImplementedMessage(context),
-                          providerIcon: FontAwesomeIcons.facebook,
-                          providerName: 'Facebook',
-                          isSignedIn: isSignedIn,
-                        ),
-                      if (Platform.isIOS && !withApple)
-                        LoginProviderCard(
-                          // todo: implement
-                          onTap: () => showNotImplementedMessage(context),
-                          providerIcon: FontAwesomeIcons.apple,
-                          providerName: 'Apple',
-                          isSignedIn: isSignedIn,
-                        ),
-                      if (!withTwitter)
-                        LoginProviderCard(
-                          // todo: implement
-                          onTap: () => showNotImplementedMessage(context),
-                          providerIcon: FontAwesomeIcons.twitter,
-                          providerName: 'Twitter',
-                          isSignedIn: isSignedIn,
-                        ),
-                      if (!withGithub)
-                        LoginProviderCard(
-                          // todo: implement
-                          onTap: () => showNotImplementedMessage(context),
-                          providerIcon: FontAwesomeIcons.github,
-                          providerName: 'GitHub',
-                          isSignedIn: isSignedIn,
-                        ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
                   ),
                 ),
-                ListTile(
-                  // todo: implement
-                  onTap: () => showNotImplementedMessage(context),
-                  contentPadding: _tilePadding,
-                  title: Text(
-                    'Notification settings',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                ListTile(
-                  // todo: implement
-                  onTap: () => showNotImplementedMessage(context),
-                  contentPadding: _tilePadding,
-                  title: Text(
-                    'Language and region',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-              ],
+              ),
             ),
           ),
         );
