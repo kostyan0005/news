@@ -23,7 +23,6 @@ class ProfileDialog extends ConsumerWidget {
         final withFacebook = status.withFacebook;
         final withApple = status.withApple;
         final withTwitter = status.withTwitter;
-        final withGithub = status.withGithub;
 
         return ScaffoldMessenger(
           child: Builder(
@@ -101,8 +100,6 @@ class ProfileDialog extends ConsumerWidget {
                                       IconSpan(FontAwesomeIcons.facebook),
                                     if (withTwitter)
                                       IconSpan(FontAwesomeIcons.twitter),
-                                    if (withGithub)
-                                      IconSpan(FontAwesomeIcons.github),
                                     if (withApple && Platform.isIOS)
                                       IconSpan(FontAwesomeIcons.apple),
                                   ],
@@ -152,21 +149,11 @@ class ProfileDialog extends ConsumerWidget {
                                   ),
                                 if (!withTwitter)
                                   LoginProviderCard(
-                                    // todo: implement
                                     onTap: () => context
                                         .read(authRepositoryProvider)
                                         .connectWithTwitter(context),
                                     providerIcon: FontAwesomeIcons.twitter,
                                     providerName: 'Twitter',
-                                    isSignedIn: isSignedIn,
-                                  ),
-                                if (!withGithub)
-                                  LoginProviderCard(
-                                    // todo: implement
-                                    onTap: () =>
-                                        showNotImplementedMessage(context),
-                                    providerIcon: FontAwesomeIcons.github,
-                                    providerName: 'GitHub',
                                     isSignedIn: isSignedIn,
                                   ),
                                 if (!withApple && Platform.isIOS)

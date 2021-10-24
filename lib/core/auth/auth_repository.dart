@@ -82,19 +82,19 @@ class AuthRepository {
   }
 
   Future<void> connectWithFacebook(BuildContext context) async {
-    final loginResult = await FacebookAuth.instance.login();
-    final loginStatus = loginResult.status;
+    final result = await FacebookAuth.instance.login();
+    final status = result.status;
 
-    if (loginStatus == LoginStatus.cancelled) {
+    if (status == LoginStatus.cancelled) {
       return;
-    } else if (loginStatus != LoginStatus.success) {
-      Logger().e(loginResult.message);
+    } else if (status != LoginStatus.success) {
+      Logger().e(result.message);
       _showUnexpectedErrorMessage(context);
       return;
     }
 
     final credential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+        FacebookAuthProvider.credential(result.accessToken!.token);
     await _connectWithCredential(credential, context, 'Facebook');
   }
 
@@ -104,20 +104,19 @@ class AuthRepository {
         apiSecretKey: 'FiT1tYYfXkJzD2Vxz5z0B1qWL7SEGCGC7JgkoSXUtquhtHOUqH',
         redirectURI: 'example://');
 
-    final authResult = await twitterLogin.login();
-    final authStatus = authResult.status;
+    final result = await twitterLogin.login();
+    final status = result.status;
 
-    if (authStatus == TwitterLoginStatus.cancelledByUser) {
+    if (status == TwitterLoginStatus.cancelledByUser) {
       return;
-    } else if (authStatus == TwitterLoginStatus.error) {
-      Logger().e(authResult.errorMessage);
+    } else if (status == TwitterLoginStatus.error) {
+      Logger().e(result.errorMessage);
       _showUnexpectedErrorMessage(context);
       return;
     }
 
     final credential = TwitterAuthProvider.credential(
-        accessToken: authResult.authToken!,
-        secret: authResult.authTokenSecret!);
+        accessToken: result.authToken!, secret: result.authTokenSecret!);
     await _connectWithCredential(credential, context, 'Twitter');
   }
 }
