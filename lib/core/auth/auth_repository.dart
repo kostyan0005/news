@@ -15,7 +15,10 @@ class AuthRepository {
 
   User get _me => _auth.currentUser!;
   String get myId => _me.uid;
-  Stream<User?> get userChangesStream => _auth.userChanges();
+
+  Stream<User> get userChangesStream =>
+      _auth.userChanges().where((u) => u != null).cast<User>();
+  Stream<String> get uidStream => userChangesStream.map((u) => u.uid);
 
   Future<void> signInAnonymouslyIfNeeded() async {
     if (_auth.currentUser == null) await _auth.signInAnonymously();

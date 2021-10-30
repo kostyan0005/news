@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news/core/auth/auth_repository.dart';
+import 'package:news/core/auth/uid_notifier_provider.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 
-final subscriptionsRepositoryProvider = Provider(
-    (ref) => SubscriptionsRepository(ref.read(authRepositoryProvider).myId));
+final subscriptionsRepositoryProvider =
+    Provider((ref) => SubscriptionsRepository(ref.watch(uidNotifierProvider)));
 
 class SubscriptionsRepository {
   final CollectionReference<SearchQuery> _mySubscriptionsCollectionRef;
