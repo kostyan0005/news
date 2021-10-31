@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_logger/easy_logger.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,13 +12,29 @@ import 'package:timeago/timeago.dart' as timeago;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  await Firebase.initializeApp();
+  EasyLocalization.logger.enableLevels = [
+    LevelMessages.error,
+    LevelMessages.warning
+  ];
 
-  runApp(MyApp());
+  await Future.wait([
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
+    Firebase.initializeApp(),
+    EasyLocalization.ensureInitialized(),
+  ]);
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: [Locale('ru'), Locale('en')],
+      startLocale: Locale('ru'), // todo: set based on locale in settings
+      path: 'assets/translations',
+      useOnlyLangCode: true,
+      child: MyApp(),
+    ),
+  );
 
   timeago.setLocaleMessages('ru', CustomRuMessages());
-  timeago.setDefaultLocale('ru');
+  timeago.setDefaultLocale('ru'); // todo: set based on locale in settings
 }
 
 class MyApp extends StatelessWidget {
@@ -30,6 +48,9 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white.withAlpha(245),
         ),
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         initialRoute: HomePage.routeName,
         routes: routes,
       ),

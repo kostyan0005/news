@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/pages/search_query_page.dart';
@@ -5,7 +6,7 @@ import 'package:news/modules/news/pages/search_query_page.dart';
 class SearchTextPage extends StatefulWidget {
   const SearchTextPage();
 
-  static const routeName = '/searchText';
+  static const routeName = '/searchTextPage';
 
   @override
   _SearchTextPageState createState() => _SearchTextPageState();
@@ -40,7 +41,7 @@ class _SearchTextPageState extends State<SearchTextPage> {
             ),
             decoration: InputDecoration(
               isDense: true,
-              hintText: 'Search for topics, places and sources',
+              hintText: 'search_text'.tr(),
               hintStyle: TextStyle(
                 color: Colors.white70,
                 fontSize: 15,
@@ -65,7 +66,7 @@ class _SearchTextPageState extends State<SearchTextPage> {
                 textStyle: TextStyle(fontSize: 15),
                 padding: const EdgeInsets.symmetric(horizontal: 20),
               ),
-              child: Text('Search'),
+              child: Text('search'.tr()),
             ),
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:news/config/headlines.dart';
 import 'package:news/core/home/home_tab_frame.dart';
@@ -12,7 +13,7 @@ class HeadlineTabsPage extends StatelessWidget {
     return DefaultTabController(
       length: headlines.length,
       child: HomeTabFrame(
-        title: 'Headlines',
+        title: 'headlines'.tr(),
         appBarBottom: PreferredSize(
           preferredSize: Size.fromHeight(40),
           child: Container(

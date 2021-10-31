@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class LoginProviderCard extends StatelessWidget {
@@ -30,15 +31,15 @@ class LoginProviderCard extends StatelessWidget {
           ),
           title: Text(
             providerName.isEmpty
-                ? 'Sign out'
+                ? 'sign_out'
                 : isSignedIn
-                    ? 'Connect with $providerName'
-                    : 'Sign in with $providerName',
+                    ? 'connect_with'
+                    : 'sign_in_with',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
             ),
-          ),
+          ).tr(args: [providerName]),
         ),
       ),
     );

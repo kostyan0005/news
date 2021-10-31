@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/core/auth/anonymous_sign_in_provider.dart';
@@ -32,15 +33,15 @@ class HomePage extends ConsumerWidget {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.language),
-            label: 'Headlines',
+            label: 'headlines'.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.subscriptions_outlined),
-            label: 'Subscriptions',
+            label: 'subscriptions'.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star_border),
-            label: 'Saved news',
+            label: 'saved_news'.tr(),
           ),
         ],
       ),

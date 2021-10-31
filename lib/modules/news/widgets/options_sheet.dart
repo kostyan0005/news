@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
@@ -38,7 +39,7 @@ class OptionsSheet extends StatelessWidget {
             },
             child: ListTile(
               leading: Icon(Icons.ios_share),
-              title: Text('Share'),
+              title: Text('share'.tr()),
             ),
           ),
           InkWell(
@@ -46,14 +47,14 @@ class OptionsSheet extends StatelessWidget {
                 .popAndPushNamed(SourcePage.routeName, arguments: piece),
             child: ListTile(
               leading: Icon(Icons.open_in_new),
-              title: Text('Go to page "${piece.sourceName}"'),
+              title: Text('go_to_page'.tr(args: [piece.sourceName])),
             ),
           ),
           InkWell(
             onTap: () => Navigator.pop(context),
             child: ListTile(
               leading: Icon(Icons.close),
-              title: Text('Cancel'),
+              title: Text('cancel'.tr()),
             ),
           ),
         ],
@@ -72,12 +73,12 @@ class _SaveInkWell extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.read(savedNewsRepositoryProvider).savePiece(piece);
-        showSnackBarMessage(context, 'Added to saved news');
+        showSnackBarMessage(context, 'saved_message'.tr());
         Navigator.pop(context);
       },
       child: ListTile(
         leading: Icon(Icons.star_border),
-        title: Text('Save'),
+        title: Text('save'.tr()),
       ),
     );
   }
@@ -93,12 +94,12 @@ class _RemoveInkWell extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.read(savedNewsRepositoryProvider).removePiece(pieceId);
-        showSnackBarMessage(context, 'Removed from saved news');
+        showSnackBarMessage(context, 'unsaved_message'.tr());
         Navigator.pop(context);
       },
       child: ListTile(
         leading: Icon(Icons.delete_outlined),
-        title: Text('Remove'),
+        title: Text('remove'.tr()),
       ),
     );
   }

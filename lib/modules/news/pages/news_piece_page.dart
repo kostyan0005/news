@@ -6,7 +6,7 @@ import 'package:news/modules/news/widgets/options_sheet.dart';
 class NewsPiecePage extends StatelessWidget {
   const NewsPiecePage();
 
-  static const routeName = '/newsPage';
+  static const routeName = '/newsPiecePage';
 
   @override
   Widget build(BuildContext context) {

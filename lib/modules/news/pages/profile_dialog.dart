@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -56,7 +57,7 @@ class ProfileDialog extends ConsumerWidget {
                                 splashRadius: 21,
                               ),
                               Text(
-                                'Profile',
+                                'profile'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
@@ -73,7 +74,7 @@ class ProfileDialog extends ConsumerWidget {
                                 .copyWith(dividerColor: Colors.white12),
                             child: ExpansionTile(
                               title: Text(
-                                'Sign in/out',
+                                'sign_in_out'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -88,11 +89,11 @@ class ProfileDialog extends ConsumerWidget {
                                   children: [
                                     if (!isSignedIn)
                                       TextSpan(
-                                        text: 'Not signed in',
+                                        text: 'not_signed_in'.tr(),
                                       )
                                     else
                                       TextSpan(
-                                        text: 'Connected with',
+                                        text: 'connected_with'.tr(),
                                       ),
                                     if (withGoogle)
                                       IconSpan(FontAwesomeIcons.google),
@@ -122,7 +123,7 @@ class ProfileDialog extends ConsumerWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 7),
                                     child: Text(
-                                      'or',
+                                      'or'.tr(),
                                       style: TextStyle(
                                         color: Colors.white70,
                                         fontSize: 16,
@@ -176,7 +177,7 @@ class ProfileDialog extends ConsumerWidget {
                             onTap: () => showNotImplementedMessage(context),
                             contentPadding: _tilePadding,
                             title: Text(
-                              'Notification settings',
+                              'notification_settings'.tr(),
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -185,7 +186,7 @@ class ProfileDialog extends ConsumerWidget {
                             onTap: () => showNotImplementedMessage(context),
                             contentPadding: _tilePadding,
                             title: Text(
-                              'Language and region',
+                              'language_region'.tr(),
                               style: TextStyle(color: Colors.white),
                             ),
                           ),

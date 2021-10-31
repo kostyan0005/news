@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/core/home/home_tab_frame.dart';
@@ -11,7 +12,7 @@ class SubscriptionsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return HomeTabFrame(
-      title: 'Subscriptions',
+      title: 'subscriptions'.tr(),
       body: watch(subscriptionsStreamProvider).when(
         data: (subscriptions) => subscriptions.isNotEmpty
             ? CustomScrollView(
@@ -28,7 +29,7 @@ class SubscriptionsPage extends ConsumerWidget {
                 ],
               )
             : Center(
-                child: Text('You have no subscriptions'),
+                child: Text('no_subscriptions'.tr()),
               ),
         loading: () => LoadingIndicator(),
         error: (_, __) => ErrorIndicator(),

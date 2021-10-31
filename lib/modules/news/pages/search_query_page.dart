@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
@@ -9,7 +10,7 @@ import 'package:news/utils/snackbar_utils.dart';
 class SearchQueryPage extends StatelessWidget {
   const SearchQueryPage();
 
-  static const routeName = '/searchQuery';
+  static const routeName = '/searchQueryPage';
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,7 @@ class _SubscribeButton extends StatelessWidget {
         context
             .read(subscriptionStatusProvider(searchQuery).notifier)
             .subscribe();
-        showSnackBarMessage(context, 'Added to subscriptions');
+        showSnackBarMessage(context, 'subscribed_message'.tr());
       },
       icon: Icon(Icons.star_border),
     );
@@ -78,7 +79,7 @@ class _UnsubscribeButton extends StatelessWidget {
         context
             .read(subscriptionStatusProvider(searchQuery).notifier)
             .unsubscribe();
-        showSnackBarMessage(context, 'Removed from subscriptions');
+        showSnackBarMessage(context, 'unsubscribed_message'.tr());
       },
       icon: Icon(Icons.star),
     );

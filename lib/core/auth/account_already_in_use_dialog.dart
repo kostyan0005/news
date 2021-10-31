@@ -1,18 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'auth_repository.dart';
 
-const _kAccountAlreadyInUseMessage =
-    'This account is already connected to another user. '
-    'If you want to sign in with this account, you need to sign out first.';
-
 void showAccountAlreadyInUseDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (dialogContext) => AlertDialog(
-      title: Text('Account already in use'),
-      content: Text(_kAccountAlreadyInUseMessage),
+      title: Text('account_in_use'.tr()),
+      content: Text('account_in_use_message'.tr()),
       actions: [
         TextButton(
           onPressed: () {
@@ -20,12 +17,12 @@ void showAccountAlreadyInUseDialog(BuildContext context) {
             context.read(authRepositoryProvider).signOut(context);
           },
           style: TextButton.styleFrom(primary: Colors.red),
-          child: Text('Sign out'),
+          child: Text('sign_out'.tr()),
         ),
         TextButton(
           onPressed: () => Navigator.pop(dialogContext),
           style: TextButton.styleFrom(primary: Colors.blue),
-          child: Text('Dismiss'),
+          child: Text('dismiss'.tr()),
         ),
       ],
     ),

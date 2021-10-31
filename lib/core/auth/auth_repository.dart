@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -27,14 +28,11 @@ class AuthRepository {
   Future<void> signOut(BuildContext context) async {
     await _auth.signOut();
     await _auth.signInAnonymously();
-    showSnackBarMessage(context, 'You\'ve been signed out');
+    showSnackBarMessage(context, 'signed_out_message'.tr());
   }
 
   void _showUnexpectedErrorMessage(BuildContext context) =>
-      showSnackBarErrorMessage(
-          context,
-          'An unexpected error has occurred. Please try '
-          'again later or connect with another account.');
+      showSnackBarErrorMessage(context, 'unexpected_error_message'.tr());
 
   Future<void> _connectWithCredential(AuthCredential credential,
       BuildContext context, String providerName) async {
@@ -68,7 +66,8 @@ class AuthRepository {
     }
 
     if (success) {
-      showSnackBarMessage(context, 'You\'ve been connected with $providerName');
+      showSnackBarMessage(
+          context, 'connected_message'.tr(args: [providerName]));
     } else {
       _showUnexpectedErrorMessage(context);
     }

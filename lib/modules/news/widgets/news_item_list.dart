@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 
@@ -25,7 +26,7 @@ class NewsItemList extends StatelessWidget {
             ],
           )
         : Center(
-            child: Text('No news found'),
+            child: Text('no_news_found'.tr()),
           );
   }
 }

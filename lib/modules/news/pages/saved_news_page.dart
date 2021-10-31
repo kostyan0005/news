@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/core/home/home_tab_frame.dart';
@@ -11,7 +12,7 @@ class SavedNewsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return HomeTabFrame(
-      title: 'Saved news',
+      title: 'saved_news'.tr(),
       body: watch(savedNewsStreamProvider).when(
         data: (newsPieces) => NewsItemList(newsPieces),
         loading: () => LoadingIndicator(),

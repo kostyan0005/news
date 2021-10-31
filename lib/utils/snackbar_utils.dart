@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 void showSnackBarMessage(BuildContext context, String message) {
@@ -10,7 +11,7 @@ void showSnackBarMessage(BuildContext context, String message) {
 }
 
 void showNotImplementedMessage(BuildContext context) =>
-    showSnackBarMessage(context, 'Not implemented yet');
+    showSnackBarMessage(context, 'not_implemented_message'.tr());
 
 void showSnackBarErrorMessage(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -18,7 +19,7 @@ void showSnackBarErrorMessage(BuildContext context, String message) {
       content: Text(message),
       backgroundColor: Colors.redAccent,
       action: SnackBarAction(
-        label: 'Dismiss',
+        label: 'dismiss'.tr(),
         textColor: Colors.white,
         onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
       ),
