@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:news/modules/news/providers/news_list_provider.dart';
 import 'package:news/widgets/indicators.dart';
 
@@ -16,7 +17,10 @@ class TopicNewsList extends ConsumerWidget {
     return topicNews.when(
       data: (newsPieces) => NewsItemList(newsPieces),
       loading: () => LoadingIndicator(),
-      error: (_, __) => ErrorIndicator(),
+      error: (e, s) {
+        Logger().e(e, e, s);
+        return ErrorIndicator();
+      },
     );
   }
 }

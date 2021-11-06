@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:news/config/headlines.dart';
+import 'package:news/modules/news/models/headlines_enum.dart';
 import 'package:news/core/home/home_tab_frame.dart';
 import 'package:news/modules/news/widgets/topic_news_list.dart';
 
@@ -24,7 +24,9 @@ class HeadlineTabsPage extends StatelessWidget {
               isScrollable: true,
               indicatorColor: Colors.white,
               indicatorSize: TabBarIndicatorSize.label,
-              tabs: [for (final headline in headlines) Text(headline.title)],
+              tabs: [
+                for (final headline in headlines) Text(headline.getTitle('ru'))
+              ],
             ),
           ),
         ),

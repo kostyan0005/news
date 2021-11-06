@@ -25,16 +25,17 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('ru'), Locale('en')],
-      startLocale: Locale('ru'), // todo: set based on locale in settings
+      supportedLocales: [Locale('en'), Locale('ru')],
       path: 'assets/translations',
       useOnlyLangCode: true,
       child: MyApp(),
     ),
   );
 
-  timeago.setLocaleMessages('ru', CustomRuMessages());
-  timeago.setDefaultLocale('ru'); // todo: set based on locale in settings
+  if (Intl.systemLocale.startsWith('ru')) {
+    timeago.setLocaleMessages('ru', CustomRuMessages());
+    timeago.setDefaultLocale('ru');
+  }
 }
 
 class MyApp extends StatelessWidget {

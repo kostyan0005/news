@@ -30,7 +30,7 @@ class CustomRuMessages implements LookupMessages {
   @override
   String aboutAYear(int year) => '1 г.';
   @override
-  String years(int years) => '$years г.';
+  String years(int years) => '$years лет';
   @override
   String wordSeparator() => ' ';
 }

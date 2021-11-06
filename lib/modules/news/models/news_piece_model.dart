@@ -33,7 +33,7 @@ class NewsPiece with _$NewsPiece {
       title: title,
       sourceName: sourceName,
       sourceLink: source.getAttribute('url')!,
-      pubDate: DateFormat('EEE, dd MMM yyyy hh:mm:ss')
+      pubDate: DateFormat('EEE, dd MMM yyyy hh:mm:ss', 'en')
           .parse(item.findElements('pubDate').first.text, true),
       isSaved: false,
     );

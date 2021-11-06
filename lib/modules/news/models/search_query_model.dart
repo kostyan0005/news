@@ -18,7 +18,7 @@ class SearchQuery with _$SearchQuery {
   factory SearchQuery.fromSearchText(String searchText) {
     return SearchQuery(
       text: searchText,
-      // todo: align with current locale
+      // todo: set based on user's selected language-country pair
       languageCode: 'ru',
       countryCode: 'UA',
       isSubscribed: false,
