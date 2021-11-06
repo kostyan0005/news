@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/core/auth/photo_url_stream_provider.dart';
-import 'package:news/modules/news/pages/profile_dialog.dart';
+import 'package:news/modules/profile/pages/profile_dialog_page.dart';
 import 'package:news/modules/news/pages/search_text_page.dart';
 
 class HomeTabFrame extends StatelessWidget {
@@ -32,7 +32,7 @@ class HomeTabFrame extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () => showDialog(
-                    context: context, builder: (_) => ProfileDialog()),
+                    context: context, builder: (_) => ProfileDialogPage()),
                 icon: Consumer(
                   builder: (_, watch, __) =>
                       watch(photoUrlStreamProvider).maybeWhen(

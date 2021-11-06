@@ -6,12 +6,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:news/core/auth/auth_repository.dart';
 import 'package:news/core/auth/sign_in_status_stream_provider.dart';
-import 'package:news/modules/news/widgets/login_provider_card.dart';
+import 'package:news/modules/profile/pages/locale_selection_page.dart';
+import 'package:news/modules/profile/widgets/login_provider_card.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:news/widgets/indicators.dart';
 
-class ProfileDialog extends ConsumerWidget {
-  const ProfileDialog();
+class ProfileDialogPage extends ConsumerWidget {
+  const ProfileDialogPage();
 
   static const _tilePadding = EdgeInsets.symmetric(horizontal: 30);
 
@@ -182,8 +183,8 @@ class ProfileDialog extends ConsumerWidget {
                             ),
                           ),
                           ListTile(
-                            // todo: implement
-                            onTap: () => showNotImplementedMessage(context),
+                            onTap: () => Navigator.of(context)
+                                .pushNamed(LocaleSelectionPage.routeName),
                             contentPadding: _tilePadding,
                             title: Text(
                               'language_region'.tr(),

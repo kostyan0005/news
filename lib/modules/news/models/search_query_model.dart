@@ -7,21 +7,10 @@ part 'search_query_model.g.dart';
 class SearchQuery with _$SearchQuery {
   const factory SearchQuery({
     required String text,
-    required String languageCode,
-    required String countryCode,
+    required String locale,
     required bool isSubscribed,
   }) = _SearchQuery;
 
   factory SearchQuery.fromJson(Map<String, dynamic> json) =>
       _$SearchQueryFromJson(json);
-
-  factory SearchQuery.fromSearchText(String searchText) {
-    return SearchQuery(
-      text: searchText,
-      // todo: set based on user's selected language-country pair
-      languageCode: 'ru',
-      countryCode: 'UA',
-      isSubscribed: false,
-    );
-  }
 }

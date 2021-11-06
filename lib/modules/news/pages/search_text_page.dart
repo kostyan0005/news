@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/pages/search_query_page.dart';
+import 'package:news/modules/profile/repositories/user_settings_repository.dart';
 
 class SearchTextPage extends StatefulWidget {
   const SearchTextPage();
@@ -17,8 +19,14 @@ class _SearchTextPageState extends State<SearchTextPage> {
 
   void _goToSearchResults() {
     if (_searchText.isNotEmpty) {
-      Navigator.of(context).pushNamed(SearchQueryPage.routeName,
-          arguments: SearchQuery.fromSearchText(_searchText));
+      final searchQuery = SearchQuery(
+        text: _searchText,
+        locale: context.read(userSettingsRepositoryProvider).myLocale,
+        isSubscribed: false,
+      );
+
+      Navigator.of(context)
+          .pushNamed(SearchQueryPage.routeName, arguments: searchQuery);
     }
   }
 

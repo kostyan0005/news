@@ -16,7 +16,7 @@ class SearchQueryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final searchQuery =
         ModalRoute.of(context)!.settings.arguments as SearchQuery;
-    final rssUrl = getSearchQueryNewsUrl(searchQuery.text);
+    final rssUrl = getSearchQueryNewsUrl(searchQuery.text, searchQuery.locale);
 
     return Scaffold(
       body: NestedScrollView(

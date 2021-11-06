@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'search_query_model.dart';
 
@@ -22,13 +23,11 @@ class _$SearchQueryTearOff {
 
   _SearchQuery call(
       {required String text,
-      required String languageCode,
-      required String countryCode,
+      required String locale,
       required bool isSubscribed}) {
     return _SearchQuery(
       text: text,
-      languageCode: languageCode,
-      countryCode: countryCode,
+      locale: locale,
       isSubscribed: isSubscribed,
     );
   }
@@ -44,8 +43,7 @@ const $SearchQuery = _$SearchQueryTearOff();
 /// @nodoc
 mixin _$SearchQuery {
   String get text => throw _privateConstructorUsedError;
-  String get languageCode => throw _privateConstructorUsedError;
-  String get countryCode => throw _privateConstructorUsedError;
+  String get locale => throw _privateConstructorUsedError;
   bool get isSubscribed => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -59,11 +57,7 @@ abstract class $SearchQueryCopyWith<$Res> {
   factory $SearchQueryCopyWith(
           SearchQuery value, $Res Function(SearchQuery) then) =
       _$SearchQueryCopyWithImpl<$Res>;
-  $Res call(
-      {String text,
-      String languageCode,
-      String countryCode,
-      bool isSubscribed});
+  $Res call({String text, String locale, bool isSubscribed});
 }
 
 /// @nodoc
@@ -77,8 +71,7 @@ class _$SearchQueryCopyWithImpl<$Res> implements $SearchQueryCopyWith<$Res> {
   @override
   $Res call({
     Object? text = freezed,
-    Object? languageCode = freezed,
-    Object? countryCode = freezed,
+    Object? locale = freezed,
     Object? isSubscribed = freezed,
   }) {
     return _then(_value.copyWith(
@@ -86,13 +79,9 @@ class _$SearchQueryCopyWithImpl<$Res> implements $SearchQueryCopyWith<$Res> {
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      languageCode: languageCode == freezed
-          ? _value.languageCode
-          : languageCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      countryCode: countryCode == freezed
-          ? _value.countryCode
-          : countryCode // ignore: cast_nullable_to_non_nullable
+      locale: locale == freezed
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
               as String,
       isSubscribed: isSubscribed == freezed
           ? _value.isSubscribed
@@ -109,11 +98,7 @@ abstract class _$SearchQueryCopyWith<$Res>
           _SearchQuery value, $Res Function(_SearchQuery) then) =
       __$SearchQueryCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String text,
-      String languageCode,
-      String countryCode,
-      bool isSubscribed});
+  $Res call({String text, String locale, bool isSubscribed});
 }
 
 /// @nodoc
@@ -129,8 +114,7 @@ class __$SearchQueryCopyWithImpl<$Res> extends _$SearchQueryCopyWithImpl<$Res>
   @override
   $Res call({
     Object? text = freezed,
-    Object? languageCode = freezed,
-    Object? countryCode = freezed,
+    Object? locale = freezed,
     Object? isSubscribed = freezed,
   }) {
     return _then(_SearchQuery(
@@ -138,13 +122,9 @@ class __$SearchQueryCopyWithImpl<$Res> extends _$SearchQueryCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      languageCode: languageCode == freezed
-          ? _value.languageCode
-          : languageCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      countryCode: countryCode == freezed
-          ? _value.countryCode
-          : countryCode // ignore: cast_nullable_to_non_nullable
+      locale: locale == freezed
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
               as String,
       isSubscribed: isSubscribed == freezed
           ? _value.isSubscribed
@@ -158,26 +138,21 @@ class __$SearchQueryCopyWithImpl<$Res> extends _$SearchQueryCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SearchQuery implements _SearchQuery {
   const _$_SearchQuery(
-      {required this.text,
-      required this.languageCode,
-      required this.countryCode,
-      required this.isSubscribed});
+      {required this.text, required this.locale, required this.isSubscribed});
 
   factory _$_SearchQuery.fromJson(Map<String, dynamic> json) =>
-      _$_$_SearchQueryFromJson(json);
+      _$$_SearchQueryFromJson(json);
 
   @override
   final String text;
   @override
-  final String languageCode;
-  @override
-  final String countryCode;
+  final String locale;
   @override
   final bool isSubscribed;
 
   @override
   String toString() {
-    return 'SearchQuery(text: $text, languageCode: $languageCode, countryCode: $countryCode, isSubscribed: $isSubscribed)';
+    return 'SearchQuery(text: $text, locale: $locale, isSubscribed: $isSubscribed)';
   }
 
   @override
@@ -186,12 +161,8 @@ class _$_SearchQuery implements _SearchQuery {
         (other is _SearchQuery &&
             (identical(other.text, text) ||
                 const DeepCollectionEquality().equals(other.text, text)) &&
-            (identical(other.languageCode, languageCode) ||
-                const DeepCollectionEquality()
-                    .equals(other.languageCode, languageCode)) &&
-            (identical(other.countryCode, countryCode) ||
-                const DeepCollectionEquality()
-                    .equals(other.countryCode, countryCode)) &&
+            (identical(other.locale, locale) ||
+                const DeepCollectionEquality().equals(other.locale, locale)) &&
             (identical(other.isSubscribed, isSubscribed) ||
                 const DeepCollectionEquality()
                     .equals(other.isSubscribed, isSubscribed)));
@@ -201,8 +172,7 @@ class _$_SearchQuery implements _SearchQuery {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(text) ^
-      const DeepCollectionEquality().hash(languageCode) ^
-      const DeepCollectionEquality().hash(countryCode) ^
+      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(isSubscribed);
 
   @JsonKey(ignore: true)
@@ -212,15 +182,14 @@ class _$_SearchQuery implements _SearchQuery {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SearchQueryToJson(this);
+    return _$$_SearchQueryToJson(this);
   }
 }
 
 abstract class _SearchQuery implements SearchQuery {
   const factory _SearchQuery(
       {required String text,
-      required String languageCode,
-      required String countryCode,
+      required String locale,
       required bool isSubscribed}) = _$_SearchQuery;
 
   factory _SearchQuery.fromJson(Map<String, dynamic> json) =
@@ -229,9 +198,7 @@ abstract class _SearchQuery implements SearchQuery {
   @override
   String get text => throw _privateConstructorUsedError;
   @override
-  String get languageCode => throw _privateConstructorUsedError;
-  @override
-  String get countryCode => throw _privateConstructorUsedError;
+  String get locale => throw _privateConstructorUsedError;
   @override
   bool get isSubscribed => throw _privateConstructorUsedError;
   @override

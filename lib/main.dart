@@ -32,7 +32,7 @@ void main() async {
     ),
   );
 
-  if (Intl.systemLocale.startsWith('ru')) {
+  if (Intl.systemLocale.startsWith(RegExp(r'ru|ua'))) {
     timeago.setLocaleMessages('ru', CustomRuMessages());
     timeago.setDefaultLocale('ru');
   }

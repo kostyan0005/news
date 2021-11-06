@@ -2,8 +2,7 @@ import 'package:news/utils/rss_utils.dart';
 
 enum Headlines {
   latest,
-  local, // my location
-  nation, // Ukraine or US
+  nation, // Ukraine or USA
   world,
   business,
   technology,
@@ -16,40 +15,37 @@ enum Headlines {
 extension HeadlinesExtension on Headlines {
   String get _name => this.toString().substring(10);
 
-  String getTitle(String langCode) {
+  String getTitle(String locale) {
+    final isRu = locale.startsWith('ru');
+
     switch (this) {
       case Headlines.latest:
-        return langCode == 'ru' ? 'Последние' : 'Latest';
-      case Headlines.local:
-        return langCode == 'ru' ? 'Местные' : 'Local';
+        return isRu ? 'Последние' : 'Latest';
       case Headlines.nation:
-        return langCode == 'ru' ? 'Украина' : 'U.S.';
+        return isRu ? 'Украина' : 'U.S.';
       case Headlines.world:
-        return langCode == 'ru' ? 'В мире' : 'World';
+        return isRu ? 'В мире' : 'World';
       case Headlines.business:
-        return langCode == 'ru' ? 'Бизнес' : 'Business';
+        return isRu ? 'Бизнес' : 'Business';
       case Headlines.technology:
-        return langCode == 'ru' ? 'Технологии' : 'Technology';
+        return isRu ? 'Технологии' : 'Technology';
       case Headlines.entertainment:
-        return langCode == 'ru' ? 'Развлечения' : 'Entertainment';
+        return isRu ? 'Развлечения' : 'Entertainment';
       case Headlines.science:
-        return langCode == 'ru' ? 'Наука' : 'Science';
+        return isRu ? 'Наука' : 'Science';
       case Headlines.sports:
-        return langCode == 'ru' ? 'Спорт' : 'Sports';
+        return isRu ? 'Спорт' : 'Sports';
       case Headlines.health:
-        return langCode == 'ru' ? 'Здоровье' : 'Health';
+        return isRu ? 'Здоровье' : 'Health';
     }
   }
 
-  String get url {
+  String getRssUrl(String locale) {
     switch (this) {
       case Headlines.latest:
-        return getLatestNewsUrl();
-      case Headlines.local:
-        // todo: should be based on my location
-        return getGeoNewsUrl('Kyiv');
+        return getLatestNewsUrl(locale);
       default:
-        return getHeadlineNewsUrl(_name.toUpperCase());
+        return getHeadlineNewsUrl(_name.toUpperCase(), locale);
     }
   }
 }
