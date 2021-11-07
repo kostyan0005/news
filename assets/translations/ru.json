@@ -16,6 +16,8 @@
   "or": "или",
   "notification_settings": "Настройки уведомлений",
   "language_region": "Язык и регион",
+  "select_locale": "Выберите ваши язык и регион для просмотра новостей",
+  "locale_changed_message": "Ваши язык и регион изменены",
   "subscribed_message": "Добавлено в подписки",
   "unsubscribed_message": "Удалено из подписок",
   "search": "Найти",

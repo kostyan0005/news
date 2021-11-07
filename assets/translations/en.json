@@ -16,6 +16,8 @@
   "or": "or",
   "notification_settings": "Notification settings",
   "language_region": "Language and region",
+  "select_locale": "Select your language and region for viewing news",
+  "locale_changed_message": "Your language and region have been changed",
   "subscribed_message": "Added to subscriptions",
   "unsubscribed_message": "Removed from subscriptions",
   "search": "Search",
