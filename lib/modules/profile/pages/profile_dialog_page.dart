@@ -97,13 +97,13 @@ class ProfileDialogPage extends ConsumerWidget {
                                         text: 'connected_with'.tr(),
                                       ),
                                     if (withGoogle)
-                                      IconSpan(FontAwesomeIcons.google),
+                                      _IconSpan(FontAwesomeIcons.google),
                                     if (withFacebook)
-                                      IconSpan(FontAwesomeIcons.facebook),
+                                      _IconSpan(FontAwesomeIcons.facebook),
                                     if (withTwitter)
-                                      IconSpan(FontAwesomeIcons.twitter),
+                                      _IconSpan(FontAwesomeIcons.twitter),
                                     if (withApple && Platform.isIOS)
-                                      IconSpan(FontAwesomeIcons.apple),
+                                      _IconSpan(FontAwesomeIcons.apple),
                                   ],
                                 ),
                               ),
@@ -209,10 +209,10 @@ class ProfileDialogPage extends ConsumerWidget {
   }
 }
 
-class IconSpan extends WidgetSpan {
+class _IconSpan extends WidgetSpan {
   final IconData icon;
 
-  IconSpan(this.icon)
+  _IconSpan(this.icon)
       : super(
           child: Padding(
             padding: const EdgeInsets.only(left: 7),

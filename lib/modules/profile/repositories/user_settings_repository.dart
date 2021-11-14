@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:news/core/auth/uid_notifier_provider.dart';
 import 'package:news/modules/profile/models/user_settings.dart';
 
@@ -17,9 +18,15 @@ class UserSettingsRepository {
             FirebaseFirestore.instance.collection('users').doc(myId);
 
   Stream<UserSettings> getSettingsStream() async* {
-    await for (final settingsDoc in _mySettingsRef.snapshots()) {
-      if (settingsDoc.exists) {
-        final newSettings = UserSettings.fromJson(settingsDoc.data()!);
+    final snapshotStream = _mySettingsRef.snapshots().handleError((e) =>
+        // mute permission-denied error
+        e is FirebaseException && e.code == 'permission-denied'
+            ? null
+            : Logger().e(e));
+
+    await for (final settingsSnap in snapshotStream) {
+      if (settingsSnap.exists) {
+        final newSettings = UserSettings.fromJson(settingsSnap.data()!);
         if (newSettings != mySettings) {
           mySettings = newSettings;
           yield newSettings;
