@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 import 'package:xml/xml.dart';
 
@@ -16,7 +15,6 @@ class NewsSearchRepository {
     if (response.statusCode != 200) {
       final message = 'Status code: ${response.statusCode}.\n'
           'Reason: ${response.reasonPhrase}.';
-      Logger().e(message);
       throw HttpException(message, uri: uri);
     }
 

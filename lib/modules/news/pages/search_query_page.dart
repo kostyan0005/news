@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/providers/subscription_status_provider.dart';
-import 'package:news/modules/news/widgets/topic_news_list.dart';
+import 'package:news/modules/news/widgets/rss_news_list.dart';
 import 'package:news/utils/rss_utils.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
@@ -42,7 +42,7 @@ class SearchQueryPage extends StatelessWidget {
             ),
           ];
         },
-        body: TopicNewsList(rssUrl),
+        body: RssNewsList(rssUrl),
       ),
     );
   }
