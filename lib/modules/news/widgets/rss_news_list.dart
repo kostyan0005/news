@@ -38,12 +38,14 @@ class _CustomRefresherHeader extends StatefulWidget {
 }
 
 class _CustomRefresherHeaderState extends State<_CustomRefresherHeader> {
-  static const _canRefreshOffset = 80;
+  static const _indicatorVerticalMargin = 20.0;
   static const _indicatorSize = 25.0;
-  static const _indicatorVerticalMargin = 10.0;
-  static const _indicatorOffset = _indicatorSize + _indicatorVerticalMargin;
+  // subtract a small amount so that displayed circle does not start empty
+  static const _indicatorOffset = _indicatorSize - 5;
+  static const _headerHeight = _indicatorSize + 2 * _indicatorVerticalMargin;
+
+  static const _canRefreshOffset = 80;
   static const _maxOffset = _canRefreshOffset - _indicatorOffset;
-  static const _headerHeight = _indicatorOffset + 25.0;
 
   RefreshStatus? _status = RefreshStatus.idle;
   double? _value = 0;
@@ -52,6 +54,7 @@ class _CustomRefresherHeaderState extends State<_CustomRefresherHeader> {
   Widget build(BuildContext context) {
     return CustomHeader(
       height: _headerHeight,
+      refreshStyle: RefreshStyle.UnFollow,
       completeDuration: Duration.zero,
       onModeChange: (status) => _status = status,
       onOffsetChange: (offset) {
@@ -72,7 +75,7 @@ class _CustomRefresherHeaderState extends State<_CustomRefresherHeader> {
           width: _indicatorSize,
           height: _indicatorSize,
           margin: EdgeInsets.only(
-            bottom: _indicatorVerticalMargin,
+            top: _indicatorVerticalMargin,
           ),
           child: CircularProgressIndicator(
             value: _value,
