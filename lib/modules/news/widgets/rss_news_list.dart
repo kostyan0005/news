@@ -38,7 +38,12 @@ class _CustomRefresherHeader extends StatefulWidget {
 }
 
 class _CustomRefresherHeaderState extends State<_CustomRefresherHeader> {
-  static const _maxOffset = 80.0;
+  static const _canRefreshOffset = 80;
+  static const _indicatorSize = 25.0;
+  static const _indicatorVerticalMargin = 10.0;
+  static const _indicatorOffset = _indicatorSize + _indicatorVerticalMargin;
+  static const _maxOffset = _canRefreshOffset - _indicatorOffset;
+  static const _headerHeight = _indicatorOffset + 25.0;
 
   RefreshStatus? _status = RefreshStatus.idle;
   double? _value = 0;
@@ -46,11 +51,14 @@ class _CustomRefresherHeaderState extends State<_CustomRefresherHeader> {
   @override
   Widget build(BuildContext context) {
     return CustomHeader(
+      height: _headerHeight,
       completeDuration: Duration.zero,
       onModeChange: (status) => _status = status,
       onOffsetChange: (offset) {
         if (_status == RefreshStatus.idle) {
-          setState(() => _value = min(offset / _maxOffset, 1));
+          setState(() {
+            _value = min((offset - _indicatorOffset) / _maxOffset, 1);
+          });
         } else if (_status == RefreshStatus.canRefresh) {
           if (_value != 1) {
             setState(() => _value = 1);
@@ -61,10 +69,10 @@ class _CustomRefresherHeaderState extends State<_CustomRefresherHeader> {
       },
       builder: (_, __) => Center(
         child: Container(
-          width: 25,
-          height: 25,
+          width: _indicatorSize,
+          height: _indicatorSize,
           margin: EdgeInsets.only(
-            bottom: 10,
+            bottom: _indicatorVerticalMargin,
           ),
           child: CircularProgressIndicator(
             value: _value,
