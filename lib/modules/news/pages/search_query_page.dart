@@ -28,14 +28,16 @@ class SearchQueryPage extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   searchQuery.text,
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
               ),
               centerTitle: true,
               actions: [
                 Consumer(
-                    builder: (_, watch, __) =>
-                        watch(subscriptionStatusProvider(searchQuery))
+                    builder: (_, ref, __) =>
+                        ref.watch(subscriptionStatusProvider(searchQuery))
                             ? _UnsubscribeButton(searchQuery)
                             : _SubscribeButton(searchQuery)),
               ],
@@ -48,40 +50,38 @@ class SearchQueryPage extends StatelessWidget {
   }
 }
 
-class _SubscribeButton extends StatelessWidget {
+class _SubscribeButton extends ConsumerWidget {
   final SearchQuery searchQuery;
 
   const _SubscribeButton(this.searchQuery);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
       onPressed: () {
-        context
-            .read(subscriptionStatusProvider(searchQuery).notifier)
-            .subscribe();
+        ref.read(subscriptionStatusProvider(searchQuery).notifier).subscribe();
         showSnackBarMessage(context, 'subscribed_message'.tr());
       },
-      icon: Icon(Icons.star_border),
+      icon: const Icon(Icons.star_border),
     );
   }
 }
 
-class _UnsubscribeButton extends StatelessWidget {
+class _UnsubscribeButton extends ConsumerWidget {
   final SearchQuery searchQuery;
 
   const _UnsubscribeButton(this.searchQuery);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
       onPressed: () {
-        context
+        ref
             .read(subscriptionStatusProvider(searchQuery).notifier)
             .unsubscribe();
         showSnackBarMessage(context, 'unsubscribed_message'.tr());
       },
-      icon: Icon(Icons.star),
+      icon: const Icon(Icons.star),
     );
   }
 }

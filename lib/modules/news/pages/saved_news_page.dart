@@ -10,14 +10,14 @@ class SavedNewsPage extends ConsumerWidget {
   const SavedNewsPage();
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return HomeTabFrame(
       title: 'saved_news'.tr(),
-      body: watch(savedNewsStreamProvider).when(
-        data: (newsPieces) => NewsItemList(newsPieces),
-        loading: () => LoadingIndicator(),
-        error: (_, __) => ErrorIndicator(),
-      ),
+      body: ref.watch(savedNewsStreamProvider).when(
+            data: (newsPieces) => NewsItemList(newsPieces),
+            loading: () => const LoadingIndicator(),
+            error: (_, __) => const ErrorIndicator(),
+          ),
     );
   }
 }

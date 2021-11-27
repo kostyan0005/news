@@ -5,7 +5,7 @@ class LoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: SizedBox(
         width: 30,
         height: 30,
@@ -22,7 +22,7 @@ class ErrorIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Icon(
         Icons.error,
         size: 35,

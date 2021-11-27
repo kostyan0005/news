@@ -13,7 +13,8 @@ class RssNewsNotifier extends StateNotifier<RssNewsState> {
   final String _rssUrl;
   final controller = RefreshController();
 
-  RssNewsNotifier(this._newsSearchRepository, this._rssUrl) : super(Loading()) {
+  RssNewsNotifier(this._newsSearchRepository, this._rssUrl)
+      : super(const Loading()) {
     _getRssNews();
   }
 
@@ -27,7 +28,7 @@ class RssNewsNotifier extends StateNotifier<RssNewsState> {
       }
     }).catchError((e) {
       if (mounted) {
-        state = Error();
+        state = const Error();
         controller.refreshFailed();
         Logger().e(e);
       }

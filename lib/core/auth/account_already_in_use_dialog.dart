@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'auth_repository.dart';
 
-void showAccountAlreadyInUseDialog(BuildContext context) {
+void showAccountAlreadyInUseDialog(BuildContext context, Ref ref) {
   showDialog(
     context: context,
     builder: (dialogContext) => AlertDialog(
@@ -14,7 +14,7 @@ void showAccountAlreadyInUseDialog(BuildContext context) {
         TextButton(
           onPressed: () {
             Navigator.pop(dialogContext);
-            context.read(authRepositoryProvider).signOut(context);
+            ref.read(authRepositoryProvider).signOut(context);
           },
           style: TextButton.styleFrom(primary: Colors.red),
           child: Text('sign_out'.tr()),

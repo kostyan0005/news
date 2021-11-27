@@ -12,7 +12,7 @@ class NewsItemList extends CustomScrollView {
           slivers: [
             if (newsPieces.isNotEmpty)
               SliverPadding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   vertical: 5,
                 ),
                 sliver: SliverList(

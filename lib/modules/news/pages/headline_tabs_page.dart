@@ -11,16 +11,16 @@ class HeadlineTabsPage extends ConsumerWidget {
   const HeadlineTabsPage();
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final headlines = Headlines.values;
-    final localeStreamState = watch(localeStreamProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    const headlines = Headlines.values;
+    final localeStreamState = ref.watch(localeStreamProvider);
 
     return DefaultTabController(
       length: headlines.length,
       child: HomeTabFrame(
         title: 'headlines'.tr(),
         appBarBottom: PreferredSize(
-          preferredSize: Size.fromHeight(40),
+          preferredSize: const Size.fromHeight(40),
           child: Container(
             color: Colors.teal,
             height: 35,
@@ -37,7 +37,7 @@ class HeadlineTabsPage extends ConsumerWidget {
                     Text(headline.getTitle(locale))
                 ],
               ),
-              orElse: () => SizedBox(),
+              orElse: () => const SizedBox(),
             ),
           ),
         ),
@@ -48,8 +48,8 @@ class HeadlineTabsPage extends ConsumerWidget {
                 RssNewsList(headline.getRssUrl(locale))
             ],
           ),
-          loading: () => LoadingIndicator(),
-          error: (_, __) => ErrorIndicator(),
+          loading: () => const LoadingIndicator(),
+          error: (_, __) => const ErrorIndicator(),
         ),
       ),
     );

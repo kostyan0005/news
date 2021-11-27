@@ -33,13 +33,13 @@ class _LinkViewState extends State<LinkView> {
           },
         ),
         if (_hasError)
-          ErrorIndicator()
+          const ErrorIndicator()
         else if (_isLoading)
           Container(
             width: double.infinity,
             height: double.infinity,
             color: Theme.of(context).scaffoldBackgroundColor,
-            child: LoadingIndicator(),
+            child: const LoadingIndicator(),
           ),
       ],
     );

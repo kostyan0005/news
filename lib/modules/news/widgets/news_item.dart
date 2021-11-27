@@ -21,11 +21,16 @@ class NewsItem extends StatelessWidget {
             .pushNamed(NewsPiecePage.routeName, arguments: piece),
         onLongPress: () => _showOptionsSheet(context),
         child: Padding(
-          padding: const EdgeInsets.only(top: 12, left: 16),
+          padding: const EdgeInsets.only(
+            top: 12,
+            left: 16,
+          ),
           child: ListTile(
             contentPadding: EdgeInsets.zero,
             title: Padding(
-              padding: const EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(
+                right: 16,
+              ),
               child: Text(piece.title),
             ),
             subtitle: Row(
@@ -37,18 +42,22 @@ class NewsItem extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       child: Text(
                         '${piece.sourceName} · ${timeago.format(piece.pubDate)}',
-                        style: TextStyle(fontSize: 12),
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
                       ),
                     ),
                   ),
                 ),
                 IconButton(
                   onPressed: () => _showOptionsSheet(context),
-                  icon: Icon(Icons.more_horiz),
+                  icon: const Icon(Icons.more_horiz),
                   color: Colors.grey,
                   iconSize: 20,
-                  constraints:
-                      const BoxConstraints(maxHeight: 30, maxWidth: 36),
+                  constraints: const BoxConstraints(
+                    maxHeight: 30,
+                    maxWidth: 36,
+                  ),
                 ),
               ],
             ),

@@ -9,10 +9,13 @@ import 'package:news/core/auth/account_already_in_use_dialog.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:twitter_login/twitter_login.dart';
 
-final authRepositoryProvider = Provider((_) => AuthRepository());
+final authRepositoryProvider = Provider((ref) => AuthRepository(ref));
 
 class AuthRepository {
   final _auth = FirebaseAuth.instance;
+  final Ref _ref;
+
+  AuthRepository(this._ref);
 
   User get _me => _auth.currentUser!;
   String get myId => _me.uid;
@@ -55,7 +58,7 @@ class AuthRepository {
           }
         } else {
           // user is already singed in with another account
-          showAccountAlreadyInUseDialog(context);
+          showAccountAlreadyInUseDialog(context, _ref);
           return;
         }
       } else {

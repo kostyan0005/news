@@ -1,0 +1,13 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    use_key_in_widget_constructors: false
+
+analyzer:
+  exclude:
+    - "lib/modules/**/models/*.g.dart"
+    - "lib/modules/**/models/*.freezed.dart"
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options

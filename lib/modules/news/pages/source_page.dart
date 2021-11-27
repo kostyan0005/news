@@ -11,25 +11,28 @@ class SourcePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final piece = ModalRoute.of(context)!.settings.arguments as NewsPiece;
+
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
             piece.sourceName,
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(
+              fontSize: 18,
+            ),
           ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.star_border),
+            icon: const Icon(Icons.star_border),
           ),
           IconButton(
             onPressed: () =>
                 Share.share(piece.sourceName + '\n' + piece.sourceLink),
-            icon: Icon(Icons.ios_share),
+            icon: const Icon(Icons.ios_share),
           ),
         ],
       ),

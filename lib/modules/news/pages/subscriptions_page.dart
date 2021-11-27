@@ -10,30 +10,33 @@ class SubscriptionsPage extends ConsumerWidget {
   const SubscriptionsPage();
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return HomeTabFrame(
       title: 'subscriptions'.tr(),
-      body: watch(subscriptionsStreamProvider).when(
-        data: (subscriptions) => subscriptions.isNotEmpty
-            ? CustomScrollView(
-                slivers: [
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (_, index) => SubscriptionItem(subscriptions[index]),
-                        childCount: subscriptions.length,
+      body: ref.watch(subscriptionsStreamProvider).when(
+            data: (subscriptions) => subscriptions.isNotEmpty
+                ? CustomScrollView(
+                    slivers: [
+                      SliverPadding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 5,
+                        ),
+                        sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (_, index) =>
+                                SubscriptionItem(subscriptions[index]),
+                            childCount: subscriptions.length,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
+                  )
+                : Center(
+                    child: Text('no_subscriptions'.tr()),
                   ),
-                ],
-              )
-            : Center(
-                child: Text('no_subscriptions'.tr()),
-              ),
-        loading: () => LoadingIndicator(),
-        error: (_, __) => ErrorIndicator(),
-      ),
+            loading: () => const LoadingIndicator(),
+            error: (_, __) => const ErrorIndicator(),
+          ),
     );
   }
 }

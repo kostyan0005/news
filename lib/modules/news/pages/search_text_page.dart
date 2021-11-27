@@ -5,7 +5,7 @@ import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/pages/search_query_page.dart';
 import 'package:news/modules/profile/repositories/user_settings_repository.dart';
 
-class SearchTextPage extends StatefulWidget {
+class SearchTextPage extends ConsumerStatefulWidget {
   const SearchTextPage();
 
   static const routeName = '/searchTextPage';
@@ -14,14 +14,14 @@ class SearchTextPage extends StatefulWidget {
   _SearchTextPageState createState() => _SearchTextPageState();
 }
 
-class _SearchTextPageState extends State<SearchTextPage> {
+class _SearchTextPageState extends ConsumerState<SearchTextPage> {
   String _searchText = '';
 
   void _goToSearchResults() {
     if (_searchText.isNotEmpty) {
       final searchQuery = SearchQuery(
         text: _searchText,
-        locale: context.read(userSettingsRepositoryProvider).myLocale,
+        locale: ref.read(userSettingsRepositoryProvider).myLocale,
         isSubscribed: false,
       );
 
@@ -43,20 +43,20 @@ class _SearchTextPageState extends State<SearchTextPage> {
             cursorColor: Colors.white,
             textCapitalization: TextCapitalization.sentences,
             textInputAction: TextInputAction.search,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 15,
             ),
             decoration: InputDecoration(
               isDense: true,
               hintText: 'search_text'.tr(),
-              hintStyle: TextStyle(
+              hintStyle: const TextStyle(
                 color: Colors.white70,
                 fontSize: 15,
               ),
               hintMaxLines: 1,
               enabledBorder: InputBorder.none,
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.white70),
               ),
             ),
@@ -65,14 +65,20 @@ class _SearchTextPageState extends State<SearchTextPage> {
         body: Align(
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(
+              top: 10,
+            ),
             child: TextButton(
               onPressed: () => _goToSearchResults(),
               style: TextButton.styleFrom(
                 primary: Colors.white,
                 backgroundColor: Colors.teal,
-                textStyle: TextStyle(fontSize: 15),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                textStyle: const TextStyle(
+                  fontSize: 15,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
               ),
               child: Text('search'.tr()),
             ),

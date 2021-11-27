@@ -35,7 +35,7 @@ class LoginProviderCard extends StatelessWidget {
                 : isSignedIn
                     ? 'connect_with'
                     : 'sign_in_with',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
             ),

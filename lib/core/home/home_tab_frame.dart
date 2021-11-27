@@ -25,29 +25,30 @@ class HomeTabFrame extends StatelessWidget {
             leading: IconButton(
               onPressed: () =>
                   Navigator.pushNamed(context, SearchTextPage.routeName),
-              icon: Icon(Icons.search),
+              icon: const Icon(Icons.search),
             ),
             title: Text(title),
             centerTitle: true,
             actions: [
               IconButton(
                 onPressed: () => showDialog(
-                    context: context, builder: (_) => ProfileDialogPage()),
+                    context: context,
+                    builder: (_) => const ProfileDialogPage()),
                 icon: Consumer(
-                  builder: (_, watch, __) =>
-                      watch(photoUrlStreamProvider).maybeWhen(
-                    data: (photoUrl) => photoUrl != null
-                        ? Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(photoUrl),
-                              ),
-                              shape: BoxShape.circle,
-                            ),
-                          )
-                        : _DefaultAvatar(),
-                    orElse: () => _DefaultAvatar(),
-                  ),
+                  builder: (_, ref, __) =>
+                      ref.watch(photoUrlStreamProvider).maybeWhen(
+                            data: (photoUrl) => photoUrl != null
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(photoUrl),
+                                      ),
+                                      shape: BoxShape.circle,
+                                    ),
+                                  )
+                                : const _DefaultAvatar(),
+                            orElse: () => const _DefaultAvatar(),
+                          ),
                 ),
               ),
             ],
@@ -65,7 +66,7 @@ class _DefaultAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
+    return const CircleAvatar(
       child: Icon(Icons.person),
     );
   }

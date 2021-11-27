@@ -13,7 +13,7 @@ enum Headlines {
 }
 
 extension HeadlinesExtension on Headlines {
-  String get _name => this.toString().substring(10);
+  String get _name => toString().substring(10);
 
   String getTitle(String locale) {
     final isRu = locale.startsWith('ru');

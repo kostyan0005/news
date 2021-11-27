@@ -14,19 +14,19 @@ class RssNewsList extends ConsumerWidget {
   const RssNewsList(this.rssUrl);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final rssProvider = rssNewsNotifierProvider(rssUrl);
 
-    return watch(rssProvider).when(
-      data: (newsPieces) => SmartRefresher(
-        controller: watch(rssProvider.notifier).controller,
-        onRefresh: () => context.read(rssProvider.notifier).refresh(),
-        header: _CustomRefresherHeader(),
-        child: NewsItemList(newsPieces),
-      ),
-      loading: () => LoadingIndicator(),
-      error: () => ErrorIndicator(),
-    );
+    return ref.watch(rssProvider).when(
+          data: (newsPieces) => SmartRefresher(
+            controller: ref.watch(rssProvider.notifier).controller,
+            onRefresh: () => ref.read(rssProvider.notifier).refresh(),
+            header: const _CustomRefresherHeader(),
+            child: NewsItemList(newsPieces),
+          ),
+          loading: () => const LoadingIndicator(),
+          error: () => const ErrorIndicator(),
+        );
   }
 }
 
@@ -74,7 +74,7 @@ class _CustomRefresherHeaderState extends State<_CustomRefresherHeader> {
         child: Container(
           width: _indicatorSize,
           height: _indicatorSize,
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             top: _indicatorVerticalMargin,
           ),
           child: CircularProgressIndicator(

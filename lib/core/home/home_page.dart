@@ -13,34 +13,35 @@ class HomePage extends ConsumerWidget {
   static const routeName = '/';
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final index = watch(bottomBarIndexProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final index = ref.watch(bottomBarIndexProvider);
+
     return Scaffold(
-      body: watch(anonymousSingInProvider).maybeWhen(
-        data: (_) => IndexedStack(
-          index: index,
-          children: [
-            HeadlineTabsPage(),
-            SubscriptionsPage(),
-            SavedNewsPage(),
-          ],
-        ),
-        orElse: () => LoadingIndicator(),
-      ),
+      body: ref.watch(anonymousSingInProvider).maybeWhen(
+            data: (_) => IndexedStack(
+              index: index,
+              children: const [
+                HeadlineTabsPage(),
+                SubscriptionsPage(),
+                SavedNewsPage(),
+              ],
+            ),
+            orElse: () => const LoadingIndicator(),
+          ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
-        onTap: context.read(bottomBarIndexProvider.notifier).changeIndex,
+        onTap: ref.read(bottomBarIndexProvider.notifier).changeIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.language),
+            icon: const Icon(Icons.language),
             label: 'headlines'.tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.subscriptions_outlined),
+            icon: const Icon(Icons.subscriptions_outlined),
             label: 'subscriptions'.tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star_border),
+            icon: const Icon(Icons.star_border),
             label: 'saved_news'.tr(),
           ),
         ],

@@ -17,7 +17,7 @@ class NewsPiecePage extends StatelessWidget {
           IconButton(
             onPressed: () => showModalBottomSheet(
                 context: context, builder: (_) => OptionsSheet(piece)),
-            icon: Icon(Icons.more_horiz),
+            icon: const Icon(Icons.more_horiz),
           ),
         ],
       ),

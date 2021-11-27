@@ -10,14 +10,14 @@ class LocaleSelectionPage extends ConsumerWidget {
 
   static const routeName = '/localeSelectionPage';
 
-  void _changeLocale(String locale, BuildContext context) async {
-    await context.read(userSettingsRepositoryProvider).updateLocale(locale);
+  void _changeLocale(String locale, WidgetRef ref, BuildContext context) async {
+    await ref.read(userSettingsRepositoryProvider).updateLocale(locale);
     showSnackBarMessage(context, 'locale_changed_message'.tr());
   }
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final localeStream = watch(localeStreamProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localeStream = ref.watch(localeStreamProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,20 +31,22 @@ class LocaleSelectionPage extends ConsumerWidget {
             child: Text('select_locale'.tr()),
           ),
           ListTile(
-            onTap: () => _changeLocale('ru_UA', context),
-            leading: Icon(Icons.language),
-            title: Text('Русский (Украина)'),
+            onTap: () => _changeLocale('ru_UA', ref, context),
+            leading: const Icon(Icons.language),
+            title: const Text('Русский (Украина)'),
             trailing: localeStream.maybeWhen(
-              data: (locale) => locale == 'ru_UA' ? Icon(Icons.check) : null,
+              data: (locale) =>
+                  locale == 'ru_UA' ? const Icon(Icons.check) : null,
               orElse: () => null,
             ),
           ),
           ListTile(
-            onTap: () => _changeLocale('en_US', context),
-            leading: Icon(Icons.language),
-            title: Text('English (United States)'),
+            onTap: () => _changeLocale('en_US', ref, context),
+            leading: const Icon(Icons.language),
+            title: const Text('English (United States)'),
             trailing: localeStream.maybeWhen(
-              data: (locale) => locale == 'en_US' ? Icon(Icons.check) : null,
+              data: (locale) =>
+                  locale == 'en_US' ? const Icon(Icons.check) : null,
               orElse: () => null,
             ),
           ),
