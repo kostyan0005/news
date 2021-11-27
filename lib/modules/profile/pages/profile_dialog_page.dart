@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:news/core/auth/auth_repository.dart';
+import 'package:news/core/auth/login_provider_enum.dart';
 import 'package:news/core/auth/sign_in_status_stream_provider.dart';
 import 'package:news/modules/profile/pages/locale_selection_page.dart';
 import 'package:news/modules/profile/widgets/login_provider_card.dart';
@@ -14,7 +14,9 @@ import 'package:news/widgets/indicators.dart';
 class ProfileDialogPage extends ConsumerWidget {
   const ProfileDialogPage();
 
-  static const _tilePadding = EdgeInsets.symmetric(horizontal: 30);
+  static const _tilePadding = EdgeInsets.symmetric(
+    horizontal: 30,
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -114,16 +116,15 @@ class ProfileDialogPage extends ConsumerWidget {
                                   children: [
                                     if (isSignedIn)
                                       LoginProviderCard(
-                                        onTap: () => ref
-                                            .read(authRepositoryProvider)
-                                            .signOut(context),
+                                        provider: LoginProvider.logout,
                                         providerIcon: Icons.logout,
-                                        providerName: '',
                                         isSignedIn: isSignedIn,
                                       ),
                                     if (isSignedIn)
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 7),
+                                        padding: const EdgeInsets.only(
+                                          top: 7,
+                                        ),
                                         child: Text(
                                           'or'.tr(),
                                           style: const TextStyle(
@@ -134,38 +135,20 @@ class ProfileDialogPage extends ConsumerWidget {
                                       ),
                                     if (!withGoogle)
                                       LoginProviderCard(
-                                        onTap: () => ref
-                                            .read(authRepositoryProvider)
-                                            .connectWithGoogle(context),
+                                        provider: LoginProvider.google,
                                         providerIcon: FontAwesomeIcons.google,
-                                        providerName: 'Google',
                                         isSignedIn: isSignedIn,
                                       ),
                                     if (!withFacebook)
                                       LoginProviderCard(
-                                        onTap: () => ref
-                                            .read(authRepositoryProvider)
-                                            .connectWithFacebook(context),
+                                        provider: LoginProvider.facebook,
                                         providerIcon: FontAwesomeIcons.facebook,
-                                        providerName: 'Facebook',
                                         isSignedIn: isSignedIn,
                                       ),
                                     if (!withTwitter)
                                       LoginProviderCard(
-                                        onTap: () => ref
-                                            .read(authRepositoryProvider)
-                                            .connectWithTwitter(context),
+                                        provider: LoginProvider.twitter,
                                         providerIcon: FontAwesomeIcons.twitter,
-                                        providerName: 'Twitter',
-                                        isSignedIn: isSignedIn,
-                                      ),
-                                    if (!withApple && Platform.isIOS)
-                                      LoginProviderCard(
-                                        // todo: implement
-                                        onTap: () =>
-                                            showNotImplementedMessage(context),
-                                        providerIcon: FontAwesomeIcons.apple,
-                                        providerName: 'Apple',
                                         isSignedIn: isSignedIn,
                                       ),
                                     const SizedBox(
@@ -220,7 +203,9 @@ class _IconSpan extends WidgetSpan {
   _IconSpan(this.icon)
       : super(
           child: Padding(
-            padding: const EdgeInsets.only(left: 7),
+            padding: const EdgeInsets.only(
+              left: 7,
+            ),
             child: Icon(
               icon,
               color: Colors.white70,

@@ -1,10 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'auth_repository.dart';
-
-void showAccountAlreadyInUseDialog(BuildContext context, Ref ref) {
+void showAccountInUseDialog(BuildContext context, Function signOutFunc) {
   showDialog(
     context: context,
     builder: (dialogContext) => AlertDialog(
@@ -14,7 +11,7 @@ void showAccountAlreadyInUseDialog(BuildContext context, Ref ref) {
         TextButton(
           onPressed: () {
             Navigator.pop(dialogContext);
-            ref.read(authRepositoryProvider).signOut(context);
+            signOutFunc.call();
           },
           style: TextButton.styleFrom(primary: Colors.red),
           child: Text('sign_out'.tr()),

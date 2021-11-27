@@ -27,3 +27,6 @@ void showSnackBarErrorMessage(BuildContext context, String message) {
     ),
   );
 }
+
+void showUnexpectedErrorMessage(BuildContext context) =>
+    showSnackBarErrorMessage(context, 'unexpected_error_message'.tr());
