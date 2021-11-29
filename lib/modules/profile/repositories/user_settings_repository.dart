@@ -1,9 +1,9 @@
+import 'package:auth/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
-import 'package:news/core/auth/uid_notifier_provider.dart';
-import 'package:news/modules/profile/models/user_settings.dart';
+import 'package:news/modules/profile/models/user_settings_model.dart';
 
 final userSettingsRepositoryProvider =
     Provider((ref) => UserSettingsRepository(ref.watch(uidNotifierProvider)));

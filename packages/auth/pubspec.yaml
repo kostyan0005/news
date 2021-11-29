@@ -7,6 +7,13 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  firebase_auth: ^3.1.1
+  flutter_facebook_auth: ^3.5.2
+  flutter_riverpod: ^1.0.0
+  google_sign_in: ^5.1.1
+  logger: ^1.1.0
+  twitter_login: ^4.0.1
+
   flutter:
     sdk: flutter
 

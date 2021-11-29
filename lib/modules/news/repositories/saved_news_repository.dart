@@ -1,6 +1,6 @@
+import 'package:auth/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news/core/auth/uid_notifier_provider.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 
 final savedNewsRepositoryProvider =

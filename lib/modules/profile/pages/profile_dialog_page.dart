@@ -1,11 +1,9 @@
-import 'dart:io';
-
+import 'package:auth/auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:news/core/auth/login_provider_enum.dart';
-import 'package:news/core/auth/sign_in_status_stream_provider.dart';
+import 'package:news/modules/profile/models/login_provider_enum.dart';
 import 'package:news/modules/profile/pages/locale_selection_page.dart';
 import 'package:news/modules/profile/widgets/login_provider_card.dart';
 import 'package:news/utils/snackbar_utils.dart';
@@ -20,12 +18,13 @@ class ProfileDialogPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final authRepo = ref.watch(authRepositoryProvider);
+
     return ref.watch(signInStatusStreamProvider).maybeWhen(
           data: (status) {
             final isSignedIn = status.isSignedIn;
             final withGoogle = status.withGoogle;
             final withFacebook = status.withFacebook;
-            final withApple = status.withApple;
             final withTwitter = status.withTwitter;
 
             return ScaffoldMessenger(
@@ -105,8 +104,6 @@ class ProfileDialogPage extends ConsumerWidget {
                                           _IconSpan(FontAwesomeIcons.facebook),
                                         if (withTwitter)
                                           _IconSpan(FontAwesomeIcons.twitter),
-                                        if (withApple && Platform.isIOS)
-                                          _IconSpan(FontAwesomeIcons.apple),
                                       ],
                                     ),
                                   ),
@@ -117,7 +114,7 @@ class ProfileDialogPage extends ConsumerWidget {
                                     if (isSignedIn)
                                       LoginProviderCard(
                                         provider: LoginProvider.logout,
-                                        providerIcon: Icons.logout,
+                                        authRepo: authRepo,
                                         isSignedIn: isSignedIn,
                                       ),
                                     if (isSignedIn)
@@ -136,19 +133,19 @@ class ProfileDialogPage extends ConsumerWidget {
                                     if (!withGoogle)
                                       LoginProviderCard(
                                         provider: LoginProvider.google,
-                                        providerIcon: FontAwesomeIcons.google,
+                                        authRepo: authRepo,
                                         isSignedIn: isSignedIn,
                                       ),
                                     if (!withFacebook)
                                       LoginProviderCard(
                                         provider: LoginProvider.facebook,
-                                        providerIcon: FontAwesomeIcons.facebook,
+                                        authRepo: authRepo,
                                         isSignedIn: isSignedIn,
                                       ),
                                     if (!withTwitter)
                                       LoginProviderCard(
                                         provider: LoginProvider.twitter,
-                                        providerIcon: FontAwesomeIcons.twitter,
+                                        authRepo: authRepo,
                                         isSignedIn: isSignedIn,
                                       ),
                                     const SizedBox(
@@ -158,7 +155,6 @@ class ProfileDialogPage extends ConsumerWidget {
                                 ),
                               ),
                               ListTile(
-                                // todo: implement
                                 onTap: () => showNotImplementedMessage(context),
                                 contentPadding: _tilePadding,
                                 title: Text(

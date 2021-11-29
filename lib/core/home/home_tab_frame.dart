@@ -1,6 +1,6 @@
+import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news/core/auth/photo_url_stream_provider.dart';
 import 'package:news/modules/profile/pages/profile_dialog_page.dart';
 import 'package:news/modules/news/pages/search_text_page.dart';
 

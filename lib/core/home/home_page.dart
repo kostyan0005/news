@@ -1,7 +1,7 @@
+import 'package:auth/auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news/core/auth/anonymous_sign_in_provider.dart';
 import 'package:news/modules/news/pages/all.dart';
 import 'package:news/widgets/indicators.dart';
 

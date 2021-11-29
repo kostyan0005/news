@@ -1,44 +1,23 @@
+import 'package:auth/auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news/config/twitter_params.dart';
-import 'package:news/core/auth/auth_repository.dart';
-import 'package:news/core/auth/login_provider_enum.dart';
+import 'package:news/modules/profile/models/login_provider_enum.dart';
 import 'package:news/utils/account_in_use_dialog.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
-class LoginProviderCard extends ConsumerWidget {
+class LoginProviderCard extends StatelessWidget {
   final LoginProvider provider;
-  final IconData providerIcon;
+  final AuthRepository authRepo;
   final bool isSignedIn;
 
   const LoginProviderCard({
     required this.provider,
-    required this.providerIcon,
+    required this.authRepo,
     required this.isSignedIn,
   });
 
-  void _connectWithProvider(
-      LoginProvider provider, WidgetRef ref, BuildContext context) {
-    final repo = ref.read(authRepositoryProvider);
-    late final Future<SignInResult> Function() connectionFunction;
-
-    switch (provider) {
-      case LoginProvider.google:
-        connectionFunction = repo.connectWithGoogle;
-        break;
-      case LoginProvider.facebook:
-        connectionFunction = repo.connectWithFacebook;
-        break;
-      case LoginProvider.twitter:
-        connectionFunction = () => repo.connectWithTwitter(
-            twitterApiKey, twitterSecretKey, twitterRedirectUri);
-        break;
-      default:
-        break;
-    }
-
-    connectionFunction.call().then((result) {
+  void _connectWithProvider(BuildContext context) {
+    provider.getConnectionFunction(authRepo).call().then((result) {
       switch (result) {
         case SignInResult.success:
           showSnackBarMessage(
@@ -48,7 +27,7 @@ class LoginProviderCard extends ConsumerWidget {
           showUnexpectedErrorMessage(context);
           break;
         case SignInResult.accountInUse:
-          showAccountInUseDialog(context, () => _signOut(ref, context));
+          showAccountInUseDialog(context, () => _signOut(context));
           break;
         case SignInResult.cancelled:
           break;
@@ -56,25 +35,25 @@ class LoginProviderCard extends ConsumerWidget {
     });
   }
 
-  void _signOut(WidgetRef ref, BuildContext context) async {
-    await ref.read(authRepositoryProvider).signOut();
+  void _signOut(BuildContext context) async {
+    await authRepo.signOut();
     showSnackBarMessage(context, 'signed_out_message'.tr());
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Card(
       color: Colors.teal.shade500,
       elevation: 2,
       margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
       child: InkWell(
         onTap: () => provider == LoginProvider.logout
-            ? _signOut(ref, context)
-            : _connectWithProvider(provider, ref, context),
+            ? _signOut(context)
+            : _connectWithProvider(context),
         child: ListTile(
           dense: true,
           leading: Icon(
-            providerIcon,
+            provider.icon,
             color: Colors.white,
             size: 18,
           ),
