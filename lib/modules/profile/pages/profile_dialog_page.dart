@@ -18,8 +18,6 @@ class ProfileDialogPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authRepo = ref.watch(authRepositoryProvider);
-
     return ref.watch(signInStatusStreamProvider).maybeWhen(
           data: (status) {
             final isSignedIn = status.isSignedIn;
@@ -114,7 +112,6 @@ class ProfileDialogPage extends ConsumerWidget {
                                     if (isSignedIn)
                                       LoginProviderCard(
                                         provider: LoginProvider.logout,
-                                        authRepo: authRepo,
                                         isSignedIn: isSignedIn,
                                       ),
                                     if (isSignedIn)
@@ -133,19 +130,16 @@ class ProfileDialogPage extends ConsumerWidget {
                                     if (!withGoogle)
                                       LoginProviderCard(
                                         provider: LoginProvider.google,
-                                        authRepo: authRepo,
                                         isSignedIn: isSignedIn,
                                       ),
                                     if (!withFacebook)
                                       LoginProviderCard(
                                         provider: LoginProvider.facebook,
-                                        authRepo: authRepo,
                                         isSignedIn: isSignedIn,
                                       ),
                                     if (!withTwitter)
                                       LoginProviderCard(
                                         provider: LoginProvider.twitter,
-                                        authRepo: authRepo,
                                         isSignedIn: isSignedIn,
                                       ),
                                     const SizedBox(

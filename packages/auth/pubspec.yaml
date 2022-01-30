@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   firebase_auth: ^3.1.1
-  flutter_facebook_auth: ^3.5.2
+  flutter_facebook_auth: ^3.5.7
   flutter_riverpod: ^1.0.0
   google_sign_in: ^5.1.1
   logger: ^1.1.0

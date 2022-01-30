@@ -1,16 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:twitter_login/twitter_login.dart';
 
-final authRepositoryProvider = Provider((_) => AuthRepository());
-
 enum SignInResult { success, failed, cancelled, accountInUse }
 
 class AuthRepository {
-  final _auth = FirebaseAuth.instance;
+  static final _instance = AuthRepository();
+  static AuthRepository get instance => _instance;
+
+  late final FirebaseAuth _auth;
 
   User get _me => _auth.currentUser!;
   String get myId => _me.uid;
@@ -19,8 +19,14 @@ class AuthRepository {
       _auth.userChanges().where((u) => u != null).cast<User>();
   Stream<String> get uidStream => userChangesStream.map((u) => u.uid);
 
+  void setAuthInstance(FirebaseAuth auth) {
+    _auth = auth;
+  }
+
   Future<void> signInAnonymouslyIfNeeded() async {
-    if (_auth.currentUser == null) await _auth.signInAnonymously();
+    if (_auth.currentUser == null) {
+      await _auth.signInAnonymously();
+    }
   }
 
   Future<void> signOut() async {

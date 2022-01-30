@@ -32,14 +32,14 @@ extension LoginProviderExtension on LoginProvider {
     }
   }
 
-  Future<SignInResult> Function() getConnectionFunction(AuthRepository repo) {
+  Future<SignInResult> Function() getConnectionFunction() {
     switch (this) {
       case LoginProvider.google:
-        return () => repo.connectWithGoogle();
+        return () => AuthRepository.instance.connectWithGoogle();
       case LoginProvider.facebook:
-        return () => repo.connectWithFacebook();
+        return () => AuthRepository.instance.connectWithFacebook();
       case LoginProvider.twitter:
-        return () => repo.connectWithTwitter(
+        return () => AuthRepository.instance.connectWithTwitter(
             twitterApiKey, twitterSecretKey, twitterRedirectUri);
       case LoginProvider.logout:
         throw Exception('This case is not supported');

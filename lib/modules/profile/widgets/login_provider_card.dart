@@ -7,17 +7,15 @@ import 'package:news/utils/snackbar_utils.dart';
 
 class LoginProviderCard extends StatelessWidget {
   final LoginProvider provider;
-  final AuthRepository authRepo;
   final bool isSignedIn;
 
   const LoginProviderCard({
     required this.provider,
-    required this.authRepo,
     required this.isSignedIn,
   });
 
   void _connectWithProvider(BuildContext context) {
-    provider.getConnectionFunction(authRepo).call().then((result) {
+    provider.getConnectionFunction().call().then((result) {
       switch (result) {
         case SignInResult.success:
           showSnackBarMessage(
@@ -36,7 +34,7 @@ class LoginProviderCard extends StatelessWidget {
   }
 
   void _signOut(BuildContext context) async {
-    await authRepo.signOut();
+    await AuthRepository.instance.signOut();
     showSnackBarMessage(context, 'signed_out_message'.tr());
   }
 
