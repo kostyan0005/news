@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'firebase_options_prod.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -54,8 +54,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '966196182204',
     projectId: 'news-prod-1',
     storageBucket: 'news-prod-1.appspot.com',
-    androidClientId: '966196182204-j13o1spiuq2sapa499h3qgdom9rve4m0.apps.googleusercontent.com',
-    iosClientId: '966196182204-pq6ndflam0tbr67ppvu13nhf068en62v.apps.googleusercontent.com',
+    androidClientId:
+        '966196182204-j13o1spiuq2sapa499h3qgdom9rve4m0.apps.googleusercontent.com',
+    iosClientId:
+        '966196182204-pq6ndflam0tbr67ppvu13nhf068en62v.apps.googleusercontent.com',
     iosBundleId: 'com.kostiar.news',
   );
 }
