@@ -5,37 +5,67 @@ import 'package:news/modules/profile/models/login_provider_enum.dart';
 import 'package:news/utils/account_in_use_dialog.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
-class LoginProviderCard extends StatelessWidget {
+class LoginProviderCard extends StatefulWidget {
   final LoginProvider provider;
   final bool isSignedIn;
 
-  const LoginProviderCard({
+  LoginProviderCard({
     required this.provider,
     required this.isSignedIn,
-  });
+  }) : super(key: ValueKey(provider));
 
-  void _connectWithProvider(BuildContext context) {
-    provider.getConnectionFunction().call().then((result) {
-      switch (result) {
-        case SignInResult.success:
-          showSnackBarMessage(
-              context, 'connected_message'.tr(args: [provider.name]));
-          break;
-        case SignInResult.failed:
-          showUnexpectedErrorMessage(context);
-          break;
-        case SignInResult.accountInUse:
-          showAccountInUseDialog(context, () => _signOut(context));
-          break;
-        case SignInResult.cancelled:
-          break;
-      }
-    });
+  @override
+  State<LoginProviderCard> createState() => _LoginProviderCardState();
+}
+
+class _LoginProviderCardState extends State<LoginProviderCard> {
+  static bool isActionInProgress = false;
+
+  late final LoginProvider provider;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    provider = widget.provider;
   }
 
-  void _signOut(BuildContext context) async {
+  void _signOut() async {
+    if (isActionInProgress) return;
+    isActionInProgress = true;
+    setState(() => isLoading = true);
+
     await AuthRepository.instance.signOut();
+
     showSnackBarMessage(context, 'signed_out_message'.tr());
+    isActionInProgress = false;
+  }
+
+  void _connectWithProvider() async {
+    if (isActionInProgress) return;
+    isActionInProgress = true;
+    setState(() => isLoading = true);
+
+    final result = await widget.provider.getConnectionFunction().call();
+    switch (result) {
+      case SignInResult.success:
+        showSnackBarMessage(
+            context, 'connected_message'.tr(args: [widget.provider.name]));
+        break;
+      case SignInResult.failed:
+        showUnexpectedErrorMessage(context);
+        break;
+      case SignInResult.accountInUse:
+        showAccountInUseDialog(context, () => _signOut());
+        break;
+      case SignInResult.cancelled:
+        break;
+    }
+
+    isActionInProgress = false;
+    if (mounted) {
+      setState(() => isLoading = false);
+    }
   }
 
   @override
@@ -46,8 +76,8 @@ class LoginProviderCard extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
       child: InkWell(
         onTap: () => provider == LoginProvider.logout
-            ? _signOut(context)
-            : _connectWithProvider(context),
+            ? _signOut()
+            : _connectWithProvider(),
         child: ListTile(
           dense: true,
           leading: Icon(
@@ -55,17 +85,29 @@ class LoginProviderCard extends StatelessWidget {
             color: Colors.white,
             size: 18,
           ),
-          title: Text(
-            provider == LoginProvider.logout
-                ? 'sign_out'
-                : isSignedIn
-                    ? 'connect_with'
-                    : 'sign_in_with',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ).tr(args: [provider.name]),
+          title: !isLoading
+              ? Text(
+                  provider == LoginProvider.logout
+                      ? 'sign_out'
+                      : widget.isSignedIn
+                          ? 'connect_with'
+                          : 'sign_in_with',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ).tr(args: [provider.name])
+              : Center(
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    margin: const EdgeInsets.only(right: 40),
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 3,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
         ),
       ),
     );

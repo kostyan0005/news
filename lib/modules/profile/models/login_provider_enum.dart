@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:news/config/twitter_params.dart';
 
-enum LoginProvider { google, facebook, twitter, logout }
+enum LoginProvider {
+  google,
+  facebook,
+  twitter,
+  logout,
+}
 
 extension LoginProviderExtension on LoginProvider {
   String get name {

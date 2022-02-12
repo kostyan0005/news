@@ -24,6 +24,7 @@ class ProfileDialogPage extends ConsumerWidget {
             final withGoogle = status.withGoogle;
             final withFacebook = status.withFacebook;
             final withTwitter = status.withTwitter;
+            final withAll = withGoogle && withFacebook && withTwitter;
 
             return ScaffoldMessenger(
               child: Builder(
@@ -114,11 +115,9 @@ class ProfileDialogPage extends ConsumerWidget {
                                         provider: LoginProvider.logout,
                                         isSignedIn: isSignedIn,
                                       ),
-                                    if (isSignedIn)
+                                    if (isSignedIn && !withAll)
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 7,
-                                        ),
+                                        padding: const EdgeInsets.only(top: 7),
                                         child: Text(
                                           'or'.tr(),
                                           style: const TextStyle(

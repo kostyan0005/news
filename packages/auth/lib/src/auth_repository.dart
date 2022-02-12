@@ -4,7 +4,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:twitter_login/twitter_login.dart';
 
-enum SignInResult { success, failed, cancelled, accountInUse }
+enum SignInResult {
+  success,
+  failed,
+  cancelled,
+  accountInUse,
+}
 
 class AuthRepository {
   static final _instance = AuthRepository();
