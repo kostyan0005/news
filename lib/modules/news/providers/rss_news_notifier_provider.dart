@@ -8,6 +8,7 @@ final rssNewsNotifierProvider = StateNotifierProvider.autoDispose
     .family<RssNewsNotifier, RssNewsState, String>((ref, rssUrl) =>
         RssNewsNotifier(ref.read(newsSearchRepositoryProvider), rssUrl));
 
+// todo: test
 class RssNewsNotifier extends StateNotifier<RssNewsState> {
   final NewsSearchRepository _newsSearchRepository;
   final String _rssUrl;

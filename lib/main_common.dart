@@ -16,7 +16,7 @@ void mainCommon(FirebaseOptions options) async {
 
   EasyLocalization.logger.enableLevels = [
     LevelMessages.error,
-    LevelMessages.warning
+    LevelMessages.warning,
   ];
 
   await Future.wait([
