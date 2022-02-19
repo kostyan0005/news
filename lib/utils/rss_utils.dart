@@ -10,7 +10,6 @@ String _getSuffix(String locale) {
   return 'hl=$langCode&gl=$countryCode&ceid=$countryCode:$langCode';
 }
 
-// todo: test
 String getLatestNewsUrl(String locale) => _prefix + '?' + _getSuffix(locale);
 String getHeadlineNewsUrl(String topic, String locale) =>
     _prefix + _headlinePart + topic + '?' + _getSuffix(locale);
