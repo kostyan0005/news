@@ -2,15 +2,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news/utils/rss_utils.dart';
 
 void main() {
-  group('RSS utils test', () {
-    test('getLatestNewsUrl test', () {
+  group('RSS utils', () {
+    test('getLatestNewsUrl is working', () {
       expect(getLatestNewsUrl('ru_UA'),
           equals('https://news.google.com/rss?hl=ru&gl=UA&ceid=UA:ru'));
       expect(getLatestNewsUrl('en_US'),
           equals('https://news.google.com/rss?hl=en&gl=US&ceid=US:en'));
     });
 
-    test('getHeadlineNewsUrl test', () {
+    test('getHeadlineNewsUrl is working', () {
       expect(
           getHeadlineNewsUrl('LATEST', 'ru_UA'),
           equals(
@@ -21,7 +21,7 @@ void main() {
               'https://news.google.com/rss/headlines/section/topic/SCIENCE?hl=en&gl=US&ceid=US:en'));
     });
 
-    test('getSearchQueryNewsUrl test', () {
+    test('getSearchQueryNewsUrl is working', () {
       expect(
           getSearchQueryNewsUrl('Франция', 'ru_UA'),
           equals(

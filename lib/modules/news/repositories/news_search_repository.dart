@@ -18,8 +18,12 @@ class NewsSearchRepository {
       throw HttpException(message, uri: uri);
     }
 
-    final elements = XmlDocument.parse(response.body).findAllElements('item');
-    return elements
+    return parseNewsFromXml(response.body);
+  }
+
+  List<NewsPiece> parseNewsFromXml(String rawXml) {
+    return XmlDocument.parse(rawXml)
+        .findAllElements('item')
         .map((e) => NewsPiece.fromXml(e))
         .where((p) => !p.sourceLink.endsWith('.ru'))
         .toList();
