@@ -17,7 +17,7 @@ dependencies:
   easy_localization: ^3.0.0
   firebase_auth: ^3.1.1
   firebase_core: ^1.12.0
-  flutter_riverpod: ^1.0.0
+  flutter_riverpod: ^2.0.0-dev.3
   font_awesome_flutter: ^9.1.0
   freezed_annotation: ^1.0.0
   http: ^0.13.3

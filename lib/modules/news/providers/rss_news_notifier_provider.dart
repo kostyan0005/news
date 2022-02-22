@@ -1,14 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:news/modules/news/models/rss_news_state.dart';
-import 'package:news/modules/news/repositories/news_search_repository.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../models/rss_news_state.dart';
+import '../repositories/news_search_repository.dart';
 
 final rssNewsNotifierProvider = StateNotifierProvider.autoDispose
     .family<RssNewsNotifier, RssNewsState, String>((ref, rssUrl) =>
         RssNewsNotifier(ref.read(newsSearchRepositoryProvider), rssUrl));
 
-// todo: test
 class RssNewsNotifier extends StateNotifier<RssNewsState> {
   final NewsSearchRepository _newsSearchRepository;
   final String _rssUrl;
@@ -16,13 +16,11 @@ class RssNewsNotifier extends StateNotifier<RssNewsState> {
 
   RssNewsNotifier(this._newsSearchRepository, this._rssUrl)
       : super(const Loading()) {
-    _getRssNews();
+    getRssNews();
   }
 
-  void refresh() => _getRssNews();
-
-  void _getRssNews() {
-    _newsSearchRepository.getNewsFromRssUrl(_rssUrl).then((newsPieces) {
+  Future<void> getRssNews() async {
+    await _newsSearchRepository.getNewsFromRssUrl(_rssUrl).then((newsPieces) {
       if (mounted) {
         state = Data(newsPieces);
         controller.refreshCompleted();
@@ -35,4 +33,6 @@ class RssNewsNotifier extends StateNotifier<RssNewsState> {
       }
     });
   }
+
+  Future<void> refresh() => getRssNews();
 }

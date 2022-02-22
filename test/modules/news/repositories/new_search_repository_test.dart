@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:news/modules/news/models/news_piece_model.dart';
 import 'package:news/modules/news/repositories/news_search_repository.dart';
 
 void main() {
@@ -27,23 +28,29 @@ void main() {
     </rss>
   ''';
 
+  const expectedPieceLink = 'https://news.google.com/__i/rss/rd/articles'
+      '/CBMiNmh0dHBzOi8vd3d3LnByYXZkYS5jb20udWEvcnV'
+      'zL25ld3MvMjAyMi8wMi8yMS83MzI0NzM4L9IBAA?oc=5';
+  const expectedPieceTitle =
+      'Байден и Путин согласились на участие в саммите по вопросам безопасности';
+
   test('news are parsed correctly and russian news are filtered out', () {
     final newsPieces = NewsSearchRepository().parseNewsFromXml(rawXml);
     expect(newsPieces.length, equals(1)); // russian piece is filtered out
 
     final piece = newsPieces[0];
     expect(
-        piece.link,
-        equals('https://news.google.com/__i/rss/rd/articles'
-            '/CBMiNmh0dHBzOi8vd3d3LnByYXZkYS5jb20udWEvcnV'
-            'zL25ld3MvMjAyMi8wMi8yMS83MzI0NzM4L9IBAA?oc=5'));
-    expect(
-        piece.title,
-        equals(
-            'Байден и Путин согласились на участие в саммите по вопросам безопасности'));
-    expect(piece.sourceName, equals('Украинская правда'));
-    expect(piece.sourceLink, equals('https://www.pravda.com.ua'));
-    expect(piece.pubDate, equals(DateTime.utc(2022, 02, 21, 01, 59, 09)));
-    expect(piece.isSaved, equals(false));
+      piece,
+      isA<NewsPiece>()
+          .having((p) => p.link, 'link', equals(expectedPieceLink))
+          .having((p) => p.title, 'title', equals(expectedPieceTitle))
+          .having(
+              (p) => p.sourceName, 'source name', equals('Украинская правда'))
+          .having((p) => p.sourceLink, 'source link',
+              equals('https://www.pravda.com.ua'))
+          .having((p) => p.pubDate, 'publication date',
+              equals(DateTime.utc(2022, 02, 21, 01, 59, 09)))
+          .having((p) => p.isSaved, 'is saved', equals(false)),
+    );
   });
 }
