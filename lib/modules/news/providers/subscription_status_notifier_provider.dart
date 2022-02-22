@@ -2,11 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/repositories/subscriptions_repository.dart';
 
-// todo: test
-final subscriptionStatusProvider = StateNotifierProvider.autoDispose
-    .family<SubscriptionStatusNotifier, bool, SearchQuery>((ref, searchQuery) =>
-        SubscriptionStatusNotifier(
-            ref.read(subscriptionsRepositoryProvider), searchQuery));
+final subscriptionStatusNotifierProvider = StateNotifierProvider.autoDispose
+    .family<SubscriptionStatusNotifier, bool, SearchQuery>(
+  (ref, searchQuery) => SubscriptionStatusNotifier(
+    ref.read(subscriptionsRepositoryProvider),
+    searchQuery,
+  ),
+);
 
 class SubscriptionStatusNotifier extends StateNotifier<bool> {
   final SubscriptionsRepository _subscriptionsRepository;

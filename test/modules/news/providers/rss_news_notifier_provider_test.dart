@@ -27,32 +27,32 @@ void main() {
   group('RSS news notifier provider', () {
     test('initial state is correct', () {
       when(getNews).thenAnswer((_) async => []);
-      expect(getState(), equals(const Loading()));
+      expect(getState(), const Loading());
     });
 
     test('data is received properly', () async {
       when(getNews).thenAnswer((_) async => []);
       await getRssNews();
-      expect(getState(), equals(const Data([])));
+      expect(getState(), const Data([]));
     });
 
     test('error state in case of error', () async {
       when(getNews).thenAnswer((_) async => throw Exception());
       await getRssNews();
-      expect(getState(), equals(const Error()));
+      expect(getState(), const Error());
     });
 
     test('refresh is working', () async {
       when(getNews).thenAnswer((_) async => []);
       await getRssNews();
-      expect(getState(), equals(const Data([])));
+      expect(getState(), const Data([]));
 
       // change response
       when(getNews).thenAnswer((_) async => throw Exception());
       // refresh
       await container.read(rssNewsNotifierProvider('').notifier).refresh();
       // now expect the error
-      expect(getState(), equals(const Error()));
+      expect(getState(), const Error());
     });
   });
 }

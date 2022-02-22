@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
-import 'package:news/modules/news/providers/subscription_status_provider.dart';
+import 'package:news/modules/news/providers/subscription_status_notifier_provider.dart';
 import 'package:news/modules/news/widgets/rss_news_list.dart';
 import 'package:news/utils/rss_utils.dart';
 import 'package:news/utils/snackbar_utils.dart';
@@ -36,10 +36,10 @@ class SearchQueryPage extends StatelessWidget {
               centerTitle: true,
               actions: [
                 Consumer(
-                    builder: (_, ref, __) =>
-                        ref.watch(subscriptionStatusProvider(searchQuery))
-                            ? _UnsubscribeButton(searchQuery)
-                            : _SubscribeButton(searchQuery)),
+                    builder: (_, ref, __) => ref.watch(
+                            subscriptionStatusNotifierProvider(searchQuery))
+                        ? _UnsubscribeButton(searchQuery)
+                        : _SubscribeButton(searchQuery)),
               ],
             ),
           ];
@@ -59,7 +59,9 @@ class _SubscribeButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
       onPressed: () {
-        ref.read(subscriptionStatusProvider(searchQuery).notifier).subscribe();
+        ref
+            .read(subscriptionStatusNotifierProvider(searchQuery).notifier)
+            .subscribe();
         showSnackBarMessage(context, 'subscribed_message'.tr());
       },
       icon: const Icon(Icons.star_border),
@@ -77,7 +79,7 @@ class _UnsubscribeButton extends ConsumerWidget {
     return IconButton(
       onPressed: () {
         ref
-            .read(subscriptionStatusProvider(searchQuery).notifier)
+            .read(subscriptionStatusNotifierProvider(searchQuery).notifier)
             .unsubscribe();
         showSnackBarMessage(context, 'unsubscribed_message'.tr());
       },

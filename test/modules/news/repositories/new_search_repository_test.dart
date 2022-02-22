@@ -36,7 +36,7 @@ void main() {
 
   test('news are parsed correctly and russian news are filtered out', () {
     final newsPieces = NewsSearchRepository().parseNewsFromXml(rawXml);
-    expect(newsPieces.length, equals(1)); // russian piece is filtered out
+    expect(newsPieces.length, 1); // russian piece is filtered out
 
     final piece = newsPieces[0];
     expect(
