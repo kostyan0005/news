@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/pages/all.dart';
 import 'package:news/widgets/indicators.dart';
 
-import 'bottom_bar_index_provider.dart';
+final bottomBarIndexProvider = StateProvider((_) => 0);
 
 class HomePage extends ConsumerWidget {
   const HomePage();
@@ -30,7 +30,8 @@ class HomePage extends ConsumerWidget {
           ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
-        onTap: ref.read(bottomBarIndexProvider.notifier).changeIndex,
+        onTap: (newIndex) =>
+            ref.read(bottomBarIndexProvider.notifier).state = newIndex,
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.language),

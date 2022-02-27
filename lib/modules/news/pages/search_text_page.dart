@@ -5,40 +5,37 @@ import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/pages/search_query_page.dart';
 import 'package:news/modules/profile/repositories/user_settings_repository.dart';
 
-class SearchTextPage extends ConsumerStatefulWidget {
+final searchTextProvider = StateProvider((_) => '');
+
+class SearchTextPage extends ConsumerWidget {
   const SearchTextPage();
 
   static const routeName = '/searchTextPage';
 
-  @override
-  _SearchTextPageState createState() => _SearchTextPageState();
-}
-
-class _SearchTextPageState extends ConsumerState<SearchTextPage> {
-  String _searchText = '';
-
-  void _goToSearchResults() {
-    if (_searchText.isNotEmpty) {
-      final searchQuery = SearchQuery(
-        text: _searchText,
-        locale: ref.read(userSettingsRepositoryProvider).myLocale,
-        isSubscribed: false,
+  void _goToSearchResults(WidgetRef ref, BuildContext context) {
+    final searchText = ref.read(searchTextProvider.notifier).state;
+    if (searchText.isNotEmpty) {
+      Navigator.of(context).pushNamed(
+        SearchQueryPage.routeName,
+        arguments: SearchQuery(
+          text: searchText,
+          locale: ref.read(userSettingsRepositoryProvider).myLocale,
+          isSubscribed: false,
+        ),
       );
-
-      Navigator.of(context)
-          .pushNamed(SearchQueryPage.routeName, arguments: searchQuery);
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
           title: TextField(
-            onChanged: (t) => _searchText = t,
-            onSubmitted: (_) => _goToSearchResults(),
+            onChanged: (text) =>
+                ref.read(searchTextProvider.notifier).state = text,
+            onSubmitted: (_) => _goToSearchResults(ref, context),
             autofocus: true,
             cursorColor: Colors.white,
             textCapitalization: TextCapitalization.sentences,
@@ -65,20 +62,14 @@ class _SearchTextPageState extends ConsumerState<SearchTextPage> {
         body: Align(
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: const EdgeInsets.only(
-              top: 10,
-            ),
+            padding: const EdgeInsets.only(top: 10),
             child: TextButton(
-              onPressed: () => _goToSearchResults(),
+              onPressed: () => _goToSearchResults(ref, context),
               style: TextButton.styleFrom(
                 primary: Colors.white,
                 backgroundColor: Colors.teal,
-                textStyle: const TextStyle(
-                  fontSize: 15,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
+                textStyle: const TextStyle(fontSize: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
               ),
               child: Text('search'.tr()),
             ),

@@ -1,11 +1,14 @@
 import 'package:auth/auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/profile/models/login_provider_enum.dart';
 import 'package:news/utils/account_in_use_dialog.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
-class LoginProviderCard extends StatefulWidget {
+final isLoadingProvider = StateProvider((_) => false);
+
+class LoginProviderCard extends ConsumerWidget {
   final LoginProvider provider;
   final bool isSignedIn;
 
@@ -14,26 +17,12 @@ class LoginProviderCard extends StatefulWidget {
     required this.isSignedIn,
   }) : super(key: ValueKey(provider));
 
-  @override
-  State<LoginProviderCard> createState() => _LoginProviderCardState();
-}
-
-class _LoginProviderCardState extends State<LoginProviderCard> {
   static bool isActionInProgress = false;
 
-  late final LoginProvider provider;
-  bool isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    provider = widget.provider;
-  }
-
-  void _signOut() async {
+  void _signOut(WidgetRef ref, BuildContext context) async {
     if (isActionInProgress) return;
     isActionInProgress = true;
-    setState(() => isLoading = true);
+    ref.read(isLoadingProvider.notifier).state = true;
 
     await AuthRepository.instance.signOut();
 
@@ -41,43 +30,41 @@ class _LoginProviderCardState extends State<LoginProviderCard> {
     isActionInProgress = false;
   }
 
-  void _connectWithProvider() async {
+  void _connectWithProvider(WidgetRef ref, BuildContext context) async {
     if (isActionInProgress) return;
     isActionInProgress = true;
-    setState(() => isLoading = true);
+    ref.read(isLoadingProvider.notifier).state = true;
 
-    final result = await widget.provider.getConnectionFunction().call();
+    final result = await provider.getConnectionFunction().call();
     switch (result) {
       case SignInResult.success:
         showSnackBarMessage(
-            context, 'connected_message'.tr(args: [widget.provider.name]));
+            context, 'connected_message'.tr(args: [provider.name]));
         break;
       case SignInResult.failed:
         showUnexpectedErrorMessage(context);
         break;
       case SignInResult.accountInUse:
-        showAccountInUseDialog(context, () => _signOut());
+        showAccountInUseDialog(context, () => _signOut(ref, context));
         break;
       case SignInResult.cancelled:
         break;
     }
 
     isActionInProgress = false;
-    if (mounted) {
-      setState(() => isLoading = false);
-    }
+    ref.read(isLoadingProvider.notifier).state = false;
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       color: Colors.teal.shade500,
       elevation: 2,
       margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
       child: InkWell(
         onTap: () => provider == LoginProvider.logout
-            ? _signOut()
-            : _connectWithProvider(),
+            ? _signOut(ref, context)
+            : _connectWithProvider(ref, context),
         child: ListTile(
           dense: true,
           leading: Icon(
@@ -85,11 +72,11 @@ class _LoginProviderCardState extends State<LoginProviderCard> {
             color: Colors.white,
             size: 18,
           ),
-          title: !isLoading
+          title: !ref.watch(isLoadingProvider)
               ? Text(
                   provider == LoginProvider.logout
                       ? 'sign_out'
-                      : widget.isSignedIn
+                      : isSignedIn
                           ? 'connect_with'
                           : 'sign_in_with',
                   style: const TextStyle(
