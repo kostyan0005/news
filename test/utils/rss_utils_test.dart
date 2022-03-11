@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news/utils/rss_utils.dart';
 
 void main() {
-  group('RSS utils:', () {
+  group('RSS utils', () {
     test('getLatestNewsUrl is working', () {
       expect(
         getLatestNewsUrl('ru_UA'),

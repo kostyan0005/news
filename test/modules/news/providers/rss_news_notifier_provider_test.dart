@@ -24,7 +24,7 @@ void main() {
     );
   });
 
-  group('RSS news notifier provider:', () {
+  group('rssNewsNotifierProvider', () {
     test('initial state is correct', () {
       when(getNews).thenAnswer((_) async => []);
       expect(getState(), const Loading());

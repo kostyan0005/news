@@ -35,7 +35,7 @@ void main() {
   getNotifier() => container
       .read(subscriptionStatusNotifierProvider(subscribedSearchQuery).notifier);
 
-  group('subscription status notifier provider:', () {
+  group('subscriptionStatusNotifierProvider', () {
     test('initial status is determined correctly', () {
       when(() => repository.isSubscribed('')).thenAnswer((_) async => false);
       expect(getStatus(false), false);
