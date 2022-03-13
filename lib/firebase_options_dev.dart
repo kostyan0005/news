@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     // ignore: missing_enum_constant_in_switch
     switch (defaultTargetPlatform) {
@@ -40,6 +37,15 @@ class DefaultFirebaseOptions {
     );
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAddlTxgz6l4CV9IKOKnugU_hmzt-4NKaE',
+    appId: '1:174952535817:web:500b1cb832987c9935e5d8',
+    messagingSenderId: '174952535817',
+    projectId: 'news-dev-1',
+    authDomain: 'news-dev-1.firebaseapp.com',
+    storageBucket: 'news-dev-1.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDIeNdaMUvgPqlSP9R3rEBZjNl90mLxPyU',
     appId: '1:174952535817:android:8bbabdaaea579efb35e5d8',
@@ -54,8 +60,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '174952535817',
     projectId: 'news-dev-1',
     storageBucket: 'news-dev-1.appspot.com',
-    androidClientId: '174952535817-kh39g1dhkd6pnp6dma7fshas6r8590nv.apps.googleusercontent.com',
-    iosClientId: '174952535817-c1klmop72mc8ouf4h4poqr3ht9m0bbhi.apps.googleusercontent.com',
+    androidClientId:
+        '174952535817-kh39g1dhkd6pnp6dma7fshas6r8590nv.apps.googleusercontent.com',
+    iosClientId:
+        '174952535817-c1klmop72mc8ouf4h4poqr3ht9m0bbhi.apps.googleusercontent.com',
     iosBundleId: 'com.kostiar.news.dev',
   );
 }

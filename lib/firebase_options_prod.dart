@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     // ignore: missing_enum_constant_in_switch
     switch (defaultTargetPlatform) {
@@ -39,6 +36,15 @@ class DefaultFirebaseOptions {
       'DefaultFirebaseOptions are not supported for this platform.',
     );
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBjOlJogXIeWkICuRiLDTnRPmRL4S9H9TY',
+    appId: '1:966196182204:web:46e09e413352a0e1e2e4b9',
+    messagingSenderId: '966196182204',
+    projectId: 'news-prod-1',
+    authDomain: 'news-prod-1.firebaseapp.com',
+    storageBucket: 'news-prod-1.appspot.com',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDGf4Jm1I67lPZdr6ShqguqdkV5hWfSbCE',

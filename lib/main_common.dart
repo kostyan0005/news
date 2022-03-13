@@ -9,6 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/config/routes.dart';
 import 'package:news/core/home/home_page.dart';
 import 'package:news/utils/custom_ru_messages.dart';
+import 'utils/register_web_webview_stub.dart'
+    if (dart.library.html) 'utils/register_web_webview.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 void mainCommon(FirebaseOptions options) async {
@@ -46,6 +48,9 @@ void mainCommon(FirebaseOptions options) async {
     timeago.setLocaleMessages('ru', CustomRuMessages());
     timeago.setDefaultLocale('ru');
   }
+
+  // platform-dependent
+  registerWebViewWebImplementation();
 }
 
 class MyApp extends StatelessWidget {

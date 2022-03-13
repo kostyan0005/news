@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:news/widgets/indicators.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -12,7 +13,7 @@ class LinkView extends StatefulWidget {
 }
 
 class _LinkViewState extends State<LinkView> {
-  bool _isLoading = true;
+  bool _isLoading = !kIsWeb;
   bool _hasError = false;
 
   @override
