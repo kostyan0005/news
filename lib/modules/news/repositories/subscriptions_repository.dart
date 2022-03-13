@@ -15,9 +15,10 @@ class SubscriptionsRepository {
             .doc(myId)
             .collection('subscriptions')
             .withConverter(
-                fromFirestore: (snap, _) => SearchQuery.fromJson(snap.data()!),
-                toFirestore: (subscription, _) => subscription.toJson()
-                  ..['subscriptionDate'] = FieldValue.serverTimestamp());
+              fromFirestore: (snap, _) => SearchQuery.fromJson(snap.data()!),
+              toFirestore: (subscription, _) => subscription.toJson()
+                ..['subscriptionDate'] = DateTime.now().toIso8601String(),
+            );
 
   Stream<List<SearchQuery>> getSubscriptionsStream() {
     return _mySubscriptionsCollectionRef

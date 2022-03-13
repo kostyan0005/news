@@ -6,7 +6,7 @@ import 'package:share_plus/share_plus.dart';
 class SourcePage extends StatelessWidget {
   const SourcePage();
 
-  static const routeName = '/sourcePage';
+  static const routeName = '/source';
 
   @override
   Widget build(BuildContext context) {

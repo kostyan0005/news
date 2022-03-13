@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
-import 'package:news/modules/news/pages/search_query_page.dart';
+import 'package:news/modules/news/pages/search_results_page.dart';
 import 'package:news/modules/profile/repositories/user_settings_repository.dart';
 
 final searchTextProvider = StateProvider((_) => '');
@@ -10,13 +10,13 @@ final searchTextProvider = StateProvider((_) => '');
 class SearchTextPage extends ConsumerWidget {
   const SearchTextPage();
 
-  static const routeName = '/searchTextPage';
+  static const routeName = '/search';
 
   void _goToSearchResults(WidgetRef ref, BuildContext context) {
     final searchText = ref.read(searchTextProvider.notifier).state;
     if (searchText.isNotEmpty) {
       Navigator.of(context).pushNamed(
-        SearchQueryPage.routeName,
+        SearchResultsPage.routeName,
         arguments: SearchQuery(
           text: searchText,
           locale: ref.read(userSettingsRepositoryProvider).myLocale,

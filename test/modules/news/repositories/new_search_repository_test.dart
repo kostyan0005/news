@@ -28,11 +28,13 @@ void main() {
     </rss>
   ''';
 
-  const expectedPieceLink = 'https://news.google.com/__i/rss/rd/articles'
+  final expectedPubDate = DateTime.utc(2022, 02, 21, 01, 59, 09);
+  final expectedId = '1300278734_${expectedPubDate.millisecondsSinceEpoch}';
+  const expectedLink = 'https://news.google.com/__i/rss/rd/articles'
       '/CBMiNmh0dHBzOi8vd3d3LnByYXZkYS5jb20udWEvcnV'
       'zL25ld3MvMjAyMi8wMi8yMS83MzI0NzM4L9IBAA?oc=5';
-  const expectedPieceTitle =
-      'Байден и Путин согласились на участие в саммите по вопросам безопасности';
+  const expectedTitle = 'Байден и Путин согласились на участие '
+      'в саммите по вопросам безопасности';
 
   test('news are parsed correctly and russian news are filtered out', () {
     final newsPieces = NewsSearchRepository().parseNewsFromXml(rawXml);
@@ -42,14 +44,14 @@ void main() {
     expect(
       piece,
       isA<NewsPiece>()
-          .having((p) => p.link, 'link', equals(expectedPieceLink))
-          .having((p) => p.title, 'title', equals(expectedPieceTitle))
+          .having((p) => p.id, 'id', equals(expectedId))
+          .having((p) => p.link, 'link', equals(expectedLink))
+          .having((p) => p.title, 'title', equals(expectedTitle))
           .having(
               (p) => p.sourceName, 'source name', equals('Украинская правда'))
           .having((p) => p.sourceLink, 'source link',
               equals('https://www.pravda.com.ua'))
-          .having((p) => p.pubDate, 'publication date',
-              equals(DateTime.utc(2022, 02, 21, 01, 59, 09)))
+          .having((p) => p.pubDate, 'publication date', equals(expectedPubDate))
           .having((p) => p.isSaved, 'is saved', equals(false)),
     );
   });

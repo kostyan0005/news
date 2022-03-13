@@ -4,9 +4,13 @@ import 'package:news/modules/news/widgets/link_view.dart';
 import 'package:news/modules/news/widgets/options_sheet.dart';
 
 class NewsPiecePage extends StatelessWidget {
-  const NewsPiecePage();
+  final String id;
+  final bool fromSaved;
 
-  static const routeName = '/newsPiecePage';
+  const NewsPiecePage({
+    required this.id,
+    required this.fromSaved,
+  });
 
   @override
   Widget build(BuildContext context) {

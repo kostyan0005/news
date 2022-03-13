@@ -6,12 +6,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news/config/routes.dart';
-import 'package:news/core/home/home_page.dart';
-import 'package:news/utils/custom_ru_messages.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
+import 'router.dart';
+import 'utils/custom_ru_messages.dart';
 import 'utils/register_web_webview_stub.dart'
     if (dart.library.html) 'utils/register_web_webview.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 void mainCommon(FirebaseOptions options) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,7 +57,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routeInformationParser: router.routeInformationParser,
+        routerDelegate: router.routerDelegate,
         title: 'News',
         theme: ThemeData(
           primarySwatch: Colors.teal,
@@ -67,8 +69,6 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        initialRoute: HomePage.routeName,
-        routes: routes,
       ),
     );
   }

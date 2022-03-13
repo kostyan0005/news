@@ -7,10 +7,10 @@ import 'package:news/modules/news/widgets/rss_news_list.dart';
 import 'package:news/utils/rss_utils.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
-class SearchQueryPage extends StatelessWidget {
-  const SearchQueryPage();
+class SearchResultsPage extends StatelessWidget {
+  const SearchResultsPage();
 
-  static const routeName = '/searchQueryPage';
+  static const routeName = '/results';
 
   @override
   Widget build(BuildContext context) {

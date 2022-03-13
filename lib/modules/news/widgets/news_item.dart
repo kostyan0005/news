@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
-import 'package:news/modules/news/pages/news_piece_page.dart';
+import 'package:news/modules/news/repositories/history_repository.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'options_sheet.dart';
 
-class NewsItem extends StatelessWidget {
+class NewsItem extends ConsumerWidget {
   final NewsPiece piece;
 
   const NewsItem(this.piece);
@@ -14,11 +16,14 @@ class NewsItem extends StatelessWidget {
       context: context, builder: (_) => OptionsSheet(piece));
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       child: InkWell(
-        onTap: () => Navigator.of(context)
-            .pushNamed(NewsPiecePage.routeName, arguments: piece),
+        onTap: () {
+          ref.read(historyRepositoryProvider).addPieceToHistory(piece);
+          context.pushNamed(piece.isSaved ? 'saved' : 'piece',
+              params: {'id': piece.id});
+        },
         onLongPress: () => _showOptionsSheet(context),
         child: Padding(
           padding: const EdgeInsets.only(

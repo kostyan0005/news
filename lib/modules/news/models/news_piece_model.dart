@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:news/utils/auto_id_generator.dart';
 import 'package:xml/xml.dart';
 
 part 'news_piece_model.freezed.dart';
@@ -22,19 +21,21 @@ class NewsPiece with _$NewsPiece {
       _$NewsPieceFromJson(json);
 
   factory NewsPiece.fromXml(XmlElement item) {
+    final guid = item.findElements('guid').first.text;
     final titleWithSource = item.findElements('title').first.text;
     final source = item.findElements('source').first;
     final sourceName = source.text;
     final title = titleWithSource.replaceAll(' - $sourceName', '');
+    final pubDate = DateFormat('EEE, dd MMM yyyy hh:mm:ss', 'en')
+        .parse(item.findElements('pubDate').first.text, true);
 
     return NewsPiece(
-      id: generateAutoId(),
+      id: '${guid}_${pubDate.millisecondsSinceEpoch}',
       link: item.findElements('link').first.text,
       title: title,
       sourceName: sourceName,
       sourceLink: source.getAttribute('url')!,
-      pubDate: DateFormat('EEE, dd MMM yyyy hh:mm:ss', 'en')
-          .parse(item.findElements('pubDate').first.text, true),
+      pubDate: pubDate,
       isSaved: false,
     );
   }

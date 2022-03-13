@@ -15,12 +15,14 @@ class SavedNewsRepository {
             .doc(myId)
             .collection('saved_news')
             .withConverter(
-                fromFirestore: (snap, _) => NewsPiece.fromJson(snap.data()!),
-                toFirestore: (piece, _) => piece.toJson());
+              fromFirestore: (snap, _) => NewsPiece.fromJson(snap.data()!),
+              toFirestore: (piece, _) => piece.toJson()
+                ..addAll({'dateSaved': DateTime.now().toIso8601String()}),
+            );
 
   Stream<List<NewsPiece>> getSavedNewsStream() {
     return _mySavedNewsCollectionRef
-        .orderBy('pubDate', descending: true)
+        .orderBy('dateSaved', descending: true)
         .snapshots()
         .map((snap) => snap.docs.map((doc) => doc.data()).toList());
   }
