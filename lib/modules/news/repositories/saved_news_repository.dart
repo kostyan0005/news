@@ -7,7 +7,7 @@ final savedNewsRepositoryProvider =
     Provider((ref) => SavedNewsRepository(ref.watch(uidNotifierProvider)));
 
 class SavedNewsRepository {
-  final CollectionReference<NewsPiece> _mySavedNewsCollectionRef;
+  final CollectionReference<NewsPiece?> _mySavedNewsCollectionRef;
 
   SavedNewsRepository(String myId)
       : _mySavedNewsCollectionRef = FirebaseFirestore.instance
@@ -15,8 +15,9 @@ class SavedNewsRepository {
             .doc(myId)
             .collection('saved_news')
             .withConverter(
-              fromFirestore: (snap, _) => NewsPiece.fromJson(snap.data()!),
-              toFirestore: (piece, _) => piece.toJson()
+              fromFirestore: (snap, _) =>
+                  snap.exists ? NewsPiece.fromJson(snap.data()!) : null,
+              toFirestore: (piece, _) => piece!.toJson()
                 ..addAll({'dateSaved': DateTime.now().toIso8601String()}),
             );
 
@@ -24,7 +25,24 @@ class SavedNewsRepository {
     return _mySavedNewsCollectionRef
         .orderBy('dateSaved', descending: true)
         .snapshots()
-        .map((snap) => snap.docs.map((doc) => doc.data()).toList());
+        .map((snap) => snap.docs.map((doc) => doc.data()!).toList());
+  }
+
+  Future<NewsPiece?> getSavedPiece(String pieceId) async {
+    // try getting from cache
+    final cachedSnap = await _mySavedNewsCollectionRef
+        .doc(pieceId)
+        .get(const GetOptions(source: Source.cache));
+
+    if (cachedSnap.exists) {
+      return cachedSnap.data()!;
+    }
+
+    // try getting from server
+    return await _mySavedNewsCollectionRef
+        .doc(pieceId)
+        .get(const GetOptions(source: Source.server))
+        .then((snap) => snap.data());
   }
 
   Future<bool> isPieceSaved(String pieceId) async {

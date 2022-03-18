@@ -1,23 +1,37 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:news/modules/news/models/news_piece_model.dart';
 import 'package:news/modules/news/widgets/link_view.dart';
 import 'package:share_plus/share_plus.dart';
 
 class SourcePage extends StatelessWidget {
-  const SourcePage();
+  final String? name;
+  final String? link;
 
-  static const routeName = '/source';
+  const SourcePage({
+    required this.name,
+    required this.link,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final piece = ModalRoute.of(context)!.settings.arguments as NewsPiece;
+    if (name == null || link == null) {
+      return Scaffold(
+        appBar: AppBar(),
+        body: Center(
+          child: Text(
+            'source_not_found'.tr(),
+            style: const TextStyle(fontSize: 16),
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            piece.sourceName,
+            name!,
             style: const TextStyle(
               fontSize: 18,
             ),
@@ -26,17 +40,12 @@ class SourcePage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.star_border),
-          ),
-          IconButton(
-            onPressed: () =>
-                Share.share(piece.sourceName + '\n' + piece.sourceLink),
+            onPressed: () => Share.share(name! + '\n' + link!),
             icon: const Icon(Icons.ios_share),
           ),
         ],
       ),
-      body: LinkView(piece.sourceLink),
+      body: LinkView(link!),
     );
   }
 }

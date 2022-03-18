@@ -26,6 +26,8 @@
   "connect_with": "Connect with {}",
   "sign_in_with": "Sign in with {}",
   "no_news_found": "No news found",
+  "piece_not_found": "This news piece was not found",
+  "source_not_found": "This news source was not found",
   "share": "Share",
   "go_to_page": "Go to page \"{}\"",
   "cancel": "Cancel",

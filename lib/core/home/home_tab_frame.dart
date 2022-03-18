@@ -32,8 +32,9 @@ class HomeTabFrame extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () => showDialog(
-                    context: context,
-                    builder: (_) => const ProfileDialogPage()),
+                  context: context,
+                  builder: (_) => const ProfileDialogPage(),
+                ),
                 icon: Consumer(
                   builder: (_, ref, __) =>
                       ref.watch(photoUrlStreamProvider).maybeWhen(

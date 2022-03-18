@@ -25,7 +25,10 @@ class NewsItemList extends CustomScrollView {
             else
               SliverFillRemaining(
                 child: Center(
-                  child: Text('no_news_found'.tr()),
+                  child: Text(
+                    'no_news_found'.tr(),
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ),
               ),
           ],

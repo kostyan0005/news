@@ -30,7 +30,7 @@ class NewsPiece with _$NewsPiece {
         .parse(item.findElements('pubDate').first.text, true);
 
     return NewsPiece(
-      id: '${guid}_${pubDate.millisecondsSinceEpoch}',
+      id: '$guid${pubDate.millisecondsSinceEpoch}',
       link: item.findElements('link').first.text,
       title: title,
       sourceName: sourceName,

@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
-import 'package:news/modules/news/pages/source_page.dart';
-import 'package:news/modules/news/providers/piece_saved_status_provider.dart';
 import 'package:news/modules/news/repositories/saved_news_repository.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:share_plus/share_plus.dart';
+
+final pieceSavedStatusProvider = FutureProvider.autoDispose
+    .family<bool, String>((ref, pieceId) =>
+        ref.read(savedNewsRepositoryProvider).isPieceSaved(pieceId));
 
 class OptionsSheet extends StatelessWidget {
   final NewsPiece piece;
@@ -44,8 +47,13 @@ class OptionsSheet extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () => Navigator.of(context)
-                .popAndPushNamed(SourcePage.routeName, arguments: piece),
+            onTap: () {
+              Navigator.pop(context);
+              context.pushNamed('source', queryParams: {
+                'name': piece.sourceName,
+                'link': piece.sourceLink,
+              });
+            },
             child: ListTile(
               leading: const Icon(Icons.open_in_new),
               title: Text('go_to_page'.tr(args: [piece.sourceName])),

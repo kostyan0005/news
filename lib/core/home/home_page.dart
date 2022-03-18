@@ -10,8 +10,6 @@ final bottomBarIndexProvider = StateProvider((_) => 0);
 class HomePage extends ConsumerWidget {
   const HomePage();
 
-  static const routeName = '/';
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(bottomBarIndexProvider);

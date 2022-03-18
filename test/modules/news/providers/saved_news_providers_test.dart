@@ -2,9 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
-import 'package:news/modules/news/providers/piece_saved_status_provider.dart';
-import 'package:news/modules/news/providers/saved_news_stream_provider.dart';
+import 'package:news/modules/news/pages/saved_news_page.dart';
 import 'package:news/modules/news/repositories/saved_news_repository.dart';
+import 'package:news/modules/news/widgets/options_sheet.dart';
 
 class MockSavedNewsRepository extends Mock implements SavedNewsRepository {}
 
