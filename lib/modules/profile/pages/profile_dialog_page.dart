@@ -3,8 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news/modules/profile/models/login_provider_enum.dart';
-import 'package:news/modules/profile/pages/locale_selection_page.dart';
 import 'package:news/modules/profile/widgets/login_provider_card.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:news/widgets/indicators.dart';
@@ -158,8 +158,8 @@ class ProfileDialogPage extends ConsumerWidget {
                                 ),
                               ),
                               ListTile(
-                                onTap: () => Navigator.of(context)
-                                    .pushNamed(LocaleSelectionPage.routeName),
+                                onTap: () =>
+                                    context.pushNamed('locale_selection'),
                                 contentPadding: _tilePadding,
                                 title: Text(
                                   'language_region'.tr(),

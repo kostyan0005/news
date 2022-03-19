@@ -21,24 +21,32 @@ class HistoryRepository {
                 ..addAll({'lastVisited': DateTime.now().toIso8601String()}),
             );
 
-  Future<NewsPiece?> getPieceFromHistory(String pieceId) async {
-    // try getting from cache
-    final cachedSnap = await _myHistoryCollectionRef
-        .doc(pieceId)
-        .get(const GetOptions(source: Source.cache));
-
-    if (cachedSnap.exists) {
-      return cachedSnap.data()!;
-    }
-
-    // try getting from server
-    return await _myHistoryCollectionRef
-        .doc(pieceId)
-        .get(const GetOptions(source: Source.server))
-        .then((snap) => snap.data());
-  }
+  Future<NewsPiece?> getPieceFromHistory(String pieceId) =>
+      getPieceFromCacheThenServer(pieceId, _myHistoryCollectionRef);
 
   Future<void> addPieceToHistory(NewsPiece piece) async {
     await _myHistoryCollectionRef.doc(piece.id).set(piece);
+  }
+
+  static Future<NewsPiece?> getPieceFromCacheThenServer(
+      String pieceId, CollectionReference<NewsPiece?> collectionRef) async {
+    try {
+      // try getting from cache
+      final cachedSnap = await collectionRef
+          .doc(pieceId)
+          .get(const GetOptions(source: Source.cache));
+
+      if (cachedSnap.exists) {
+        return cachedSnap.data()!;
+      }
+    } catch (_) {
+      // for some reason error is thrown if not present in cache
+    }
+
+    // try getting from server
+    return await collectionRef
+        .doc(pieceId)
+        .get(const GetOptions(source: Source.server))
+        .then((snap) => snap.data());
   }
 }

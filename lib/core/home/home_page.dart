@@ -1,9 +1,7 @@
-import 'package:auth/auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/pages/all.dart';
-import 'package:news/widgets/indicators.dart';
 
 final bottomBarIndexProvider = StateProvider((_) => 0);
 
@@ -15,17 +13,14 @@ class HomePage extends ConsumerWidget {
     final index = ref.watch(bottomBarIndexProvider);
 
     return Scaffold(
-      body: ref.watch(anonymousSingInProvider).maybeWhen(
-            data: (_) => IndexedStack(
-              index: index,
-              children: const [
-                HeadlineTabsPage(),
-                SubscriptionsPage(),
-                SavedNewsPage(),
-              ],
-            ),
-            orElse: () => const LoadingIndicator(),
-          ),
+      body: IndexedStack(
+        index: index,
+        children: const [
+          HeadlineTabsPage(),
+          SubscriptionsPage(),
+          SavedNewsPage(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
         onTap: (newIndex) =>

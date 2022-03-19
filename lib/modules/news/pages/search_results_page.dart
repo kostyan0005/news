@@ -4,19 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/providers/subscription_status_notifier_provider.dart';
 import 'package:news/modules/news/widgets/rss_news_list.dart';
+import 'package:news/modules/profile/repositories/user_settings_repository.dart';
 import 'package:news/utils/rss_utils.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
-class SearchResultsPage extends StatelessWidget {
-  const SearchResultsPage();
+class SearchResultsPage extends ConsumerWidget {
+  final String queryText;
+  final String? queryLocale;
+  final bool isSubscribed;
 
-  static const routeName = '/results';
+  const SearchResultsPage({
+    required this.queryText,
+    required this.queryLocale,
+    required this.isSubscribed,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    final searchQuery =
-        ModalRoute.of(context)!.settings.arguments as SearchQuery;
-    final rssUrl = getSearchQueryNewsUrl(searchQuery.text, searchQuery.locale);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locale =
+        queryLocale ?? ref.watch(userSettingsRepositoryProvider).myLocale;
+    final rssUrl = getSearchQueryNewsUrl(queryText, locale);
+
+    final query = SearchQuery(
+      text: queryText,
+      locale: locale,
+      isSubscribed: isSubscribed,
+    );
 
     return Scaffold(
       body: NestedScrollView(
@@ -27,7 +40,7 @@ class SearchResultsPage extends StatelessWidget {
               title: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  searchQuery.text,
+                  queryText,
                   style: const TextStyle(
                     fontSize: 18,
                   ),
@@ -35,11 +48,9 @@ class SearchResultsPage extends StatelessWidget {
               ),
               centerTitle: true,
               actions: [
-                Consumer(
-                    builder: (_, ref, __) => ref.watch(
-                            subscriptionStatusNotifierProvider(searchQuery))
-                        ? _UnsubscribeButton(searchQuery)
-                        : _SubscribeButton(searchQuery)),
+                ref.watch(subscriptionStatusNotifierProvider(query))
+                    ? _UnsubscribeButton(query)
+                    : _SubscribeButton(query),
               ],
             ),
           ];

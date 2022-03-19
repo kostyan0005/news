@@ -21,7 +21,8 @@ class NewsPiece with _$NewsPiece {
       _$NewsPieceFromJson(json);
 
   factory NewsPiece.fromXml(XmlElement item) {
-    final guid = item.findElements('guid').first.text;
+    var guid = item.findElements('guid').first.text;
+    if (guid.length > 10) guid = guid.substring(0, 10);
     final titleWithSource = item.findElements('title').first.text;
     final source = item.findElements('source').first;
     final sourceName = source.text;
@@ -30,7 +31,7 @@ class NewsPiece with _$NewsPiece {
         .parse(item.findElements('pubDate').first.text, true);
 
     return NewsPiece(
-      id: '$guid${pubDate.millisecondsSinceEpoch}',
+      id: '$guid${pubDate.millisecondsSinceEpoch / 1000}', // has 20 chars
       link: item.findElements('link').first.text,
       title: title,
       sourceName: sourceName,

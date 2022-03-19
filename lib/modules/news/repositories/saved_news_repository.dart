@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 
+import 'history_repository.dart';
+
 final savedNewsRepositoryProvider =
     Provider((ref) => SavedNewsRepository(ref.watch(uidNotifierProvider)));
 
@@ -28,22 +30,9 @@ class SavedNewsRepository {
         .map((snap) => snap.docs.map((doc) => doc.data()!).toList());
   }
 
-  Future<NewsPiece?> getSavedPiece(String pieceId) async {
-    // try getting from cache
-    final cachedSnap = await _mySavedNewsCollectionRef
-        .doc(pieceId)
-        .get(const GetOptions(source: Source.cache));
-
-    if (cachedSnap.exists) {
-      return cachedSnap.data()!;
-    }
-
-    // try getting from server
-    return await _mySavedNewsCollectionRef
-        .doc(pieceId)
-        .get(const GetOptions(source: Source.server))
-        .then((snap) => snap.data());
-  }
+  Future<NewsPiece?> getSavedPiece(String pieceId) =>
+      HistoryRepository.getPieceFromCacheThenServer(
+          pieceId, _mySavedNewsCollectionRef);
 
   Future<bool> isPieceSaved(String pieceId) async {
     return await _mySavedNewsCollectionRef

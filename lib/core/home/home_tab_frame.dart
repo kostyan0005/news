@@ -1,8 +1,8 @@
 import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news/modules/profile/pages/profile_dialog_page.dart';
-import 'package:news/modules/news/pages/search_text_page.dart';
 
 class HomeTabFrame extends StatelessWidget {
   final String title;
@@ -23,8 +23,7 @@ class HomeTabFrame extends StatelessWidget {
         return [
           SliverAppBar(
             leading: IconButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, SearchTextPage.routeName),
+              onPressed: () => context.pushNamed('search_text'),
               icon: const Icon(Icons.search),
             ),
             title: Text(title),

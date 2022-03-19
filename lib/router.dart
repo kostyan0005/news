@@ -38,22 +38,25 @@ final router = GoRouter(
         link: state.queryParams['link'],
       ),
     ),
-    // todo
+    // todo: try updating 'text' query param on each keystroke
+    // todo: if not possible, then just enable putting param content into text field
     GoRoute(
-      name: 'search',
-      path: SearchTextPage.routeName,
-      builder: (_, __) => const SearchTextPage(),
+      name: 'search_text',
+      path: '/search',
+      builder: (_, state) => const SearchTextPage(),
     ),
-    // todo
     GoRoute(
-      name: 'results',
-      path: SearchResultsPage.routeName,
-      builder: (_, __) => const SearchResultsPage(),
+      name: 'search_results',
+      path: '/search/:text',
+      builder: (_, state) => SearchResultsPage(
+        queryText: state.params['text']!,
+        queryLocale: state.queryParams['locale'],
+        isSubscribed: state.queryParams['subscribed'] == 'true',
+      ),
     ),
-    // todo
     GoRoute(
-      name: 'locale',
-      path: LocaleSelectionPage.routeName,
+      name: 'locale_selection',
+      path: '/locale',
       builder: (_, __) => const LocaleSelectionPage(),
     ),
   ],

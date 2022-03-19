@@ -32,8 +32,9 @@ void mainCommon(FirebaseOptions options) async {
   // FirebaseFirestore.instance.useFirestoreEmulator(host, 8080);
   // await FirebaseAuth.instance.useAuthEmulator(host, 9099);
 
-  // set firebase auth instance
+  // set auth instance and sign in
   AuthRepository.instance.setAuthInstance(FirebaseAuth.instance);
+  await AuthRepository.instance.signInAnonymouslyIfNeeded();
 
   runApp(
     EasyLocalization(

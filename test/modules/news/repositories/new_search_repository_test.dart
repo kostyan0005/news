@@ -29,7 +29,8 @@ void main() {
   ''';
 
   final expectedPubDate = DateTime.utc(2022, 02, 21, 01, 59, 09);
-  final expectedId = '1300278734_${expectedPubDate.millisecondsSinceEpoch}';
+  final expectedId =
+      '1300278734${expectedPubDate.millisecondsSinceEpoch / 1000}';
   const expectedLink = 'https://news.google.com/__i/rss/rd/articles'
       '/CBMiNmh0dHBzOi8vd3d3LnByYXZkYS5jb20udWEvcnV'
       'zL25ld3MvMjAyMi8wMi8yMS83MzI0NzM4L9IBAA?oc=5';

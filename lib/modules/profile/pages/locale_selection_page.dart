@@ -8,8 +8,6 @@ import 'package:news/utils/snackbar_utils.dart';
 class LocaleSelectionPage extends ConsumerWidget {
   const LocaleSelectionPage();
 
-  static const routeName = '/locale';
-
   void _changeLocale(String locale, WidgetRef ref, BuildContext context) async {
     await ref.read(userSettingsRepositoryProvider).updateLocale(locale);
     showSnackBarMessage(context, 'locale_changed_message'.tr());
@@ -28,7 +26,10 @@ class LocaleSelectionPage extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text('select_locale'.tr()),
+            child: Text(
+              'select_locale'.tr(),
+              style: const TextStyle(fontSize: 16),
+            ),
           ),
           ListTile(
             onTap: () => _changeLocale('ru_UA', ref, context),

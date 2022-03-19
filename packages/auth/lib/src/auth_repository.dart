@@ -11,6 +11,7 @@ enum SignInResult {
   accountInUse,
 }
 
+// todo: fix sign in on web
 class AuthRepository {
   static final _instance = AuthRepository();
   static AuthRepository get instance => _instance;

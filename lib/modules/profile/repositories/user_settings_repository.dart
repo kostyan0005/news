@@ -19,7 +19,7 @@ class UserSettingsRepository {
 
   Stream<UserSettings> getSettingsStream() async* {
     final snapshotStream = _mySettingsRef.snapshots().handleError((e) =>
-        // mute permission-denied error
+        // do not log permission-denied error
         e is FirebaseException && e.code == 'permission-denied'
             ? null
             : Logger().e(e));
