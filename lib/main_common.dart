@@ -8,12 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import 'firebase_options_dev.dart' as dev;
+import 'firebase_options_prod.dart' as prod;
 import 'router.dart';
 import 'utils/custom_ru_messages.dart';
 import 'utils/register_web_webview_stub.dart'
     if (dart.library.html) 'utils/register_web_webview.dart';
 
-void mainCommon(FirebaseOptions options) async {
+void mainCommon({required bool isProd}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   EasyLocalization.logger.enableLevels = [
@@ -22,7 +24,11 @@ void mainCommon(FirebaseOptions options) async {
   ];
 
   await Future.wait([
-    Firebase.initializeApp(options: options),
+    Firebase.initializeApp(
+      options: isProd
+          ? prod.DefaultFirebaseOptions.currentPlatform
+          : dev.DefaultFirebaseOptions.currentPlatform,
+    ),
     EasyLocalization.ensureInitialized(),
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
   ]);
@@ -33,7 +39,7 @@ void mainCommon(FirebaseOptions options) async {
   // await FirebaseAuth.instance.useAuthEmulator(host, 9099);
 
   // set auth instance and sign in
-  AuthRepository.instance.setAuthInstance(FirebaseAuth.instance);
+  AuthRepository.instance.setAuthInstance(FirebaseAuth.instance, isProd);
   await AuthRepository.instance.signInAnonymouslyIfNeeded();
 
   runApp(

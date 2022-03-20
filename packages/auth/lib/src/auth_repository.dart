@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
+import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 enum SignInResult {
@@ -11,12 +12,12 @@ enum SignInResult {
   accountInUse,
 }
 
-// todo: fix sign in on web
 class AuthRepository {
   static final _instance = AuthRepository();
   static AuthRepository get instance => _instance;
 
   late final FirebaseAuth _auth;
+  late final bool _isProd;
 
   User get _me => _auth.currentUser!;
   String get myId => _me.uid;
@@ -25,8 +26,9 @@ class AuthRepository {
       _auth.userChanges().where((u) => u != null).cast<User>();
   Stream<String> get uidStream => userChangesStream.map((u) => u.uid);
 
-  void setAuthInstance(FirebaseAuth auth) {
+  void setAuthInstance(FirebaseAuth auth, bool isProd) {
     _auth = auth;
+    _isProd = isProd;
   }
 
   Future<void> signInAnonymouslyIfNeeded() async {
@@ -69,8 +71,22 @@ class AuthRepository {
   }
 
   Future<SignInResult> connectWithGoogle() async {
-    final googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) return SignInResult.cancelled;
+    late final GoogleSignInAccount? googleUser;
+    try {
+      final googleSignIn = GoogleSignIn(
+        clientId: _isProd
+            ? '966196182204-j3ml51ve1hlotal7sa0s013mbln3mddd.apps.googleusercontent.com'
+            : '174952535817-ia55sjfvjrb7qnlf5l513ugbcrf2prem.apps.googleusercontent.com',
+      );
+
+      googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        return SignInResult.cancelled;
+      }
+    } catch (e, s) {
+      Logger().e(e, 'Google sign in error', s);
+      return SignInResult.failed;
+    }
 
     final googleAuth = await googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
@@ -98,15 +114,21 @@ class AuthRepository {
 
   Future<SignInResult> connectWithTwitter(
       String apiKey, String secretKey, String redirectUri) async {
-    final twitterLogin = TwitterLogin(
-      apiKey: apiKey,
-      apiSecretKey: secretKey,
-      redirectURI: redirectUri,
-    );
+    late final AuthResult result;
+    try {
+      final twitterLogin = TwitterLogin(
+        apiKey: apiKey,
+        apiSecretKey: secretKey,
+        redirectURI: redirectUri,
+      );
 
-    final result = await twitterLogin.login();
+      result = await twitterLogin.login();
+    } catch (e, s) {
+      Logger().e(e, 'Twitter login error', s);
+      return SignInResult.failed;
+    }
+
     final status = result.status;
-
     if (status == TwitterLoginStatus.cancelledByUser) {
       return SignInResult.cancelled;
     } else if (status == TwitterLoginStatus.error) {

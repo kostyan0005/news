@@ -6,7 +6,8 @@ import 'package:news/modules/profile/models/login_provider_enum.dart';
 import 'package:news/utils/account_in_use_dialog.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
-final isLoadingProvider = StateProvider((_) => false);
+final isLoadingProvider =
+    StateProvider.autoDispose.family<bool, LoginProvider>((ref, _) => false);
 
 class LoginProviderCard extends ConsumerWidget {
   final LoginProvider provider;
@@ -22,7 +23,7 @@ class LoginProviderCard extends ConsumerWidget {
   void _signOut(WidgetRef ref, BuildContext context) async {
     if (isActionInProgress) return;
     isActionInProgress = true;
-    ref.read(isLoadingProvider.notifier).state = true;
+    ref.read(isLoadingProvider(provider).notifier).state = true;
 
     await AuthRepository.instance.signOut();
 
@@ -33,7 +34,7 @@ class LoginProviderCard extends ConsumerWidget {
   void _connectWithProvider(WidgetRef ref, BuildContext context) async {
     if (isActionInProgress) return;
     isActionInProgress = true;
-    ref.read(isLoadingProvider.notifier).state = true;
+    ref.read(isLoadingProvider(provider).notifier).state = true;
 
     final result = await provider.getConnectionFunction().call();
     switch (result) {
@@ -52,7 +53,7 @@ class LoginProviderCard extends ConsumerWidget {
     }
 
     isActionInProgress = false;
-    ref.read(isLoadingProvider.notifier).state = false;
+    ref.read(isLoadingProvider(provider).notifier).state = false;
   }
 
   @override
@@ -72,7 +73,7 @@ class LoginProviderCard extends ConsumerWidget {
             color: Colors.white,
             size: 18,
           ),
-          title: !ref.watch(isLoadingProvider)
+          title: !ref.watch(isLoadingProvider(provider))
               ? Text(
                   provider == LoginProvider.logout
                       ? 'sign_out'
