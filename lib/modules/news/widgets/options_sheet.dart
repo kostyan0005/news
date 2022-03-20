@@ -38,6 +38,8 @@ class OptionsSheet extends StatelessWidget {
             ),
           InkWell(
             onTap: () {
+              // todo: on piece sharing, switch from piece original link to in-app link
+              // todo: additionally process sharedFrom parameter when piece link is shared
               Navigator.pop(context);
               Share.share(piece.title + ': ' + piece.link);
             },

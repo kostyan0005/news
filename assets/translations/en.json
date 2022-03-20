@@ -35,5 +35,6 @@
   "remove": "Remove from saved news",
   "saved_message": "Added to saved news",
   "unsaved_message": "Removed from saved news",
+  "enter_search_query": "Please enter a search query",
   "not_implemented_message": "Not implemented yet"
 }

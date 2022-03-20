@@ -23,7 +23,7 @@ class HomeTabFrame extends StatelessWidget {
         return [
           SliverAppBar(
             leading: IconButton(
-              onPressed: () => context.pushNamed('search_text'),
+              onPressed: () => context.goNamed('search_text'),
               icon: const Icon(Icons.search),
             ),
             title: Text(title),

@@ -1,30 +1,77 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:news/utils/snackbar_utils.dart';
 
-final searchTextProvider = StateProvider((_) => '');
+class SearchTextPage extends StatefulWidget {
+  final String text;
 
-class SearchTextPage extends ConsumerWidget {
-  const SearchTextPage();
+  const SearchTextPage({
+    required ValueKey<String> key,
+    required this.text,
+  }) : super(key: key);
 
-  void _goToSearchResults(WidgetRef ref, BuildContext context) {
-    final searchText = ref.read(searchTextProvider.notifier).state;
-    if (searchText.isNotEmpty) {
-      context.pushNamed('search_results', params: {'text': searchText});
+  @override
+  State<SearchTextPage> createState() => _SearchTextPageState();
+}
+
+class _SearchTextPageState extends State<SearchTextPage>
+    with AutomaticKeepAliveClientMixin {
+  final _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _updateTextAndCursorPosition();
+  }
+
+  @override
+  void didUpdateWidget(covariant SearchTextPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _updateTextAndCursorPosition();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  void _updateTextAndCursorPosition() {
+    _controller.text = widget.text;
+    _controller.selection = TextSelection.fromPosition(
+      TextPosition(offset: widget.text.length),
+    );
+  }
+
+  void _goToSearchResults() {
+    final text = _controller.text.trim();
+    if (text.isNotEmpty) {
+      context.pushNamed('search_results', params: {'text': text});
+    } else {
+      showSnackBarMessage(context, 'enter_search_query'.tr());
     }
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    super.build(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
           title: TextField(
-            onChanged: (text) =>
-                ref.read(searchTextProvider.notifier).state = text,
-            onSubmitted: (_) => _goToSearchResults(ref, context),
+            controller: _controller,
+            onChanged: (text) => Router.neglect(
+              context,
+              () => context.goNamed(
+                'search_text',
+                queryParams: {
+                  if (text.isNotEmpty) 'text': text,
+                },
+              ),
+            ),
+            onSubmitted: (_) => _goToSearchResults(),
             autofocus: true,
             cursorColor: Colors.white,
             textCapitalization: TextCapitalization.sentences,
@@ -53,7 +100,7 @@ class SearchTextPage extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 10),
             child: TextButton(
-              onPressed: () => _goToSearchResults(ref, context),
+              onPressed: () => _goToSearchResults(),
               style: TextButton.styleFrom(
                 primary: Colors.white,
                 backgroundColor: Colors.teal,
@@ -67,4 +114,7 @@ class SearchTextPage extends ConsumerWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
