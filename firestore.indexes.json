@@ -1,26 +1,95 @@
 {
-  // Example:
-  //
-  // "indexes": [
-  //   {
-  //     "collectionGroup": "widgets",
-  //     "queryScope": "COLLECTION",
-  //     "fields": [
-  //       { "fieldPath": "foo", "arrayConfig": "CONTAINS" },
-  //       { "fieldPath": "bar", "mode": "DESCENDING" }
-  //     ]
-  //   },
-  //
-  //  "fieldOverrides": [
-  //    {
-  //      "collectionGroup": "widgets",
-  //      "fieldPath": "baz",
-  //      "indexes": [
-  //        { "order": "ASCENDING", "queryScope": "COLLECTION" }
-  //      ]
-  //    },
-  //   ]
-  // ]
   "indexes": [],
-  "fieldOverrides": []
+  "fieldOverrides": [
+    {
+      "collectionGroup": "history",
+      "fieldPath": "id",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "history",
+      "fieldPath": "isSaved",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "history",
+      "fieldPath": "link",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "history",
+      "fieldPath": "pubDate",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "history",
+      "fieldPath": "sourceLink",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "history",
+      "fieldPath": "sourceName",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "history",
+      "fieldPath": "title",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "saved_news",
+      "fieldPath": "id",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "saved_news",
+      "fieldPath": "isSaved",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "saved_news",
+      "fieldPath": "link",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "saved_news",
+      "fieldPath": "pubDate",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "saved_news",
+      "fieldPath": "sourceLink",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "saved_news",
+      "fieldPath": "sourceName",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "saved_news",
+      "fieldPath": "title",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "subscriptions",
+      "fieldPath": "isSubscribed",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "subscriptions",
+      "fieldPath": "locale",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "subscriptions",
+      "fieldPath": "text",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "users",
+      "fieldPath": "locale",
+      "indexes": []
+    }
+  ]
 }
