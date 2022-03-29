@@ -401,7 +401,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.4"
+    version: "3.0.6"
   google_sign_in:
     dependency: transitive
     description:

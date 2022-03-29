@@ -43,6 +43,7 @@ class HeadlineTabsPage extends ConsumerWidget {
         ),
         body: localeStreamState.when(
           data: (locale) => TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
             children: [
               for (final headline in headlines)
                 RssNewsList(headline.getRssUrl(locale))

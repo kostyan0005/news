@@ -15,8 +15,7 @@ class SearchTextPage extends StatefulWidget {
   State<SearchTextPage> createState() => _SearchTextPageState();
 }
 
-class _SearchTextPageState extends State<SearchTextPage>
-    with AutomaticKeepAliveClientMixin {
+class _SearchTextPageState extends State<SearchTextPage> {
   final _controller = TextEditingController();
 
   @override
@@ -55,66 +54,68 @@ class _SearchTextPageState extends State<SearchTextPage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: TextField(
-            controller: _controller,
-            onChanged: (text) => Router.neglect(
-              context,
-              () => context.goNamed(
-                'search_text',
-                queryParams: {
-                  if (text.isNotEmpty) 'text': text,
-                },
+    return WillPopScope(
+      onWillPop: () async {
+        context.goNamed('home');
+        return false;
+      },
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: TextField(
+              controller: _controller,
+              onChanged: (text) => Router.neglect(
+                context,
+                () => context.goNamed(
+                  'search_text',
+                  queryParams: {
+                    if (text.isNotEmpty) 'text': text,
+                  },
+                ),
               ),
-            ),
-            onSubmitted: (_) => _goToSearchResults(),
-            autofocus: true,
-            cursorColor: Colors.white,
-            textCapitalization: TextCapitalization.sentences,
-            textInputAction: TextInputAction.search,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-            ),
-            decoration: InputDecoration(
-              isDense: true,
-              hintText: 'search_text'.tr(),
-              hintStyle: const TextStyle(
-                color: Colors.white70,
+              onSubmitted: (_) => _goToSearchResults(),
+              autofocus: true,
+              cursorColor: Colors.white,
+              textCapitalization: TextCapitalization.sentences,
+              textInputAction: TextInputAction.search,
+              style: const TextStyle(
+                color: Colors.white,
                 fontSize: 15,
               ),
-              hintMaxLines: 1,
-              enabledBorder: InputBorder.none,
-              focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white70),
+              decoration: InputDecoration(
+                isDense: true,
+                hintText: 'search_text'.tr(),
+                hintStyle: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 15,
+                ),
+                hintMaxLines: 1,
+                enabledBorder: InputBorder.none,
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white70),
+                ),
               ),
             ),
           ),
-        ),
-        body: Align(
-          alignment: Alignment.topCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: TextButton(
-              onPressed: () => _goToSearchResults(),
-              style: TextButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: Colors.teal,
-                textStyle: const TextStyle(fontSize: 15),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+          body: Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: TextButton(
+                onPressed: () => _goToSearchResults(),
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.teal,
+                  textStyle: const TextStyle(fontSize: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                ),
+                child: Text('search'.tr()),
               ),
-              child: Text('search'.tr()),
             ),
           ),
         ),
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
