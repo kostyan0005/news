@@ -10,23 +10,32 @@ class HistoryRepository {
   final CollectionReference<NewsPiece?> _myHistoryCollectionRef;
 
   HistoryRepository(String myId)
-      : _myHistoryCollectionRef = FirebaseFirestore.instance
-            .collection('users')
-            .doc(myId)
-            .collection('history')
-            .withConverter(
-              fromFirestore: (snap, _) =>
-                  snap.exists ? NewsPiece.fromJson(snap.data()!) : null,
-              toFirestore: (piece, _) => piece!.toJson()
-                ..addAll({'lastVisited': DateTime.now().toIso8601String()}),
-            );
-
-  Future<NewsPiece?> getPieceFromHistory(String pieceId) =>
-      getPieceFromCacheThenServer(pieceId, _myHistoryCollectionRef);
+      : _myHistoryCollectionRef = _getHistoryCollectionRef(myId);
 
   Future<void> addPieceToHistory(NewsPiece piece) async {
     await _myHistoryCollectionRef.doc(piece.id).set(piece);
   }
+
+  Future<NewsPiece?> getPieceFromHistory(String pieceId, String? sharedFrom) =>
+      getPieceFromCacheThenServer(
+        pieceId,
+        sharedFrom != null
+            ? _getHistoryCollectionRef(sharedFrom)
+            : _myHistoryCollectionRef,
+      );
+
+  static CollectionReference<NewsPiece?> _getHistoryCollectionRef(
+          String userId) =>
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('history')
+          .withConverter(
+            fromFirestore: (snap, _) =>
+                snap.exists ? NewsPiece.fromJson(snap.data()!) : null,
+            toFirestore: (piece, _) => piece!.toJson()
+              ..addAll({'lastVisited': DateTime.now().toIso8601String()}),
+          );
 
   static Future<NewsPiece?> getPieceFromCacheThenServer(
       String pieceId, CollectionReference<NewsPiece?> collectionRef) async {

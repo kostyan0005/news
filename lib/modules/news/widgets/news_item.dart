@@ -13,7 +13,9 @@ class NewsItem extends ConsumerWidget {
   const NewsItem(this.piece);
 
   void _showOptionsSheet(BuildContext context) => showModalBottomSheet(
-      context: context, builder: (_) => OptionsSheet(piece));
+        context: context,
+        builder: (_) => OptionsSheet(piece),
+      );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,8 +23,11 @@ class NewsItem extends ConsumerWidget {
       child: InkWell(
         onTap: () {
           ref.read(historyRepositoryProvider).addPieceToHistory(piece);
-          context.pushNamed(piece.isSaved ? 'saved_piece' : 'piece',
-              params: {'id': piece.id});
+
+          context.pushNamed(
+            piece.isSaved ? 'saved_piece' : 'piece',
+            params: {'id': piece.id},
+          );
         },
         onLongPress: () => _showOptionsSheet(context),
         child: Padding(

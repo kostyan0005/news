@@ -37,15 +37,16 @@ final router = GoRouter(
       name: 'piece',
       path: '/piece/:id',
       builder: (_, state) => NewsPiecePage(
-        id: state.params['id']!,
+        pieceId: state.params['id']!,
         fromSaved: false,
+        sharedFrom: state.queryParams['from'],
       ),
     ),
     GoRoute(
       name: 'saved_piece',
       path: '/saved/:id',
       builder: (_, state) => NewsPiecePage(
-        id: state.params['id']!,
+        pieceId: state.params['id']!,
         fromSaved: true,
       ),
     ),

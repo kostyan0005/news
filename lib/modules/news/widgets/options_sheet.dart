@@ -1,7 +1,9 @@
+import 'package:auth/auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:news/config/constants.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 import 'package:news/modules/news/repositories/saved_news_repository.dart';
 import 'package:news/utils/snackbar_utils.dart';
@@ -37,11 +39,12 @@ class OptionsSheet extends StatelessWidget {
                       ),
             ),
           InkWell(
-            onTap: () {
-              // todo: on piece sharing, switch from piece original link to in-app link
-              // todo: additionally process sharedFrom parameter when piece link is shared
+            onTap: () async {
+              final sharedLink = '$kWebsiteUrl/piece/${piece.id}'
+                  '?from=${AuthRepository.instance.myId}';
+
+              await Share.share('${piece.title}: $sharedLink');
               Navigator.pop(context);
-              Share.share(piece.title + ': ' + piece.link);
             },
             child: ListTile(
               leading: const Icon(Icons.ios_share),

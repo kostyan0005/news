@@ -10,26 +10,30 @@ import 'package:news/modules/news/widgets/options_sheet.dart';
 import 'package:news/widgets/indicators.dart';
 
 final historyPieceProvider = FutureProvider.autoDispose
-    .family<NewsPiece?, String>((ref, pieceId) =>
-        ref.watch(historyRepositoryProvider).getPieceFromHistory(pieceId));
+    .family<NewsPiece?, _Args>((ref, args) => ref
+        .watch(historyRepositoryProvider)
+        .getPieceFromHistory(args.pieceId, args.sharedFrom));
 
 final savedPieceProvider = FutureProvider.autoDispose
     .family<NewsPiece?, String>((ref, pieceId) =>
         ref.watch(savedNewsRepositoryProvider).getSavedPiece(pieceId));
 
 class NewsPiecePage extends ConsumerWidget {
-  final String id;
+  final String pieceId;
   final bool fromSaved;
+  final String? sharedFrom;
 
   const NewsPiecePage({
-    required this.id,
+    required this.pieceId,
     required this.fromSaved,
+    this.sharedFrom,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider =
-        fromSaved ? savedPieceProvider(id) : historyPieceProvider(id);
+    final provider = fromSaved
+        ? savedPieceProvider(pieceId)
+        : historyPieceProvider(_Args(pieceId, sharedFrom));
 
     return Scaffold(
       appBar: AppBar(
@@ -65,4 +69,21 @@ class NewsPiecePage extends ConsumerWidget {
           ),
     );
   }
+}
+
+class _Args {
+  final String pieceId;
+  final String? sharedFrom;
+
+  const _Args(this.pieceId, this.sharedFrom);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is _Args &&
+          pieceId == other.pieceId &&
+          sharedFrom == other.sharedFrom;
+
+  @override
+  int get hashCode => '$pieceId$sharedFrom'.hashCode;
 }

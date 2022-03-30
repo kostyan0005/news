@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:news/config/constants.dart';
 import 'package:news/modules/news/widgets/link_view.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -40,7 +41,10 @@ class SourcePage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () => Share.share(name! + '\n' + link!),
+            onPressed: () {
+              final sharedLink = '$kWebsiteUrl/source?name=$name&link=$link';
+              Share.share('$name: $sharedLink');
+            },
             icon: const Icon(Icons.ios_share),
           ),
         ],

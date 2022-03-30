@@ -51,6 +51,7 @@ class SearchResultsPage extends ConsumerWidget {
                 ref.watch(subscriptionStatusNotifierProvider(query))
                     ? _UnsubscribeButton(query)
                     : _SubscribeButton(query),
+                // todo: add search results sharing (include locale)
               ],
             ),
           ];
