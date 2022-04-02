@@ -7,6 +7,9 @@ import 'package:news/modules/news/widgets/rss_news_list.dart';
 import 'package:news/modules/profile/repositories/user_settings_repository.dart';
 import 'package:news/utils/rss_utils.dart';
 import 'package:news/utils/snackbar_utils.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../../../config/constants.dart';
 
 class SearchResultsPage extends ConsumerWidget {
   final String queryText;
@@ -51,7 +54,15 @@ class SearchResultsPage extends ConsumerWidget {
                 ref.watch(subscriptionStatusNotifierProvider(query))
                     ? _UnsubscribeButton(query)
                     : _SubscribeButton(query),
-                // todo: add search results sharing (include locale)
+                IconButton(
+                  onPressed: () {
+                    final encodedText = Uri.encodeComponent(queryText);
+                    final sharedLink =
+                        '$kWebsiteUrl/search/$encodedText?locale=$locale';
+                    Share.share('$queryText: $sharedLink');
+                  },
+                  icon: const Icon(Icons.ios_share),
+                ),
               ],
             ),
           ];

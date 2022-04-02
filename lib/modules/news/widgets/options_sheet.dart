@@ -26,32 +26,31 @@ class OptionsSheet extends StatelessWidget {
         children: [
           if (piece.isSaved)
             // piece comes from saved news
-            _RemoveInkWell(piece.id)
+            _RemoveListTile(piece.id)
           else
             // get piece's saved status
             Consumer(
               builder: (_, ref, __) =>
                   ref.watch(pieceSavedStatusProvider(piece.id)).maybeWhen(
                         data: (isSaved) => isSaved
-                            ? _RemoveInkWell(piece.id)
-                            : _SaveInkWell(piece),
-                        orElse: () => _SaveInkWell(piece),
+                            ? _RemoveListTile(piece.id)
+                            : _SaveListTile(piece),
+                        orElse: () => _SaveListTile(piece),
                       ),
             ),
-          InkWell(
-            onTap: () async {
+          ListTile(
+            leading: const Icon(Icons.ios_share),
+            title: Text('share'.tr()),
+            onTap: () {
               final sharedLink = '$kWebsiteUrl/piece/${piece.id}'
                   '?from=${AuthRepository.instance.myId}';
-
-              await Share.share('${piece.title}: $sharedLink');
+              Share.share('${piece.title}: $sharedLink');
               Navigator.pop(context);
             },
-            child: ListTile(
-              leading: const Icon(Icons.ios_share),
-              title: Text('share'.tr()),
-            ),
           ),
-          InkWell(
+          ListTile(
+            leading: const Icon(Icons.open_in_new),
+            title: Text('go_to_page'.tr(args: [piece.sourceName])),
             onTap: () {
               Navigator.pop(context);
               context.pushNamed('source', queryParams: {
@@ -59,17 +58,11 @@ class OptionsSheet extends StatelessWidget {
                 'link': piece.sourceLink,
               });
             },
-            child: ListTile(
-              leading: const Icon(Icons.open_in_new),
-              title: Text('go_to_page'.tr(args: [piece.sourceName])),
-            ),
           ),
-          InkWell(
+          ListTile(
+            leading: const Icon(Icons.close),
+            title: Text('dismiss'.tr()),
             onTap: () => Navigator.pop(context),
-            child: ListTile(
-              leading: const Icon(Icons.close),
-              title: Text('cancel'.tr()),
-            ),
           ),
         ],
       ),
@@ -77,44 +70,40 @@ class OptionsSheet extends StatelessWidget {
   }
 }
 
-class _SaveInkWell extends ConsumerWidget {
+class _SaveListTile extends ConsumerWidget {
   final NewsPiece piece;
 
-  const _SaveInkWell(this.piece);
+  const _SaveListTile(this.piece);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
+    return ListTile(
+      leading: const Icon(Icons.star_border),
+      title: Text('save'.tr()),
       onTap: () {
         ref.read(savedNewsRepositoryProvider).savePiece(piece);
         showSnackBarMessage(context, 'saved_message'.tr());
         Navigator.pop(context);
       },
-      child: ListTile(
-        leading: const Icon(Icons.star_border),
-        title: Text('save'.tr()),
-      ),
     );
   }
 }
 
-class _RemoveInkWell extends ConsumerWidget {
+class _RemoveListTile extends ConsumerWidget {
   final String pieceId;
 
-  const _RemoveInkWell(this.pieceId);
+  const _RemoveListTile(this.pieceId);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
+    return ListTile(
+      leading: const Icon(Icons.delete_outlined),
+      title: Text('remove'.tr()),
       onTap: () {
         ref.read(savedNewsRepositoryProvider).removePiece(pieceId);
         showSnackBarMessage(context, 'unsaved_message'.tr());
         Navigator.pop(context);
       },
-      child: ListTile(
-        leading: const Icon(Icons.delete_outlined),
-        title: Text('remove'.tr()),
-      ),
     );
   }
 }

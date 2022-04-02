@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:news/widgets/indicators.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -14,7 +15,7 @@ class LinkView extends StatefulWidget {
 class _LinkViewState extends State<LinkView> {
   double _percentLoaded = 0;
   bool _hasError = false;
-  bool get _isFullyLoaded => _percentLoaded == 1;
+  bool get _isFullyLoaded => _percentLoaded == 1 || kIsWeb;
 
   @override
   Widget build(BuildContext context) {

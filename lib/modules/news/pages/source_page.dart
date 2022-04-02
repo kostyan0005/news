@@ -42,7 +42,10 @@ class SourcePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              final sharedLink = '$kWebsiteUrl/source?name=$name&link=$link';
+              final encodedName = Uri.encodeComponent(name!);
+              final encodedLink = Uri.encodeComponent(link!);
+              final sharedLink =
+                  '$kWebsiteUrl/source?name=$encodedName&link=$encodedLink';
               Share.share('$name: $sharedLink');
             },
             icon: const Icon(Icons.ios_share),

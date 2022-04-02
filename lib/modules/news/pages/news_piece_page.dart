@@ -43,6 +43,7 @@ class NewsPiecePage extends ConsumerWidget {
                       IconButton(
                         onPressed: () => showModalBottomSheet(
                           context: context,
+                          // todo: figure out what to do for web
                           builder: (_) => OptionsSheet(piece),
                         ),
                         icon: const Icon(Icons.more_horiz),
