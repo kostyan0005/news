@@ -29,18 +29,20 @@ class SubscriptionsRepository {
 
   Future<bool> isSubscribed(String searchText) async {
     return await _mySubscriptionsCollectionRef
-        .doc(searchText.toLowerCase())
+        .doc(Uri.encodeComponent(searchText))
         .get()
         .then((doc) => doc.exists);
   }
 
   Future<void> subscribe(SearchQuery searchQuery) async {
     await _mySubscriptionsCollectionRef
-        .doc(searchQuery.text.toLowerCase())
+        .doc(Uri.encodeComponent(searchQuery.text))
         .set(searchQuery.copyWith(isSubscribed: true));
   }
 
   Future<void> unsubscribe(String searchText) async {
-    await _mySubscriptionsCollectionRef.doc(searchText.toLowerCase()).delete();
+    await _mySubscriptionsCollectionRef
+        .doc(Uri.encodeComponent(searchText))
+        .delete();
   }
 }
