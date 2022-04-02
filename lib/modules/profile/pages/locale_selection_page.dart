@@ -5,7 +5,6 @@ import 'package:news/modules/profile/providers/locale_stream_provider.dart';
 import 'package:news/modules/profile/repositories/user_settings_repository.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
-// todo: close profile dialog after locale is changed
 class LocaleSelectionPage extends ConsumerWidget {
   const LocaleSelectionPage();
 

@@ -15,6 +15,8 @@ class LinkView extends StatefulWidget {
 class _LinkViewState extends State<LinkView> {
   double _percentLoaded = 0;
   bool _hasError = false;
+  /* todo: test if some kind of loading can be shown on the web
+      (in prod on iPhone with 'Xiaomi' and 'Expert' pieces) */
   bool get _isFullyLoaded => _percentLoaded == 1 || kIsWeb;
 
   @override

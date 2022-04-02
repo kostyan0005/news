@@ -12,10 +12,6 @@ import 'package:news/widgets/indicators.dart';
 class ProfileDialogPage extends ConsumerWidget {
   const ProfileDialogPage();
 
-  static const _tilePadding = EdgeInsets.symmetric(
-    horizontal: 30,
-  );
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(signInStatusStreamProvider).maybeWhen(
@@ -25,6 +21,7 @@ class ProfileDialogPage extends ConsumerWidget {
             final withFacebook = status.withFacebook;
             final withTwitter = status.withTwitter;
             final withAll = withGoogle && withFacebook && withTwitter;
+            const tilePadding = EdgeInsets.symmetric(horizontal: 30);
 
             return ScaffoldMessenger(
               child: Builder(
@@ -106,7 +103,7 @@ class ProfileDialogPage extends ConsumerWidget {
                                       ],
                                     ),
                                   ),
-                                  tilePadding: _tilePadding,
+                                  tilePadding: tilePadding,
                                   iconColor: Colors.white,
                                   collapsedIconColor: Colors.white,
                                   children: [
@@ -149,23 +146,21 @@ class ProfileDialogPage extends ConsumerWidget {
                               ),
                               ListTile(
                                 onTap: () => showNotImplementedMessage(context),
-                                contentPadding: _tilePadding,
+                                contentPadding: tilePadding,
                                 title: Text(
                                   'notification_settings'.tr(),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                               ListTile(
-                                onTap: () =>
-                                    context.pushNamed('locale_selection'),
-                                contentPadding: _tilePadding,
+                                onTap: () {
+                                  Navigator.pop(context); // close the dialog
+                                  context.pushNamed('locale_selection');
+                                },
+                                contentPadding: tilePadding,
                                 title: Text(
                                   'language_region'.tr(),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                               const SizedBox(
@@ -192,9 +187,7 @@ class _IconSpan extends WidgetSpan {
   _IconSpan(this.icon)
       : super(
           child: Padding(
-            padding: const EdgeInsets.only(
-              left: 7,
-            ),
+            padding: const EdgeInsets.only(left: 7),
             child: Icon(
               icon,
               color: Colors.white70,
