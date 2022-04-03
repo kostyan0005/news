@@ -38,18 +38,17 @@ class NewsPiecePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         actions: ref.watch(provider).maybeWhen(
-              data: (piece) => piece != null
-                  ? [
-                      IconButton(
-                        onPressed: () => showModalBottomSheet(
-                          context: context,
-                          // todo: figure out what to do for web
-                          builder: (_) => OptionsSheet(piece),
-                        ),
-                        icon: const Icon(Icons.more_horiz),
-                      ),
-                    ]
-                  : null,
+              data: (piece) => [
+                if (piece != null)
+                  IconButton(
+                    icon: const Icon(Icons.more_horiz),
+                    onPressed: () => showOptionsSheet(
+                      ref: ref,
+                      context: context,
+                      piece: piece,
+                    ),
+                  ),
+              ],
               orElse: () => null,
             ),
       ),

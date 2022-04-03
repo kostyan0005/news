@@ -33,14 +33,13 @@ class SourcePage extends StatelessWidget {
           fit: BoxFit.scaleDown,
           child: Text(
             name!,
-            style: const TextStyle(
-              fontSize: 18,
-            ),
+            style: const TextStyle(fontSize: 18),
           ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
+            icon: const Icon(Icons.ios_share),
             onPressed: () {
               final encodedName = Uri.encodeComponent(name!);
               final encodedLink = Uri.encodeComponent(link!);
@@ -48,7 +47,6 @@ class SourcePage extends StatelessWidget {
                   '$kWebsiteUrl/source?name=$encodedName&link=$encodedLink';
               Share.share('$name: $sharedLink');
             },
-            icon: const Icon(Icons.ios_share),
           ),
         ],
       ),

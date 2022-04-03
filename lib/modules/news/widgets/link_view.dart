@@ -1,9 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/widgets/indicators.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class LinkView extends StatefulWidget {
+import 'options_sheet.dart';
+
+final webBottomSheetVisibilityProvider = StateProvider((_) => false);
+
+class LinkView extends ConsumerStatefulWidget {
   final String link;
 
   const LinkView(this.link);
@@ -12,20 +17,25 @@ class LinkView extends StatefulWidget {
   _LinkViewState createState() => _LinkViewState();
 }
 
-class _LinkViewState extends State<LinkView> {
+class _LinkViewState extends ConsumerState<LinkView> {
   double _percentLoaded = 0;
   bool _hasError = false;
-  /* todo: test if some kind of loading can be shown on the web
-      (in prod on iPhone with 'Xiaomi' and 'Expert' pieces) */
   bool get _isFullyLoaded => _percentLoaded == 1 || kIsWeb;
 
   @override
   Widget build(BuildContext context) {
     const indicatorHeight = 10.0;
+    final isWebBottomSheetVisible = ref.watch(webBottomSheetVisibilityProvider);
+
     return Stack(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: _isFullyLoaded ? 0 : indicatorHeight),
+          padding: EdgeInsets.only(
+            top: _isFullyLoaded ? 0 : indicatorHeight,
+            bottom: kIsWeb && isWebBottomSheetVisible
+                ? OptionsSheet.height + MediaQuery.of(context).padding.bottom
+                : 0,
+          ),
           child: WebView(
             initialUrl: widget.link,
             javascriptMode: JavascriptMode.unrestricted,
