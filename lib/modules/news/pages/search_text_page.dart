@@ -37,9 +37,13 @@ class _SearchTextPageState extends State<SearchTextPage> {
   }
 
   void _updateTextAndCursorPosition() {
+    final currentOffset = _controller.selection.baseOffset;
+    final diff = widget.text.length - _controller.text.length;
+    final newOffset = currentOffset + diff;
+
     _controller.text = widget.text;
     _controller.selection = TextSelection.fromPosition(
-      TextPosition(offset: widget.text.length),
+      TextPosition(offset: newOffset),
     );
   }
 
@@ -67,7 +71,7 @@ class _SearchTextPageState extends State<SearchTextPage> {
               data: ThemeData(
                 textSelectionTheme: const TextSelectionThemeData(
                   cursorColor: Colors.white,
-                  selectionColor: Colors.white30,
+                  selectionColor: Colors.white38,
                   selectionHandleColor: Colors.white,
                 ),
               ),
