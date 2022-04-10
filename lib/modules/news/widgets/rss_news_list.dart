@@ -6,7 +6,7 @@ import 'package:news/modules/news/providers/rss_news_notifier_provider.dart';
 import 'package:news/widgets/indicators.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import 'news_item_list.dart';
+import 'news_list.dart';
 
 class RssNewsList extends ConsumerWidget {
   final String rssUrl;
@@ -22,7 +22,7 @@ class RssNewsList extends ConsumerWidget {
             controller: ref.watch(rssProvider.notifier).controller,
             onRefresh: () => ref.read(rssProvider.notifier).refresh(),
             header: const _CustomRefresherHeader(),
-            child: NewsItemList(newsPieces),
+            child: NewsList(newsPieces),
           ),
           loading: () => const LoadingIndicator(),
           error: () => const ErrorIndicator(),

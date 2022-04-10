@@ -63,37 +63,45 @@ class _SearchTextPageState extends State<SearchTextPage> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           appBar: AppBar(
-            title: TextField(
-              controller: _controller,
-              onChanged: (text) => Router.neglect(
-                context,
-                () => context.goNamed(
-                  'search_text',
-                  queryParams: {
-                    if (text.isNotEmpty) 'text': text,
-                  },
+            title: Theme(
+              data: ThemeData(
+                textSelectionTheme: const TextSelectionThemeData(
+                  cursorColor: Colors.white,
+                  selectionColor: Colors.white30,
+                  selectionHandleColor: Colors.white,
                 ),
               ),
-              onSubmitted: (_) => _goToSearchResults(),
-              autofocus: true,
-              cursorColor: Colors.white,
-              textCapitalization: TextCapitalization.sentences,
-              textInputAction: TextInputAction.search,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-              ),
-              decoration: InputDecoration(
-                isDense: true,
-                hintText: 'search_text'.tr(),
-                hintStyle: const TextStyle(
-                  color: Colors.white70,
+              child: TextField(
+                controller: _controller,
+                onChanged: (text) => Router.neglect(
+                  context,
+                  () => context.goNamed(
+                    'search_text',
+                    queryParams: {
+                      if (text.isNotEmpty) 'text': text,
+                    },
+                  ),
+                ),
+                onSubmitted: (_) => _goToSearchResults(),
+                autofocus: true,
+                textCapitalization: TextCapitalization.sentences,
+                textInputAction: TextInputAction.search,
+                style: const TextStyle(
+                  color: Colors.white,
                   fontSize: 15,
                 ),
-                hintMaxLines: 1,
-                enabledBorder: InputBorder.none,
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white70),
+                decoration: InputDecoration(
+                  isDense: true,
+                  hintText: 'search_text'.tr(),
+                  hintStyle: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 15,
+                  ),
+                  hintMaxLines: 1,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white70),
+                  ),
                 ),
               ),
             ),

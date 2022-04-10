@@ -42,7 +42,7 @@ class NewsPiecePage extends ConsumerWidget {
                 if (piece != null)
                   IconButton(
                     icon: const Icon(Icons.more_horiz),
-                    onPressed: () => showOptionsSheet(
+                    onPressed: () => showOptionsSheetOnNewsPiecePage(
                       ref: ref,
                       context: context,
                       piece: piece,

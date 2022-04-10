@@ -19,7 +19,7 @@ class SourcePage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(),
         body: Center(
-          child: Text(
+          child: SelectableText(
             'source_not_found'.tr(),
             style: const TextStyle(fontSize: 16),
           ),

@@ -22,9 +22,7 @@ class SubscriptionsPage extends ConsumerWidget {
                 ? CustomScrollView(
                     slivers: [
                       SliverPadding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 5,
-                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 5),
                         sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (_, index) =>
@@ -36,7 +34,7 @@ class SubscriptionsPage extends ConsumerWidget {
                     ],
                   )
                 : Center(
-                    child: Text(
+                    child: SelectableText(
                       'no_subscriptions'.tr(),
                       style: const TextStyle(fontSize: 16),
                     ),

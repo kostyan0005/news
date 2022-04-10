@@ -26,7 +26,7 @@ class LocaleSelectionPage extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text(
+            child: SelectableText(
               'select_locale'.tr(),
               style: const TextStyle(fontSize: 16),
             ),

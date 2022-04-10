@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/core/home/home_tab_frame.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 import 'package:news/modules/news/repositories/saved_news_repository.dart';
-import 'package:news/modules/news/widgets/news_item_list.dart';
+import 'package:news/modules/news/widgets/news_list.dart';
 import 'package:news/widgets/indicators.dart';
 
 final savedNewsStreamProvider = StreamProvider<List<NewsPiece>>(
@@ -18,7 +18,7 @@ class SavedNewsPage extends ConsumerWidget {
     return HomeTabFrame(
       title: 'saved_news'.tr(),
       body: ref.watch(savedNewsStreamProvider).when(
-            data: (newsPieces) => NewsItemList(newsPieces),
+            data: (newsPieces) => NewsList(newsPieces),
             loading: () => const LoadingIndicator(),
             error: (_, __) => const ErrorIndicator(),
           ),

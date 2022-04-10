@@ -116,7 +116,7 @@ class _RemoveListTile extends ConsumerWidget {
   }
 }
 
-void showOptionsSheet({
+void showOptionsSheetOnNewsPiecePage({
   required WidgetRef ref,
   required BuildContext context,
   required NewsPiece piece,
