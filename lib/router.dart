@@ -6,6 +6,7 @@ import 'modules/profile/pages/locale_selection_page.dart';
 
 final router = GoRouter(
   urlPathStrategy: UrlPathStrategy.path,
+  restorationScopeId: 'router',
   routes: [
     GoRoute(
       name: 'home',
@@ -31,37 +32,37 @@ final router = GoRouter(
             ),
           ],
         ),
+        GoRoute(
+          name: 'piece',
+          path: 'piece/:id',
+          builder: (_, state) => NewsPiecePage(
+            pieceId: state.params['id']!,
+            fromSaved: false,
+            sharedFrom: state.queryParams['from'],
+          ),
+        ),
+        GoRoute(
+          name: 'saved_piece',
+          path: 'saved/:id',
+          builder: (_, state) => NewsPiecePage(
+            pieceId: state.params['id']!,
+            fromSaved: true,
+          ),
+        ),
+        GoRoute(
+          name: 'source',
+          path: 'source',
+          builder: (_, state) => SourcePage(
+            name: state.queryParams['name'],
+            link: state.queryParams['link'],
+          ),
+        ),
+        GoRoute(
+          name: 'locale_selection',
+          path: 'locale',
+          builder: (_, __) => const LocaleSelectionPage(),
+        ),
       ],
-    ),
-    GoRoute(
-      name: 'piece',
-      path: '/piece/:id',
-      builder: (_, state) => NewsPiecePage(
-        pieceId: state.params['id']!,
-        fromSaved: false,
-        sharedFrom: state.queryParams['from'],
-      ),
-    ),
-    GoRoute(
-      name: 'saved_piece',
-      path: '/saved/:id',
-      builder: (_, state) => NewsPiecePage(
-        pieceId: state.params['id']!,
-        fromSaved: true,
-      ),
-    ),
-    GoRoute(
-      name: 'source',
-      path: '/source',
-      builder: (_, state) => SourcePage(
-        name: state.queryParams['name'],
-        link: state.queryParams['link'],
-      ),
-    ),
-    GoRoute(
-      name: 'locale_selection',
-      path: '/locale',
-      builder: (_, __) => const LocaleSelectionPage(),
     ),
   ],
 );

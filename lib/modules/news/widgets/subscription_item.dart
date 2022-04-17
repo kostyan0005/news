@@ -15,7 +15,7 @@ class SubscriptionItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       child: InkWell(
-        onTap: () => context.pushNamed('search_results', params: {
+        onTap: () => context.goNamed('search_results', params: {
           'text': subscription.text,
         }, queryParams: {
           'locale': subscription.locale,

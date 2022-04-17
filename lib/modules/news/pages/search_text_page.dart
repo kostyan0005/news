@@ -50,7 +50,7 @@ class _SearchTextPageState extends State<SearchTextPage> {
   void _goToSearchResults() {
     final text = _controller.text.trim();
     if (text.isNotEmpty) {
-      context.pushNamed('search_results', params: {'text': text});
+      context.goNamed('search_results', params: {'text': text});
     } else {
       showSnackBarMessage(context, 'enter_search_query'.tr());
     }

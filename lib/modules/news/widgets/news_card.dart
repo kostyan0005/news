@@ -23,7 +23,7 @@ class _NewsItemState extends ConsumerState<NewsCard> {
   void _goToNewsPiecePage() {
     ref.read(historyRepositoryProvider).addPieceToHistory(widget.piece);
 
-    context.pushNamed(
+    context.goNamed(
       widget.piece.isSaved ? 'saved_piece' : 'piece',
       params: {'id': widget.piece.id},
     );

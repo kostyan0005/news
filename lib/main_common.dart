@@ -47,7 +47,10 @@ void mainCommon({required bool isProd}) async {
       supportedLocales: const [Locale('en'), Locale('ru')],
       path: 'assets/translations',
       useOnlyLangCode: true,
-      child: MyApp(),
+      child: const RootRestorationScope(
+        restorationId: 'root',
+        child: App(),
+      ),
     ),
   );
 
@@ -67,7 +70,9 @@ void mainCommon({required bool isProd}) async {
   registerWebViewWebImplementation();
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
+  const App();
+
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -75,6 +80,7 @@ class MyApp extends StatelessWidget {
         routeInformationParser: router.routeInformationParser,
         routerDelegate: router.routerDelegate,
         title: 'News',
+        restorationScopeId: 'app',
         theme: ThemeData(
           primarySwatch: Colors.teal,
           scaffoldBackgroundColor: Colors.white.withAlpha(245),

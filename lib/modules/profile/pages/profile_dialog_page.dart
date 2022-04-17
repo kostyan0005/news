@@ -155,7 +155,7 @@ class ProfileDialogPage extends ConsumerWidget {
                               ListTile(
                                 onTap: () {
                                   Navigator.pop(context); // close the dialog
-                                  context.pushNamed('locale_selection');
+                                  context.goNamed('locale_selection');
                                 },
                                 contentPadding: tilePadding,
                                 title: Text(
