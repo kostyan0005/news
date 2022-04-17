@@ -56,6 +56,13 @@ void mainCommon({required bool isProd}) async {
     timeago.setDefaultLocale('ru');
   }
 
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
+
   // platform-dependent
   registerWebViewWebImplementation();
 }
@@ -72,6 +79,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal,
           scaffoldBackgroundColor: Colors.white.withAlpha(245),
         ),
+        themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
