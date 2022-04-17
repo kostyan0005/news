@@ -61,7 +61,7 @@ void mainCommon({required bool isProd}) async {
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.white,
+      systemNavigationBarColor: Color(0xFFFAFAFA),
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );

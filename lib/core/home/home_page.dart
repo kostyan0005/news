@@ -21,11 +21,18 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
   void initState() {
     super.initState();
 
+    // use WidgetsBinding, as ref is probably not available yet in restoreState
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (_showingProfileDialog.value) {
         ref.read(shouldShowProfileDialogProvider.notifier).state = true;
       }
     });
+  }
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_selectedIndex, 'selected_index');
+    registerForRestoration(_showingProfileDialog, 'showing_profile_dialog');
   }
 
   void _showProfileDialog() async {
@@ -85,10 +92,4 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
 
   @override
   String get restorationId => 'home_page';
-
-  @override
-  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_selectedIndex, 'selected_index');
-    registerForRestoration(_showingProfileDialog, 'showing_profile_dialog');
-  }
 }

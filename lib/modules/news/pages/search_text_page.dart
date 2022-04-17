@@ -15,36 +15,50 @@ class SearchTextPage extends StatefulWidget {
   State<SearchTextPage> createState() => _SearchTextPageState();
 }
 
-class _SearchTextPageState extends State<SearchTextPage> {
+class _SearchTextPageState extends State<SearchTextPage> with RestorationMixin {
   final _controller = TextEditingController();
+  final _focusNode = FocusNode();
+  final _text = RestorableString('');
+  final _baseOffset = RestorableInt(0);
 
   @override
   void initState() {
     super.initState();
-    _updateTextAndCursorPosition();
+    // autofocus is not working in case of restoration from search results page
+    _focusNode.requestFocus();
   }
 
   @override
-  void didUpdateWidget(covariant SearchTextPage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _updateTextAndCursorPosition();
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_text, 'text');
+    registerForRestoration(_baseOffset, 'base_offset');
+
+    if (initialRestore) {
+      if (_text.value.isNotEmpty) {
+        _controller.text = _text.value;
+        _controller.selection = TextSelection.fromPosition(
+          TextPosition(offset: _baseOffset.value),
+        );
+      } else if (widget.text.isNotEmpty) {
+        // set text from address bar only when there's nothing to restore
+        _controller.text = widget.text;
+        _controller.selection = TextSelection.fromPosition(
+          TextPosition(offset: widget.text.length),
+        );
+      }
+
+      // add listener only after initialization
+      _controller.addListener(() {
+        _text.value = _controller.text;
+        _baseOffset.value = _controller.selection.baseOffset;
+      });
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
-  }
-
-  void _updateTextAndCursorPosition() {
-    final currentOffset = _controller.selection.baseOffset;
-    final diff = widget.text.length - _controller.text.length;
-    final newOffset = currentOffset + diff;
-
-    _controller.text = widget.text;
-    _controller.selection = TextSelection.fromPosition(
-      TextPosition(offset: newOffset),
-    );
   }
 
   void _goToSearchResults() {
@@ -77,6 +91,7 @@ class _SearchTextPageState extends State<SearchTextPage> {
               ),
               child: TextField(
                 controller: _controller,
+                focusNode: _focusNode,
                 onChanged: (text) => Router.neglect(
                   context,
                   () => context.goNamed(
@@ -87,7 +102,6 @@ class _SearchTextPageState extends State<SearchTextPage> {
                   ),
                 ),
                 onSubmitted: (_) => _goToSearchResults(),
-                autofocus: true,
                 textCapitalization: TextCapitalization.sentences,
                 textInputAction: TextInputAction.search,
                 style: const TextStyle(
@@ -130,4 +144,7 @@ class _SearchTextPageState extends State<SearchTextPage> {
       ),
     );
   }
+
+  @override
+  String get restorationId => 'search_text_page';
 }
