@@ -15,12 +15,16 @@ class SubscriptionItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       child: InkWell(
-        onTap: () => context.goNamed('search_results', params: {
-          'text': subscription.text,
-        }, queryParams: {
-          'locale': subscription.locale,
-          'subscribed': 'true',
-        }),
+        onTap: () => context.pushNamed(
+          'topic',
+          params: {
+            'text': subscription.text,
+          },
+          queryParams: {
+            'locale': subscription.locale,
+            'subscribed': 'true',
+          },
+        ),
         child: ListTile(
           title: Text(subscription.text),
           trailing: IconButton(

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news/config/constants.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/providers/subscription_status_notifier_provider.dart';
 import 'package:news/modules/news/widgets/rss_news_list.dart';
@@ -8,8 +9,6 @@ import 'package:news/modules/profile/repositories/user_settings_repository.dart'
 import 'package:news/utils/rss_utils.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../../../config/constants.dart';
 
 class SearchResultsPage extends ConsumerWidget {
   final String queryText;
@@ -58,7 +57,7 @@ class SearchResultsPage extends ConsumerWidget {
                   onPressed: () {
                     final encodedText = Uri.encodeComponent(queryText);
                     final sharedLink =
-                        '$kWebsiteUrl/search/$encodedText?locale=$locale';
+                        '$kWebsiteUrl/topic/$encodedText?locale=$locale';
                     Share.share('$queryText: $sharedLink');
                   },
                   icon: const Icon(Icons.ios_share),

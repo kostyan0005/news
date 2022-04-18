@@ -27,10 +27,19 @@ final router = GoRouter(
               builder: (_, state) => SearchResultsPage(
                 queryText: state.params['text']!,
                 queryLocale: state.queryParams['locale'],
-                isSubscribed: state.queryParams['subscribed'] == 'true',
+                isSubscribed: false,
               ),
             ),
           ],
+        ),
+        GoRoute(
+          name: 'topic',
+          path: 'topic/:text',
+          builder: (_, state) => SearchResultsPage(
+            queryText: state.params['text']!,
+            queryLocale: state.queryParams['locale'],
+            isSubscribed: state.queryParams['subscribed'] == 'true',
+          ),
         ),
         GoRoute(
           name: 'piece',

@@ -60,7 +60,7 @@ class OptionsSheet extends StatelessWidget {
               title: Text('go_to_page'.tr(args: [piece.sourceName])),
               onTap: () {
                 Navigator.pop(context);
-                context.goNamed('source', queryParams: {
+                context.pushNamed('source', queryParams: {
                   'name': piece.sourceName,
                   'link': piece.sourceLink,
                 });
