@@ -33,6 +33,11 @@ class AuthRepository {
   }
 
   Future<void> signInAnonymouslyIfNeeded() async {
+    if (kIsWeb) {
+      // on web, wait so that currentUser has up-to-date value
+      await _auth.authStateChanges().first;
+    }
+
     if (_auth.currentUser == null) {
       await _auth.signInAnonymously();
     }
