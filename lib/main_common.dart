@@ -75,6 +75,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final router = getRouter();
     return ProviderScope(
       child: MaterialApp.router(
         routeInformationParser: router.routeInformationParser,
