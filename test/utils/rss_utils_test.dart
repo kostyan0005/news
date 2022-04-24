@@ -16,8 +16,8 @@ void main() {
 
     test('getHeadlineNewsUrl is working', () {
       expect(
-        getHeadlineNewsUrl('LATEST', 'ru_UA'),
-        'https://news.google.com/rss/headlines/section/topic/LATEST?hl=ru&gl=UA&ceid=UA:ru',
+        getHeadlineNewsUrl('NATION', 'ru_UA'),
+        'https://news.google.com/rss/headlines/section/topic/NATION?hl=ru&gl=UA&ceid=UA:ru',
       );
       expect(
         getHeadlineNewsUrl('SCIENCE', 'en_US'),

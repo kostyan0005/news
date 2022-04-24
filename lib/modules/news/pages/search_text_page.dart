@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
+// todo: test
 class SearchTextPage extends StatefulWidget {
   final String text;
 
@@ -27,6 +28,9 @@ class _SearchTextPageState extends State<SearchTextPage> with RestorationMixin {
     // autofocus is not working in case of restoration from search results page
     _focusNode.requestFocus();
   }
+
+  @override
+  String get restorationId => 'search_text_page';
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
@@ -144,7 +148,4 @@ class _SearchTextPageState extends State<SearchTextPage> with RestorationMixin {
       ),
     );
   }
-
-  @override
-  String get restorationId => 'search_text_page';
 }

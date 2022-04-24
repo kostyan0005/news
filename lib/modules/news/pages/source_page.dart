@@ -4,6 +4,7 @@ import 'package:news/config/constants.dart';
 import 'package:news/modules/news/widgets/link_view.dart';
 import 'package:share_plus/share_plus.dart';
 
+// todo: test
 class SourcePage extends StatelessWidget {
   final String? name;
   final String? link;

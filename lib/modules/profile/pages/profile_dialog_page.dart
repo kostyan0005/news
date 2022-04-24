@@ -9,6 +9,7 @@ import 'package:news/modules/profile/widgets/login_provider_card.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:news/widgets/indicators.dart';
 
+// todo: test
 class ProfileDialogPage extends ConsumerWidget {
   const ProfileDialogPage();
 

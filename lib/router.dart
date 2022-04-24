@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import 'core/home/home_page.dart';
+import 'core/home_page.dart';
 import 'modules/news/pages/all.dart';
 import 'modules/profile/pages/locale_selection_page.dart';
 

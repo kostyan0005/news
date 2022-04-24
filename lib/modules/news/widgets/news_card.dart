@@ -8,6 +8,7 @@ import 'package:timeago/timeago.dart' as timeago;
 
 import 'options_sheet.dart';
 
+// todo: test (together with options sheet)
 class NewsCard extends ConsumerStatefulWidget {
   final NewsPiece piece;
 

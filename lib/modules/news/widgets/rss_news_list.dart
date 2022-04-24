@@ -8,6 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'news_list.dart';
 
+// todo: test
 class RssNewsList extends ConsumerWidget {
   final String rssUrl;
 

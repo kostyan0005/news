@@ -30,6 +30,9 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
   }
 
   @override
+  String get restorationId => 'home_page';
+
+  @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
     registerForRestoration(_selectedIndex, 'selected_index');
     registerForRestoration(_showingProfileDialog, 'showing_profile_dialog');
@@ -76,20 +79,20 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
           BottomNavigationBarItem(
             icon: const Icon(Icons.language),
             label: 'headlines'.tr(),
+            tooltip: 'headlines'.tr(),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.subscriptions_outlined),
             label: 'subscriptions'.tr(),
+            tooltip: 'subscriptions'.tr(),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.star_border),
             label: 'saved_news'.tr(),
+            tooltip: 'saved_news'.tr(),
           ),
         ],
       ),
     );
   }
-
-  @override
-  String get restorationId => 'home_page';
 }

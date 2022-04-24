@@ -2,11 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/models/headlines_enum.dart';
-import 'package:news/core/home/home_tab_frame.dart';
+import 'package:news/core/home_tab_frame.dart';
 import 'package:news/modules/news/widgets/rss_news_list.dart';
 import 'package:news/modules/profile/providers/locale_stream_provider.dart';
 import 'package:news/widgets/indicators.dart';
 
+// todo: test; include test for appbar hiding
 class HeadlineTabsPage extends ConsumerStatefulWidget {
   const HeadlineTabsPage();
 
@@ -30,6 +31,9 @@ class _HeadlineTabsPageState extends ConsumerState<HeadlineTabsPage>
   }
 
   @override
+  String get restorationId => 'headline_tabs_page';
+
+  @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
     registerForRestoration(_selectedIndex, 'selected_index');
 
@@ -50,9 +54,7 @@ class _HeadlineTabsPageState extends ConsumerState<HeadlineTabsPage>
         child: Container(
           color: Colors.teal,
           height: 35,
-          padding: const EdgeInsets.only(
-            bottom: 5,
-          ),
+          padding: const EdgeInsets.only(bottom: 5),
           child: localeStreamState.maybeWhen(
             data: (locale) => TabBar(
               controller: _tabController,
@@ -88,7 +90,4 @@ class _HeadlineTabsPageState extends ConsumerState<HeadlineTabsPage>
       ),
     );
   }
-
-  @override
-  String get restorationId => 'headline_tabs_page';
 }
