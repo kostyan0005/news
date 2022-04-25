@@ -4,11 +4,13 @@ import 'dart:ui';
 
 import 'package:easy_localization/src/localization.dart';
 import 'package:easy_localization/src/translations.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> loadTranslations({bool onlyEnglish = true}) async {
   await Future.wait([
     _loadTranslationsForLocale('en'),
     if (!onlyEnglish) _loadTranslationsForLocale('ru'),
+    initializeDateFormatting('en'),
   ]);
 }
 

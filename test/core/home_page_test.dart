@@ -6,7 +6,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:news/modules/news/repositories/all.dart';
 import 'package:news/modules/profile/models/user_settings_model.dart';
 import 'package:news/modules/profile/repositories/user_settings_repository.dart';
-import 'package:news/router.dart';
 import 'package:news/utils/rss_utils.dart';
 
 import '../test_utils/all.dart';
@@ -19,7 +18,6 @@ void main() async {
   final subscriptionsRepository = MockSubscriptionsRepository();
   final savedNewsRepository = MockSavedNewsRepository();
 
-  // arrange
   when(() => settingsRepository.getSettingsStream()).thenAnswer((_) =>
       Stream.fromFuture(Future.value(const UserSettings(locale: 'en_US'))));
   when(() => newsSearchRepository.getNewsFromRssUrl(getLatestNewsUrl('en_US')))
@@ -50,9 +48,7 @@ void main() async {
     late Widget testWidget;
 
     setUp(() {
-      final router = getRouter();
-
-      testWidget = ProviderScope(
+      testWidget = getTestWidget(
         overrides: [
           userSettingsRepositoryProvider.overrideWithValue(settingsRepository),
           newsSearchRepositoryProvider.overrideWithValue(newsSearchRepository),
@@ -62,10 +58,6 @@ void main() async {
           signInStatusStreamProvider.overrideWithValue(
               const AsyncValue.data(SignInStatus(isSignedIn: false))),
         ],
-        child: MaterialApp.router(
-          routeInformationParser: router.routeInformationParser,
-          routerDelegate: router.routerDelegate,
-        ),
       );
     });
 

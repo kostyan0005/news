@@ -1,14 +1,25 @@
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/home_page.dart';
 import 'modules/news/pages/all.dart';
 import 'modules/profile/pages/locale_selection_page.dart';
 
-GoRouter getRouter() {
+GoRouter getRouter([Widget? initialWidget]) {
+  final hasInitialWidget = initialWidget != null;
+  final initialLocation = hasInitialWidget ? '/widget' : '/';
+
   return GoRouter(
+    initialLocation: initialLocation,
     urlPathStrategy: UrlPathStrategy.path,
     restorationScopeId: 'router',
     routes: [
+      // added for testing purposes
+      if (hasInitialWidget)
+        GoRoute(
+          path: initialLocation,
+          builder: (_, __) => initialWidget,
+        ),
       GoRoute(
         name: 'home',
         path: '/',
