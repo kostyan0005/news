@@ -5,19 +5,16 @@ import 'core/home_page.dart';
 import 'modules/news/pages/all.dart';
 import 'modules/profile/pages/locale_selection_page.dart';
 
-GoRouter getRouter([Widget? initialWidget]) {
-  final hasInitialWidget = initialWidget != null;
-  final initialLocation = hasInitialWidget ? '/widget' : '/';
-
+GoRouter getRouter([Widget? initialWidget, String initialLocation = '/']) {
   return GoRouter(
-    initialLocation: initialLocation,
+    initialLocation: initialWidget != null ? '/widget' : initialLocation,
     urlPathStrategy: UrlPathStrategy.path,
     restorationScopeId: 'router',
     routes: [
       // added for testing purposes
-      if (hasInitialWidget)
+      if (initialWidget != null)
         GoRoute(
-          path: initialLocation,
+          path: '/widget',
           builder: (_, __) => initialWidget,
         ),
       GoRoute(

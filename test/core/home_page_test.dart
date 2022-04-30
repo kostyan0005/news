@@ -21,7 +21,7 @@ void main() async {
   when(() => settingsRepository.getSettingsStream()).thenAnswer((_) =>
       Stream.fromFuture(Future.value(const UserSettings(locale: 'en_US'))));
   when(() => newsSearchRepository.getNewsFromRssUrl(getLatestNewsUrl('en_US')))
-      .thenAnswer((_) => Future.value([]));
+      .thenAnswer((_) async => []);
   when(() => subscriptionsRepository.getSubscriptionsStream())
       .thenAnswer((_) => Stream.fromFuture(Future.value([])));
   when(() => savedNewsRepository.getSavedNewsStream())
@@ -48,7 +48,8 @@ void main() async {
     late Widget testWidget;
 
     setUp(() {
-      testWidget = getTestWidget(
+      testWidget = getTestWidgetFromInitialLocation(
+        initialLocation: '/',
         overrides: [
           userSettingsRepositoryProvider.overrideWithValue(settingsRepository),
           newsSearchRepositoryProvider.overrideWithValue(newsSearchRepository),
