@@ -7,7 +7,6 @@ import 'package:news/modules/news/widgets/rss_news_list.dart';
 import 'package:news/modules/profile/providers/locale_stream_provider.dart';
 import 'package:news/widgets/indicators.dart';
 
-// todo: test; include test for appbar hiding
 class HeadlineTabsPage extends ConsumerStatefulWidget {
   const HeadlineTabsPage();
 

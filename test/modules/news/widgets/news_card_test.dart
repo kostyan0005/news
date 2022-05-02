@@ -36,13 +36,13 @@ void main() async {
       .thenAnswer((_) async => false);
   when(() => savedNewsRepository.savePiece(piece)).thenAnswer((_) async {});
 
-  group('NewsCard & OptionsSheet', () {
+  group('NewsCard and OptionsSheet', () {
     late Widget testWidget;
 
     // show options sheet
     Future<void> pumpWidgetAndTapMoreIcon(WidgetTester tester) async {
       await tester.pumpWidget(testWidget);
-      await tester.tap(findByIcon(Icons.more_horiz));
+      await tester.tap(find.byIcon(Icons.more_horiz));
       await tester.pumpAndSettle();
     }
 
@@ -70,7 +70,7 @@ void main() async {
 
       expect(title, findsOneWidget);
       expect(sourceDotTime, findsOneWidget);
-      expect(findByIcon(Icons.more_horiz), findsOneWidget);
+      expect(find.byIcon(Icons.more_horiz), findsOneWidget);
     });
 
     testWidgets('news piece page is opened when card is tapped',
@@ -110,7 +110,7 @@ void main() async {
     testWidgets('bottom sheet is closed when tapped on Dismiss button',
         (tester) async {
       await pumpWidgetAndTapMoreIcon(tester);
-      await tester.tap(findByText('Dismiss'));
+      await tester.tap(find.text('Dismiss'));
       await tester.pumpAndSettle();
 
       expect(find.byType(OptionsSheet), findsNothing);
@@ -119,7 +119,7 @@ void main() async {
     testWidgets('snackbar message is shown when news piece is saved',
         (tester) async {
       await pumpWidgetAndTapMoreIcon(tester);
-      await tester.tap(findByText('Save'));
+      await tester.tap(find.text('Save'));
       await tester.pump(const Duration(seconds: 1));
 
       expect(find.byType(SnackBar), findsOneWidget);
@@ -127,7 +127,7 @@ void main() async {
 
     testWidgets('going to source page works', (tester) async {
       await pumpWidgetAndTapMoreIcon(tester);
-      await tester.tap(findByTextFragment('Go to page'));
+      await tester.tap(find.textContaining('Go to page'));
       await tester.pumpAndSettle();
 
       expect(find.byType(SourcePage), findsOneWidget);

@@ -8,7 +8,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'news_list.dart';
 
-// todo: test
 class RssNewsList extends ConsumerWidget {
   final String rssUrl;
 
@@ -16,12 +15,12 @@ class RssNewsList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final rssProvider = rssNewsNotifierProvider(rssUrl);
+    final provider = rssNewsNotifierProvider(rssUrl);
 
-    return ref.watch(rssProvider).when(
+    return ref.watch(provider).when(
           data: (newsPieces) => SmartRefresher(
-            controller: ref.watch(rssProvider.notifier).controller,
-            onRefresh: () => ref.read(rssProvider.notifier).refresh(),
+            controller: ref.watch(provider.notifier).controller,
+            onRefresh: () => ref.read(provider.notifier).refresh(),
             header: const _CustomRefresherHeader(),
             child: NewsList(newsPieces),
           ),
@@ -75,9 +74,7 @@ class _CustomRefresherHeaderState extends State<_CustomRefresherHeader> {
         child: Container(
           width: _indicatorSize,
           height: _indicatorSize,
-          margin: const EdgeInsets.only(
-            top: _indicatorVerticalMargin,
-          ),
+          margin: const EdgeInsets.only(top: _indicatorVerticalMargin),
           child: CircularProgressIndicator(
             value: _value,
             strokeWidth: 2.5,
