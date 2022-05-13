@@ -48,7 +48,7 @@ class _NewsItemState extends ConsumerState<NewsCard> {
 
   void _onSelectionChanged(TextSelection selection, _) {
     if (selection.isCollapsed) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         _isSelecting = false;
         FocusScope.of(context).unfocus();
       });

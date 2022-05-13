@@ -14,7 +14,7 @@ class LinkView extends ConsumerStatefulWidget {
   const LinkView(this.link);
 
   @override
-  _LinkViewState createState() => _LinkViewState();
+  ConsumerState<LinkView> createState() => _LinkViewState();
 }
 
 class _LinkViewState extends ConsumerState<LinkView> {
