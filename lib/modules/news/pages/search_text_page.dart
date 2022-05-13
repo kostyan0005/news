@@ -30,12 +30,12 @@ class _SearchTextPageState extends State<SearchTextPage> with RestorationMixin {
   }
 
   @override
-  String get restorationId => 'search_text_page';
+  String get restorationId => 'SearchTextPage';
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
     registerForRestoration(_text, 'text');
-    registerForRestoration(_baseOffset, 'base_offset');
+    registerForRestoration(_baseOffset, 'baseOffset');
 
     if (initialRestore) {
       if (_text.value.isNotEmpty) {

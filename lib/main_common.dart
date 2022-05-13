@@ -61,7 +61,7 @@ void mainCommon({required bool isProd}) async {
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      systemNavigationBarColor: Color(0xFFFAFAFA),
+      systemNavigationBarColor: Colors.white,
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
@@ -70,16 +70,22 @@ void mainCommon({required bool isProd}) async {
   registerWebViewWebImplementation();
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App();
 
   @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  final _router = getRouter();
+
+  @override
   Widget build(BuildContext context) {
-    final router = getRouter();
     return ProviderScope(
       child: MaterialApp.router(
-        routeInformationParser: router.routeInformationParser,
-        routerDelegate: router.routerDelegate,
+        routeInformationParser: _router.routeInformationParser,
+        routerDelegate: _router.routerDelegate,
         title: 'News',
         restorationScopeId: 'app',
         theme: ThemeData(

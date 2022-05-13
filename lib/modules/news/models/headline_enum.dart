@@ -1,6 +1,6 @@
 import 'package:news/utils/rss_utils.dart';
 
-enum Headlines {
+enum Headline {
   latest,
   nation, // Ukraine or USA
   world,
@@ -12,37 +12,37 @@ enum Headlines {
   health,
 }
 
-extension HeadlinesExtension on Headlines {
-  String get _name => toString().substring(10);
+extension HeadlineExtension on Headline {
+  String get _name => toString().substring(9);
 
   String getTitle(String locale) {
     final isRu = locale.startsWith('ru');
 
     switch (this) {
-      case Headlines.latest:
+      case Headline.latest:
         return isRu ? 'Последние' : 'Latest';
-      case Headlines.nation:
+      case Headline.nation:
         return isRu ? 'Украина' : 'U.S.';
-      case Headlines.world:
+      case Headline.world:
         return isRu ? 'В мире' : 'World';
-      case Headlines.business:
+      case Headline.business:
         return isRu ? 'Бизнес' : 'Business';
-      case Headlines.technology:
+      case Headline.technology:
         return isRu ? 'Технологии' : 'Technology';
-      case Headlines.entertainment:
+      case Headline.entertainment:
         return isRu ? 'Развлечения' : 'Entertainment';
-      case Headlines.science:
+      case Headline.science:
         return isRu ? 'Наука' : 'Science';
-      case Headlines.sports:
+      case Headline.sports:
         return isRu ? 'Спорт' : 'Sports';
-      case Headlines.health:
+      case Headline.health:
         return isRu ? 'Здоровье' : 'Health';
     }
   }
 
   String getRssUrl(String locale) {
     switch (this) {
-      case Headlines.latest:
+      case Headline.latest:
         return getLatestNewsUrl(locale);
       default:
         return getHeadlineNewsUrl(_name.toUpperCase(), locale);

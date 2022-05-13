@@ -1,20 +1,29 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/pages/all.dart';
 import 'package:news/modules/profile/pages/profile_dialog_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+
+import 'home_tab_enum.dart';
 
 final shouldShowProfileDialogProvider = StateProvider((_) => false);
 
 class HomePage extends ConsumerStatefulWidget {
-  const HomePage();
+  final int initialIndex;
+
+  const HomePage({
+    this.initialIndex = 0,
+  });
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
-  final _selectedIndex = RestorableInt(0);
+  late final _controller =
+      PersistentTabController(initialIndex: widget.initialIndex);
+  late final _selectedIndex = RestorableInt(widget.initialIndex);
   final _showingProfileDialog = RestorableBool(false);
 
   @override
@@ -30,12 +39,16 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
   }
 
   @override
-  String get restorationId => 'home_page';
+  String get restorationId => 'HomePage';
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_selectedIndex, 'selected_index');
-    registerForRestoration(_showingProfileDialog, 'showing_profile_dialog');
+    registerForRestoration(_selectedIndex, 'selectedIndex');
+    registerForRestoration(_showingProfileDialog, 'showingProfileDialog');
+
+    if (initialRestore && _selectedIndex.value != widget.initialIndex) {
+      _controller.index = _selectedIndex.value;
+    }
   }
 
   void _showProfileDialog() async {
@@ -59,40 +72,35 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
       }
     });
 
-    return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex.value,
-        children: const [
-          HeadlineTabsPage(),
-          SubscriptionsPage(),
-          SavedNewsPage(),
-        ],
+    return PersistentTabView(
+      context,
+      controller: _controller,
+      navBarStyle: NavBarStyle.style8,
+      decoration: NavBarDecoration(
+        border: Border(
+          top: BorderSide(color: Colors.grey.shade100),
+        ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex.value,
-        onTap: (index) {
-          if (index != _selectedIndex.value) {
-            setState(() => _selectedIndex.value = index);
-          }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.language),
-            label: 'headlines'.tr(),
-            tooltip: 'headlines'.tr(),
+      screens: const [
+        HeadlineTabsPage(),
+        SubscriptionsPage(),
+        SavedNewsPage(),
+      ],
+      items: [
+        for (final tab in HomeTab.values)
+          PersistentBottomNavBarItem(
+            icon: Icon(tab.icon),
+            title: tab.title,
+            activeColorPrimary: Colors.teal,
+            inactiveColorPrimary: CupertinoColors.systemGrey,
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.subscriptions_outlined),
-            label: 'subscriptions'.tr(),
-            tooltip: 'subscriptions'.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.star_border),
-            label: 'saved_news'.tr(),
-            tooltip: 'saved_news'.tr(),
-          ),
-        ],
-      ),
+      ],
+      onItemSelected: (index) {
+        if (index != _controller.index) {
+          _controller.index = index;
+          _selectedIndex.value = index;
+        }
+      },
     );
   }
 }

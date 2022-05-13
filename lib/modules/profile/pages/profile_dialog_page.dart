@@ -51,7 +51,6 @@ class ProfileDialogPage extends ConsumerWidget {
                                 children: [
                                   IconButton(
                                     onPressed: () => Navigator.pop(context),
-                                    key: const ValueKey('close_profile_dialog'),
                                     icon: const Icon(Icons.close),
                                     color: Colors.white,
                                     iconSize: 21,

@@ -23,7 +23,6 @@ class HomeTabFrame extends ConsumerWidget {
       headerSliverBuilder: (_, __) => [
         SliverAppBar(
           leading: IconButton(
-            key: ValueKey('search_button_$title'),
             icon: const Icon(Icons.search),
             onPressed: () => context.goNamed('search_text'),
           ),
@@ -31,7 +30,7 @@ class HomeTabFrame extends ConsumerWidget {
           centerTitle: true,
           actions: [
             IconButton(
-              key: ValueKey('profile_button_$title'),
+              key: const ValueKey('profileButton'),
               icon: ref.watch(photoUrlStreamProvider).maybeWhen(
                     data: (photoUrl) => photoUrl != null
                         ? Container(

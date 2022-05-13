@@ -10,6 +10,7 @@ import 'package:news/widgets/indicators.dart';
 final subscriptionsStreamProvider = StreamProvider<List<SearchQuery>>((ref) =>
     ref.watch(subscriptionsRepositoryProvider).getSubscriptionsStream());
 
+// todo: test
 class SubscriptionsPage extends ConsumerWidget {
   const SubscriptionsPage();
 
