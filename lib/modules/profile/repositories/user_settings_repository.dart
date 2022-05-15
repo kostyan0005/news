@@ -8,6 +8,7 @@ import 'package:news/modules/profile/models/user_settings_model.dart';
 final userSettingsRepositoryProvider =
     Provider((ref) => UserSettingsRepository(ref.watch(uidNotifierProvider)));
 
+// todo: test
 class UserSettingsRepository {
   final DocumentReference<Map<String, dynamic>> _mySettingsRef;
   UserSettings? mySettings;

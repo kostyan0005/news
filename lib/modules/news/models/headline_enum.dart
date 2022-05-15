@@ -2,7 +2,7 @@ import 'package:news/utils/rss_utils.dart';
 
 enum Headline {
   latest,
-  nation, // Ukraine or USA
+  nation,
   world,
   business,
   technology,
@@ -13,8 +13,6 @@ enum Headline {
 }
 
 extension HeadlineExtension on Headline {
-  String get _name => toString().substring(9);
-
   String getTitle(String locale) {
     final isRu = locale.startsWith('ru');
 
@@ -40,12 +38,14 @@ extension HeadlineExtension on Headline {
     }
   }
 
+  String get topic => toString().replaceAll('Headline.', '').toUpperCase();
+
   String getRssUrl(String locale) {
     switch (this) {
       case Headline.latest:
         return getLatestNewsUrl(locale);
       default:
-        return getHeadlineNewsUrl(_name.toUpperCase(), locale);
+        return getHeadlineNewsUrl(topic, locale);
     }
   }
 }

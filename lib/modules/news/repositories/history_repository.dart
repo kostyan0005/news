@@ -6,6 +6,7 @@ import 'package:news/modules/news/models/news_piece_model.dart';
 final historyRepositoryProvider =
     Provider((ref) => HistoryRepository(ref.watch(uidNotifierProvider)));
 
+// todo: test
 class HistoryRepository {
   final CollectionReference<NewsPiece?> _myHistoryCollectionRef;
 

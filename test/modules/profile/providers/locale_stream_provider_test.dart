@@ -8,6 +8,7 @@ import 'package:news/modules/profile/repositories/user_settings_repository.dart'
 class MockUserSettingsRepository extends Mock
     implements UserSettingsRepository {}
 
+// todo: rewrite
 void main() {
   test('locale stream provider states are updated properly', () async {
     final repository = MockUserSettingsRepository();

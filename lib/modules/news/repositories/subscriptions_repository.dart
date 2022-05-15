@@ -6,6 +6,7 @@ import 'package:news/modules/news/models/search_query_model.dart';
 final subscriptionsRepositoryProvider =
     Provider((ref) => SubscriptionsRepository(ref.watch(uidNotifierProvider)));
 
+// todo: test
 class SubscriptionsRepository {
   final CollectionReference<SearchQuery> _mySubscriptionsCollectionRef;
 

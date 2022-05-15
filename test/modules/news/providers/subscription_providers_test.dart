@@ -9,6 +9,7 @@ import 'package:news/modules/news/repositories/subscriptions_repository.dart';
 class MockSubscriptionsRepository extends Mock
     implements SubscriptionsRepository {}
 
+// todo: rewrite
 void main() {
   late MockSubscriptionsRepository repository;
   late ProviderContainer container;

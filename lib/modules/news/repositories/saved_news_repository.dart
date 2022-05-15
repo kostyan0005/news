@@ -8,6 +8,7 @@ import 'history_repository.dart';
 final savedNewsRepositoryProvider =
     Provider((ref) => SavedNewsRepository(ref.watch(uidNotifierProvider)));
 
+// todo: test
 class SavedNewsRepository {
   final CollectionReference<NewsPiece?> _mySavedNewsCollectionRef;
 

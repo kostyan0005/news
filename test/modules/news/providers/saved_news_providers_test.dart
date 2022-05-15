@@ -8,6 +8,7 @@ import 'package:news/modules/news/widgets/options_sheet.dart';
 
 class MockSavedNewsRepository extends Mock implements SavedNewsRepository {}
 
+// todo: rewrite
 void main() {
   late MockSavedNewsRepository repository;
   late ProviderContainer container;
