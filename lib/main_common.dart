@@ -3,9 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'firebase_options_dev.dart' as dev;
@@ -91,6 +93,7 @@ class _AppState extends State<App> {
         theme: ThemeData(
           primarySwatch: Colors.teal,
           scaffoldBackgroundColor: Colors.white.withAlpha(245),
+          textTheme: kIsWeb ? GoogleFonts.sourceSansProTextTheme() : null,
         ),
         themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,

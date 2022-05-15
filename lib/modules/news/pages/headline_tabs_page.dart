@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:news/modules/news/models/headline_enum.dart';
 import 'package:news/core/home_tab_frame.dart';
 import 'package:news/modules/news/widgets/rss_news_list.dart';
@@ -52,7 +54,10 @@ class _HeadlineTabsPageState extends ConsumerState<HeadlineTabsPage>
               indicatorSize: TabBarIndicatorSize.label,
               tabs: [
                 for (final headline in Headline.values)
-                  Text(headline.getTitle(locale))
+                  Text(
+                    headline.getTitle(locale),
+                    style: kIsWeb ? GoogleFonts.roboto() : null,
+                  ),
               ],
               onTap: (index) {
                 if (index != _controller.index) {
