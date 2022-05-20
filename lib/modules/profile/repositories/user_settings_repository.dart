@@ -3,10 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:news/core/firestore_provider.dart';
 import 'package:news/modules/profile/models/user_settings_model.dart';
 
-final userSettingsRepositoryProvider =
-    Provider((ref) => UserSettingsRepository(ref.watch(uidNotifierProvider)));
+final userSettingsRepositoryProvider = Provider((ref) => UserSettingsRepository(
+    ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
 // todo: test
 class UserSettingsRepository {
@@ -14,9 +15,8 @@ class UserSettingsRepository {
   UserSettings? mySettings;
   String get myLocale => mySettings?.locale ?? 'en_US';
 
-  UserSettingsRepository(String myId)
-      : _mySettingsRef =
-            FirebaseFirestore.instance.collection('users').doc(myId);
+  UserSettingsRepository(String myId, FirebaseFirestore firestore)
+      : _mySettingsRef = firestore.collection('users').doc(myId);
 
   Stream<UserSettings> getSettingsStream() async* {
     final snapshotStream = _mySettingsRef.snapshots().handleError((e) =>

@@ -1,33 +1,36 @@
 import 'package:auth/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news/core/firestore_provider.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 
-final historyRepositoryProvider =
-    Provider((ref) => HistoryRepository(ref.watch(uidNotifierProvider)));
+final historyRepositoryProvider = Provider((ref) => HistoryRepository(
+    ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
 // todo: test
 class HistoryRepository {
+  final FirebaseFirestore _firestore;
   final CollectionReference<NewsPiece?> _myHistoryCollectionRef;
 
-  HistoryRepository(String myId)
-      : _myHistoryCollectionRef = _getHistoryCollectionRef(myId);
+  HistoryRepository(String myId, this._firestore)
+      : _myHistoryCollectionRef = _getHistoryCollectionRef(myId, _firestore);
 
   Future<void> addPieceToHistory(NewsPiece piece) async {
     await _myHistoryCollectionRef.doc(piece.id).set(piece);
   }
 
-  Future<NewsPiece?> getPieceFromHistory(String pieceId, String? sharedFrom) =>
-      getPieceFromCacheThenServer(
-        pieceId,
-        sharedFrom != null
-            ? _getHistoryCollectionRef(sharedFrom)
-            : _myHistoryCollectionRef,
-      );
+  Future<NewsPiece?> getPieceFromHistory(String pieceId, String? sharedFrom) {
+    return getPieceFromCacheThenServer(
+      pieceId,
+      sharedFrom != null
+          ? _getHistoryCollectionRef(sharedFrom, _firestore)
+          : _myHistoryCollectionRef,
+    );
+  }
 
   static CollectionReference<NewsPiece?> _getHistoryCollectionRef(
-          String userId) =>
-      FirebaseFirestore.instance
+          String userId, FirebaseFirestore firestore) =>
+      firestore
           .collection('users')
           .doc(userId)
           .collection('history')

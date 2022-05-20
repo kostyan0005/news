@@ -1,19 +1,20 @@
 import 'package:auth/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news/core/firestore_provider.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 
 import 'history_repository.dart';
 
-final savedNewsRepositoryProvider =
-    Provider((ref) => SavedNewsRepository(ref.watch(uidNotifierProvider)));
+final savedNewsRepositoryProvider = Provider((ref) => SavedNewsRepository(
+    ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
 // todo: test
 class SavedNewsRepository {
   final CollectionReference<NewsPiece?> _mySavedNewsCollectionRef;
 
-  SavedNewsRepository(String myId)
-      : _mySavedNewsCollectionRef = FirebaseFirestore.instance
+  SavedNewsRepository(String myId, FirebaseFirestore firestore)
+      : _mySavedNewsCollectionRef = firestore
             .collection('users')
             .doc(myId)
             .collection('saved_news')

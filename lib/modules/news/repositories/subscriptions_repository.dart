@@ -1,17 +1,19 @@
 import 'package:auth/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news/core/firestore_provider.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 
-final subscriptionsRepositoryProvider =
-    Provider((ref) => SubscriptionsRepository(ref.watch(uidNotifierProvider)));
+final subscriptionsRepositoryProvider = Provider((ref) =>
+    SubscriptionsRepository(
+        ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
 // todo: test
 class SubscriptionsRepository {
   final CollectionReference<SearchQuery> _mySubscriptionsCollectionRef;
 
-  SubscriptionsRepository(String myId)
-      : _mySubscriptionsCollectionRef = FirebaseFirestore.instance
+  SubscriptionsRepository(String myId, FirebaseFirestore firestore)
+      : _mySubscriptionsCollectionRef = firestore
             .collection('users')
             .doc(myId)
             .collection('subscriptions')
