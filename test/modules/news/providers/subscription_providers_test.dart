@@ -6,8 +6,7 @@ import 'package:news/modules/news/pages/subscriptions_page.dart';
 import 'package:news/modules/news/providers/subscription_status_notifier_provider.dart';
 import 'package:news/modules/news/repositories/subscriptions_repository.dart';
 
-class MockSubscriptionsRepository extends Mock
-    implements SubscriptionsRepository {}
+import '../../../test_utils/all.dart';
 
 // todo: rewrite
 void main() {

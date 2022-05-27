@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'auth_repository.dart';
 
 final uidNotifierProvider = StateNotifierProvider<UidNotifier, String>(
-  (_) => UidNotifier(AuthRepository.instance),
-);
+    (ref) => UidNotifier(ref.read(authRepositoryProvider)));
 
 class UidNotifier extends StateNotifier<String> {
   UidNotifier(AuthRepository repo) : super(repo.myId) {

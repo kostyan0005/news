@@ -6,7 +6,7 @@ import 'package:news/modules/news/models/rss_news_state.dart';
 import 'package:news/modules/news/providers/rss_news_notifier_provider.dart';
 import 'package:news/modules/news/repositories/news_search_repository.dart';
 
-class MockNewsSearchRepository extends Mock implements NewsSearchRepository {}
+import '../../../test_utils/all.dart';
 
 void main() {
   late MockNewsSearchRepository repository;

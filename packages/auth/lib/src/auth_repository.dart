@@ -1,17 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
 
-enum SignInResult {
-  success,
-  failed,
-  cancelled,
-  accountInUse,
-}
+final authRepositoryProvider = Provider((_) => AuthRepository.instance);
 
 class AuthRepository {
   static final _instance = AuthRepository();
@@ -150,4 +146,11 @@ class AuthRepository {
     );
     return await _connectWithCredential(credential);
   }
+}
+
+enum SignInResult {
+  success,
+  failed,
+  cancelled,
+  accountInUse,
 }

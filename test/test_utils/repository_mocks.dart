@@ -1,6 +1,9 @@
+import 'package:auth/auth.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news/modules/news/repositories/all.dart';
 import 'package:news/modules/profile/repositories/user_settings_repository.dart';
+
+class MockAuthRepository extends Mock implements AuthRepository {}
 
 class MockNewsSearchRepository extends Mock implements NewsSearchRepository {}
 

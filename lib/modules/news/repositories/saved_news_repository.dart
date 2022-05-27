@@ -9,7 +9,6 @@ import 'history_repository.dart';
 final savedNewsRepositoryProvider = Provider((ref) => SavedNewsRepository(
     ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
-// todo: test
 class SavedNewsRepository {
   final CollectionReference<NewsPiece?> _mySavedNewsCollectionRef;
 
@@ -32,12 +31,13 @@ class SavedNewsRepository {
         .map((snap) => snap.docs.map((doc) => doc.data()!).toList());
   }
 
-  Future<NewsPiece?> getSavedPiece(String pieceId) =>
-      HistoryRepository.getPieceFromCacheThenServer(
-          pieceId, _mySavedNewsCollectionRef);
+  Future<NewsPiece?> getSavedPiece(String pieceId) {
+    return HistoryRepository.getPieceFromCacheThenServer(
+        pieceId, _mySavedNewsCollectionRef);
+  }
 
-  Future<bool> isPieceSaved(String pieceId) async {
-    return await _mySavedNewsCollectionRef
+  Future<bool> isPieceSaved(String pieceId) {
+    return _mySavedNewsCollectionRef
         .doc(pieceId)
         .get()
         .then((doc) => doc.exists);
