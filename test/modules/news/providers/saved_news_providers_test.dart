@@ -25,7 +25,7 @@ void main() {
       yield <NewsPiece>[];
 
       await Future.delayed(const Duration(milliseconds: 100));
-      yield [NewsPiece.fromJson(generateTestJson(0, true))];
+      yield [NewsPiece.fromJson(generateTestPieceJson(0, true))];
 
       await Future.delayed(const Duration(milliseconds: 100));
       throw Exception();

@@ -111,7 +111,7 @@ void main() async {
     testWidgets(
       'app bar is hidden when scrolled down and shown back when scrolled up',
       (tester) async {
-        final testNewsList = generateTestNewsListFromTitle('Piece');
+        final testNewsList = generateTestPieceListFromTitle('Piece');
         when(() => savedNewsRepository.getSavedNewsStream())
             .thenAnswer((_) => Stream.fromFuture(Future.value(testNewsList)));
 

@@ -1,6 +1,7 @@
 import 'package:news/modules/news/models/news_piece_model.dart';
 
-List<NewsPiece> generateTestNewsListFromTitle(String title, {int length = 20}) {
+List<NewsPiece> generateTestPieceListFromTitle(String title,
+    {int length = 20}) {
   return List.generate(
     length,
     (index) => NewsPiece(
@@ -15,12 +16,13 @@ List<NewsPiece> generateTestNewsListFromTitle(String title, {int length = 20}) {
   );
 }
 
-List<Map<String, dynamic>> generateTestJsonList(bool isSaved,
+List<Map<String, dynamic>> generateTestPieceJsonList(bool isSaved,
     {int length = 10}) {
-  return List.generate(length, (index) => generateTestJson(index, isSaved));
+  return List.generate(
+      length, (index) => generateTestPieceJson(index, isSaved));
 }
 
-Map<String, dynamic> generateTestJson(int index, bool isSaved) {
+Map<String, dynamic> generateTestPieceJson(int index, bool isSaved) {
   return {
     'id': '$index',
     'link': '',

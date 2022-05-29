@@ -21,7 +21,7 @@ void main() async {
 
   for (final headline in Headline.values) {
     final headlineRssUrl = headline.getRssUrl('en_US');
-    final headlineNewsList = generateTestNewsListFromTitle(headline.topic);
+    final headlineNewsList = generateTestPieceListFromTitle(headline.topic);
     when(() => newsSearchRepository.getNewsFromRssUrl(headlineRssUrl))
         .thenAnswer((_) async => headlineNewsList);
   }

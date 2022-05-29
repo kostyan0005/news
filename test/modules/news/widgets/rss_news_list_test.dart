@@ -55,7 +55,7 @@ void main() async {
 
     testWidgets('scrolling works', (tester) async {
       when(() => newsSearchRepository.getNewsFromRssUrl(''))
-          .thenAnswer((_) async => generateTestNewsListFromTitle('Piece'));
+          .thenAnswer((_) async => generateTestPieceListFromTitle('Piece'));
 
       await tester.pumpWidget(testWidget);
       await tester.pump();
@@ -75,7 +75,7 @@ void main() async {
       'refresh indicator is shown when scrolled up and hidden when released',
       (tester) async {
         when(() => newsSearchRepository.getNewsFromRssUrl(''))
-            .thenAnswer((_) async => generateTestNewsListFromTitle('Piece'));
+            .thenAnswer((_) async => generateTestPieceListFromTitle('Piece'));
 
         await tester.pumpWidget(testWidget);
         await tester.pump();
