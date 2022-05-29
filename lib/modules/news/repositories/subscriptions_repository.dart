@@ -8,7 +8,6 @@ final subscriptionsRepositoryProvider = Provider((ref) =>
     SubscriptionsRepository(
         ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
-// todo: test
 class SubscriptionsRepository {
   final CollectionReference<SearchQuery> _mySubscriptionsCollectionRef;
 

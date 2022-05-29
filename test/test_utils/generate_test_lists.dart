@@ -34,3 +34,16 @@ Map<String, dynamic> generateTestPieceJson(int index, bool isSaved) {
     if (isSaved) 'dateSaved': DateTime(2000, 1, index + 1).toIso8601String(),
   };
 }
+
+List<Map<String, dynamic>> generateTestSubscriptionJsonList({int length = 10}) {
+  return List.generate(length, (index) => generateTestSubscriptionJson(index));
+}
+
+Map<String, dynamic> generateTestSubscriptionJson(int index) {
+  return {
+    'text': '$index',
+    'locale': '',
+    'isSubscribed': true,
+    'subscriptionDate': DateTime(2000, 1, index + 1).toIso8601String(),
+  };
+}

@@ -33,18 +33,19 @@ void main() async {
       sut = container.read(savedNewsRepositoryProvider);
 
       await Future.wait([
-        for (final newsJson in generateTestPieceJsonList(true))
+        for (final json in generateTestPieceJsonList(true))
           firestore
               .collection('users')
               .doc(testUserId)
               .collection('saved_news')
-              .doc(newsJson['id'])
-              .set(newsJson),
+              .doc(json['id'])
+              .set(json),
       ]);
     });
 
     test('getSavedPiece', () async {
-      expect(await sut.getSavedPiece('0'), isA<NewsPiece>());
+      expect(await sut.getSavedPiece('0'),
+          isA<NewsPiece>().having((p) => p.id, 'id', '0'));
       expect(await sut.getSavedPiece('10'), null);
     });
 

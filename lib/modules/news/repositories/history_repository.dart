@@ -7,7 +7,6 @@ import 'package:news/modules/news/models/news_piece_model.dart';
 final historyRepositoryProvider = Provider((ref) => HistoryRepository(
     ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
-// todo: test
 class HistoryRepository {
   final FirebaseFirestore _firestore;
   final CollectionReference<NewsPiece?> _myHistoryCollectionRef;
