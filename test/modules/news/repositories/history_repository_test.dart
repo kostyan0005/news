@@ -10,18 +10,16 @@ import 'package:news/modules/news/repositories/history_repository.dart';
 import '../../../test_utils/all.dart';
 
 void main() async {
-  late MockAuthRepository authRepository;
+  final authRepository = MockAuthRepository();
+  when(() => authRepository.myId).thenReturn(testUserId);
+  when(() => authRepository.uidStream).thenAnswer((_) => const Stream.empty());
+
   late FakeFirebaseFirestore firestore;
   late ProviderContainer container;
   late HistoryRepository sut;
 
   group('HistoryRepository', () {
     setUp(() async {
-      authRepository = MockAuthRepository();
-      when(() => authRepository.myId).thenReturn(testUserId);
-      when(() => authRepository.uidStream)
-          .thenAnswer((_) => const Stream.empty());
-
       firestore = FakeFirebaseFirestore();
       container = ProviderContainer(
         overrides: [

@@ -10,10 +10,10 @@ import 'home_tab_enum.dart';
 final shouldShowProfileDialogProvider = StateProvider((_) => false);
 
 class HomePage extends ConsumerStatefulWidget {
-  final int initialIndex;
+  final int initialTabIndex;
 
   const HomePage({
-    this.initialIndex = 0,
+    required this.initialTabIndex,
   });
 
   @override
@@ -22,8 +22,8 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
   late final _controller =
-      PersistentTabController(initialIndex: widget.initialIndex);
-  late final _selectedIndex = RestorableInt(widget.initialIndex);
+      PersistentTabController(initialIndex: widget.initialTabIndex);
+  late final _selectedIndex = RestorableInt(widget.initialTabIndex);
   final _showingProfileDialog = RestorableBool(false);
 
   @override
@@ -46,7 +46,7 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
     registerForRestoration(_selectedIndex, 'selectedIndex');
     registerForRestoration(_showingProfileDialog, 'showingProfileDialog');
 
-    if (initialRestore && _selectedIndex.value != widget.initialIndex) {
+    if (initialRestore && _selectedIndex.value != widget.initialTabIndex) {
       _controller.index = _selectedIndex.value;
     }
   }

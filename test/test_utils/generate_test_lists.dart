@@ -17,7 +17,7 @@ List<NewsPiece> generateTestPieceListFromTitle(String title,
 }
 
 List<Map<String, dynamic>> generateTestPieceJsonList(bool isSaved,
-    {int length = 10}) {
+    [int length = 10]) {
   return List.generate(
       length, (index) => generateTestPieceJson(index, isSaved));
 }
@@ -35,14 +35,14 @@ Map<String, dynamic> generateTestPieceJson(int index, bool isSaved) {
   };
 }
 
-List<Map<String, dynamic>> generateTestSubscriptionJsonList({int length = 10}) {
+List<Map<String, dynamic>> generateTestSubscriptionJsonList([int length = 10]) {
   return List.generate(length, (index) => generateTestSubscriptionJson(index));
 }
 
 Map<String, dynamic> generateTestSubscriptionJson(int index) {
   return {
     'text': '$index',
-    'locale': '',
+    'locale': 'en_US',
     'isSubscribed': true,
     'subscriptionDate': DateTime(2000, 1, index + 1).toIso8601String(),
   };

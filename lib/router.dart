@@ -5,7 +5,11 @@ import 'core/home_page.dart';
 import 'modules/news/pages/all.dart';
 import 'modules/profile/pages/locale_selection_page.dart';
 
-GoRouter getRouter([Widget? initialWidget, String initialLocation = '/']) {
+GoRouter getRouter({
+  Widget? initialWidget,
+  String initialLocation = '/',
+  int initialTabIndex = 0,
+}) {
   return GoRouter(
     initialLocation: initialWidget != null ? '/widget' : initialLocation,
     urlPathStrategy: UrlPathStrategy.path,
@@ -20,7 +24,9 @@ GoRouter getRouter([Widget? initialWidget, String initialLocation = '/']) {
       GoRoute(
         name: 'home',
         path: '/',
-        builder: (_, __) => const HomePage(),
+        builder: (_, __) => HomePage(
+          initialTabIndex: initialTabIndex,
+        ),
         routes: [
           GoRoute(
             name: 'search_text',

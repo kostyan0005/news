@@ -10,35 +10,25 @@ import 'package:news/modules/news/repositories/subscriptions_repository.dart';
 import '../../../test_utils/all.dart';
 
 void main() async {
-  late MockAuthRepository authRepository;
+  final authRepository = MockAuthRepository();
+  when(() => authRepository.myId).thenReturn(testUserId);
+  when(() => authRepository.uidStream).thenAnswer((_) => const Stream.empty());
+
   late FakeFirebaseFirestore firestore;
   late ProviderContainer container;
   late SubscriptionsRepository sut;
 
   group('HistoryRepository', () {
     setUp(() async {
-      authRepository = MockAuthRepository();
-      when(() => authRepository.myId).thenReturn(testUserId);
-      when(() => authRepository.uidStream)
-          .thenAnswer((_) => const Stream.empty());
-
       firestore = FakeFirebaseFirestore();
+      await addTestSubscriptionsToFirestore(firestore);
+
       container = ProviderContainer(
         overrides: [
-          firestoreProvider.overrideWithValue(firestore),
           authRepositoryProvider.overrideWithValue(authRepository),
+          firestoreProvider.overrideWithValue(firestore),
         ],
       );
-
-      await Future.wait([
-        for (final json in generateTestSubscriptionJsonList())
-          firestore
-              .collection('users')
-              .doc(testUserId)
-              .collection('subscriptions')
-              .doc(json['text'])
-              .set(json),
-      ]);
 
       sut = container.read(subscriptionsRepositoryProvider);
     });

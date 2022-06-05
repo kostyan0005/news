@@ -6,7 +6,7 @@ Widget getTestWidgetFromInitialLocation({
   required String initialLocation,
   List<Override> overrides = const [],
 }) {
-  final router = getRouter(null, initialLocation);
+  final router = getRouter(initialLocation: initialLocation);
 
   return ProviderScope(
     overrides: overrides,
@@ -21,7 +21,7 @@ Widget getTestWidgetFromInitialWidget({
   required Widget initialWidget,
   List<Override> overrides = const [],
 }) {
-  final router = getRouter(Scaffold(body: initialWidget));
+  final router = getRouter(initialWidget: Scaffold(body: initialWidget));
 
   return ProviderScope(
     overrides: overrides,
@@ -32,4 +32,17 @@ Widget getTestWidgetFromInitialWidget({
   );
 }
 
-// todo: add method for getting test widget from initial tab
+Widget getTestWidgetFromInitialTabIndex({
+  required int initialTabIndex,
+  List<Override> overrides = const [],
+}) {
+  final router = getRouter(initialTabIndex: initialTabIndex);
+
+  return ProviderScope(
+    overrides: overrides,
+    child: MaterialApp.router(
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+    ),
+  );
+}

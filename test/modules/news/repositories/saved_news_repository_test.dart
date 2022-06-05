@@ -10,19 +10,19 @@ import 'package:news/modules/news/repositories/saved_news_repository.dart';
 import '../../../test_utils/all.dart';
 
 void main() async {
-  late MockAuthRepository authRepository;
+  final authRepository = MockAuthRepository();
+  when(() => authRepository.myId).thenReturn(testUserId);
+  when(() => authRepository.uidStream).thenAnswer((_) => const Stream.empty());
+
   late FakeFirebaseFirestore firestore;
   late ProviderContainer container;
   late SavedNewsRepository sut;
 
   group('SavedNewsRepository', () {
     setUp(() async {
-      authRepository = MockAuthRepository();
-      when(() => authRepository.myId).thenReturn(testUserId);
-      when(() => authRepository.uidStream)
-          .thenAnswer((_) => const Stream.empty());
-
       firestore = FakeFirebaseFirestore();
+      await addTestSavedNewsToFirestore(firestore);
+
       container = ProviderContainer(
         overrides: [
           firestoreProvider.overrideWithValue(firestore),
@@ -31,16 +31,6 @@ void main() async {
       );
 
       sut = container.read(savedNewsRepositoryProvider);
-
-      await Future.wait([
-        for (final json in generateTestPieceJsonList(true))
-          firestore
-              .collection('users')
-              .doc(testUserId)
-              .collection('saved_news')
-              .doc(json['id'])
-              .set(json),
-      ]);
     });
 
     test('getSavedPiece', () async {

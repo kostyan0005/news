@@ -28,13 +28,14 @@ class SubscriptionItem extends ConsumerWidget {
         child: ListTile(
           title: Text(subscription.text),
           trailing: IconButton(
+            key: ValueKey('${subscription.text}_delete'),
+            icon: const Icon(Icons.delete_outlined),
             onPressed: () {
               ref
                   .read(subscriptionsRepositoryProvider)
                   .unsubscribe(subscription.text);
               showSnackBarMessage(context, 'unsubscribed_message'.tr());
             },
-            icon: const Icon(Icons.delete_outlined),
           ),
         ),
       ),
