@@ -10,7 +10,6 @@ import 'package:news/widgets/indicators.dart';
 final savedNewsStreamProvider = StreamProvider<List<NewsPiece>>(
     (ref) => ref.watch(savedNewsRepositoryProvider).getSavedNewsStream());
 
-// todo: test
 class SavedNewsPage extends ConsumerWidget {
   const SavedNewsPage();
 

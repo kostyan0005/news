@@ -26,7 +26,7 @@ Map<String, dynamic> generateTestPieceJson(int index, bool isSaved) {
   return {
     'id': '$index',
     'link': '',
-    'title': '',
+    'title': '$index',
     'sourceName': '',
     'sourceLink': '',
     'pubDate': DateTime(2000).toIso8601String(),

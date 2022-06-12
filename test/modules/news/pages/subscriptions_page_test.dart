@@ -47,7 +47,6 @@ void main() async {
 
     testWidgets('loading initially', (tester) async {
       await tester.pumpWidget(testWidget);
-
       expect(find.byType(SubscriptionsPage), findsOneWidget);
       expect(find.byType(LoadingIndicator), findsOneWidget);
 
@@ -105,14 +104,14 @@ void main() async {
       expect(find.text('4'), findsOneWidget);
       expect(find.text('5'), findsNothing);
 
-      subscriptionsRepository
+      await subscriptionsRepository
           .subscribe(SearchQuery.fromJson(generateTestSubscriptionJson(5)));
       await tester.pumpAndSettle();
 
       expect(find.byType(SubscriptionItem), findsNWidgets(6));
       expect(find.text('5'), findsOneWidget);
 
-      subscriptionsRepository.unsubscribe('5');
+      await subscriptionsRepository.unsubscribe('5');
       await tester.pumpAndSettle();
 
       expect(find.byType(SubscriptionItem), findsNWidgets(5));
@@ -132,6 +131,8 @@ void main() async {
 
         await tester.tap(find.byKey(const ValueKey('0_delete')));
         await tester.pump();
+
+        // todo: check if snackbar is shown
 
         expect(find.byType(SubscriptionItem), findsNWidgets(4));
         expect(find.text('0'), findsNothing);

@@ -32,6 +32,7 @@ class _NewsItemState extends ConsumerState<NewsCard> {
   void _showOptionsSheet() {
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       builder: (_) => OptionsSheet(widget.piece),
     );
   }

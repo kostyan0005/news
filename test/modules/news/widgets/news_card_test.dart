@@ -120,9 +120,14 @@ void main() async {
         (tester) async {
       await pumpWidgetAndTapMoreIcon(tester);
       await tester.tap(find.text('Save'));
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       expect(find.byType(SnackBar), findsOneWidget);
+
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SnackBar), findsNothing);
     });
 
     testWidgets('going to source page works', (tester) async {
