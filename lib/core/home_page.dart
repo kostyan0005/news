@@ -65,42 +65,43 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(shouldShowProfileDialogProvider,
-        (bool? isShown, bool shouldShow) {
-      if (isShown != true && shouldShow) {
-        _showProfileDialog();
-      }
-    });
+    ref.listen(
+      shouldShowProfileDialogProvider,
+      (bool? isShown, bool shouldShow) =>
+          isShown != true && shouldShow ? _showProfileDialog() : null,
+    );
 
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      navBarStyle: NavBarStyle.style8,
-      decoration: NavBarDecoration(
-        border: Border(
-          top: BorderSide(color: Colors.grey.shade100),
-        ),
-      ),
-      screens: const [
-        HeadlineTabsPage(),
-        SubscriptionsPage(),
-        SavedNewsPage(),
-      ],
-      items: [
-        for (final tab in HomeTab.values)
-          PersistentBottomNavBarItem(
-            icon: Icon(tab.icon),
-            title: tab.title,
-            activeColorPrimary: Colors.teal,
-            inactiveColorPrimary: CupertinoColors.systemGrey,
+    return Scaffold(
+      body: PersistentTabView(
+        context,
+        controller: _controller,
+        navBarStyle: NavBarStyle.style8,
+        decoration: NavBarDecoration(
+          border: Border(
+            top: BorderSide(color: Colors.grey.shade100),
           ),
-      ],
-      onItemSelected: (index) {
-        if (index != _controller.index) {
-          _controller.index = index;
-          _selectedIndex.value = index;
-        }
-      },
+        ),
+        screens: const [
+          HeadlineTabsPage(),
+          SubscriptionsPage(),
+          SavedNewsPage(),
+        ],
+        items: [
+          for (final tab in HomeTab.values)
+            PersistentBottomNavBarItem(
+              icon: Icon(tab.icon),
+              title: tab.title,
+              activeColorPrimary: Colors.teal,
+              inactiveColorPrimary: CupertinoColors.systemGrey,
+            ),
+        ],
+        onItemSelected: (index) {
+          if (index != _controller.index) {
+            _controller.index = index;
+            _selectedIndex.value = index;
+          }
+        },
+      ),
     );
   }
 }

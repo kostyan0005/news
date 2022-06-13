@@ -18,7 +18,6 @@ final savedPieceProvider = FutureProvider.autoDispose
     .family<NewsPiece?, String>((ref, pieceId) =>
         ref.watch(savedNewsRepositoryProvider).getSavedPiece(pieceId));
 
-// todo: test
 class NewsPiecePage extends ConsumerWidget {
   final String pieceId;
   final bool fromSaved;

@@ -119,7 +119,8 @@ void main() async {
     });
 
     testWidgets(
-      'subscription can be removed from list by pressing on delete icon',
+      'subscription can be removed from list by pressing on delete icon '
+      '+ snackbar is shown',
       (tester) async {
         await addTestSubscriptionsToFirestore(firestore, 5);
 
@@ -130,12 +131,19 @@ void main() async {
         expect(find.text('0'), findsOneWidget);
 
         await tester.tap(find.byKey(const ValueKey('0_delete')));
-        await tester.pump();
-
-        // todo: check if snackbar is shown
+        await tester.pumpAndSettle();
 
         expect(find.byType(SubscriptionItem), findsNWidgets(4));
         expect(find.text('0'), findsNothing);
+
+        // check that snackbar is shown then hidden
+        expect(find.byType(SnackBar), findsOneWidget);
+
+        // wait until snackbar is hidden
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(SnackBar), findsNothing);
       },
     );
 

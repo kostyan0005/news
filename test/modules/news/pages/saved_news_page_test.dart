@@ -5,10 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news/core/firestore_provider.dart';
+import 'package:news/core/home_tab_enum.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 import 'package:news/modules/news/pages/all.dart';
 import 'package:news/modules/news/repositories/saved_news_repository.dart';
 import 'package:news/modules/news/widgets/news_card.dart';
+import 'package:news/modules/news/widgets/options_sheet.dart';
 import 'package:news/widgets/indicators.dart';
 
 import '../../../test_utils/all.dart';
@@ -112,27 +114,57 @@ void main() async {
     });
 
     testWidgets(
-      'saved piece can be removed from the list by pressing '
-      'on remove from saved list tile inside options sheet',
+      'saved piece can be removed from the list by tapping '
+      'on remove tile inside options sheet + snackbar is shown',
       (tester) async {
         await addTestSavedNewsToFirestore(firestore, 5);
 
         await tester.pumpWidget(testWidget);
         await tester.pumpAndSettle();
 
+        // check that piece is initially present among saved news
         expect(find.byType(NewsCard), findsNWidgets(5));
         expect(find.text('0'), findsOneWidget);
 
+        // open options sheet
         await tester.longPress(find.text('0'));
         await tester.pumpAndSettle();
+
+        // tap on remove tile
         await tester.tap(find.text('Remove from saved news'));
         await tester.pumpAndSettle();
 
-        // todo: check if snackbar is shown
-
+        // check that piece is removed from saved news
         expect(find.byType(NewsCard), findsNWidgets(4));
         expect(find.text('0'), findsNothing);
+
+        // check that snackbar is shown then hidden
+        expect(find.byType(SnackBar), findsOneWidget);
+
+        // wait until snackbar is hidden
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(SnackBar), findsNothing);
       },
     );
+
+    testWidgets('options sheet covers navbar when opened', (tester) async {
+      await addTestSavedNewsToFirestore(firestore, 1);
+
+      await tester.pumpWidget(testWidget);
+      await tester.pumpAndSettle();
+
+      // check that navbar is visible initially
+      expect(find.byIcon(HomeTab.headlines.icon).hitTestable(), findsOneWidget);
+
+      // open options sheet
+      await tester.longPress(find.text('0'));
+      await tester.pumpAndSettle();
+
+      // check that options sheet covers navbar
+      expect(find.byType(OptionsSheet), findsOneWidget);
+      expect(find.byIcon(HomeTab.headlines.icon).hitTestable(), findsNothing);
+    });
   });
 }
