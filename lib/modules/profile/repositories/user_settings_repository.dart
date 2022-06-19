@@ -9,7 +9,6 @@ import 'package:news/modules/profile/models/user_settings_model.dart';
 final userSettingsRepositoryProvider = Provider((ref) => UserSettingsRepository(
     ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
-// todo: test
 class UserSettingsRepository {
   final DocumentReference<Map<String, dynamic>> _mySettingsRef;
   UserSettings? mySettings;
@@ -18,33 +17,30 @@ class UserSettingsRepository {
   UserSettingsRepository(String myId, FirebaseFirestore firestore)
       : _mySettingsRef = firestore.collection('users').doc(myId);
 
-  Stream<UserSettings> getSettingsStream() async* {
-    final snapshotStream = _mySettingsRef.snapshots().handleError((e) =>
+  Stream<UserSettings> getSettingsStream() {
+    final initialStream = _mySettingsRef.snapshots().handleError((e) =>
         // do not log permission-denied error
         e is FirebaseException && e.code == 'permission-denied'
             ? null
             : Logger().e(e));
 
-    await for (final settingsSnap in snapshotStream) {
-      if (settingsSnap.exists) {
-        final newSettings = UserSettings.fromJson(settingsSnap.data()!);
-        if (newSettings != mySettings) {
-          mySettings = newSettings;
-          yield newSettings;
-        }
-      } else {
-        // determine initial locale
+    final filteredStream = initialStream.where((snap) {
+      if (!snap.exists) {
         final isRu = Intl.systemLocale.contains(RegExp(r'(ru|ua)_UA'));
-        mySettings = UserSettings(locale: isRu ? 'ru_UA' : 'en_US');
-        yield mySettings!;
-
-        // add settings with this locale to db
-        _mySettingsRef.set(mySettings!.toJson());
+        setInitialSettings(isRu ? 'ru_UA' : 'en_US');
       }
-    }
+      return snap.exists;
+    });
+
+    return filteredStream
+        .map((snap) => mySettings = UserSettings.fromJson(snap.data()!));
   }
 
-  Future<void> updateLocale(String newLocale) async {
-    await _mySettingsRef.update({'locale': newLocale});
+  Future<void> setInitialSettings(String initialLocale) {
+    return _mySettingsRef.set(UserSettings(locale: initialLocale).toJson());
+  }
+
+  Future<void> updateLocale(String newLocale) {
+    return _mySettingsRef.update({'locale': newLocale});
   }
 }
