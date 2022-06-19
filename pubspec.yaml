@@ -1,5 +1,5 @@
 name: news
-description: Simple news app created for training purposes.
+description: A constantly evolving news app created for training purposes.
 
 publish_to: 'none'
 version: 1.0.0+1
