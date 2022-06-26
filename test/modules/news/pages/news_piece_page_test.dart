@@ -8,7 +8,6 @@ import 'package:news/core/firestore_provider.dart';
 import 'package:news/core/home_page.dart';
 import 'package:news/modules/news/pages/all.dart';
 import 'package:news/modules/news/repositories/all.dart';
-import 'package:news/modules/news/widgets/link_view.dart';
 import 'package:news/modules/news/widgets/options_sheet.dart';
 import 'package:news/widgets/indicators.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -83,7 +82,6 @@ void main() async {
       await tester.pumpAndSettle();
 
       expect(find.byType(NewsPiecePage), findsOneWidget);
-      expect(find.byType(LinkView), findsOneWidget);
       expect(find.byType(WebView), findsOneWidget);
       expect(find.byIcon(Icons.more_horiz), findsOneWidget);
       expect(find.byType(BackButton), findsOneWidget);
