@@ -132,7 +132,7 @@ void main() async {
 
     testWidgets('going to source page works', (tester) async {
       await pumpWidgetAndTapMoreIcon(tester);
-      await tester.tap(find.textContaining('Go to page'));
+      await tester.tap(find.byIcon(Icons.open_in_new));
       await tester.pumpAndSettle();
 
       expect(find.byType(SourcePage), findsOneWidget);

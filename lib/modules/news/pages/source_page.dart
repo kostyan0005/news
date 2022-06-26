@@ -4,7 +4,6 @@ import 'package:news/config/constants.dart';
 import 'package:news/modules/news/widgets/link_view.dart';
 import 'package:share_plus/share_plus.dart';
 
-// todo: test
 class SourcePage extends StatelessWidget {
   final String? name;
   final String? link;
@@ -30,12 +29,10 @@ class SourcePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            name!,
-            style: const TextStyle(fontSize: 18),
-          ),
+        title: Text(
+          name!,
+          style: const TextStyle(fontSize: 18),
+          overflow: TextOverflow.fade,
         ),
         centerTitle: true,
         actions: [

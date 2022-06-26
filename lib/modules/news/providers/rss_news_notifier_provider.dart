@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -29,7 +31,10 @@ class RssNewsNotifier extends StateNotifier<RssNewsState> {
       if (mounted) {
         state = const Error();
         controller.refreshFailed();
-        Logger().e(e);
+
+        if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+          Logger().e(e, e, StackTrace.current);
+        }
       }
     });
   }

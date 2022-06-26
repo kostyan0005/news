@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -63,7 +65,9 @@ class NewsPiecePage extends ConsumerWidget {
                   ),
             loading: () => const LoadingIndicator(),
             error: (e, s) {
-              Logger().e(e, e, s);
+              if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+                Logger().e(e, e, s);
+              }
               return const ErrorIndicator();
             },
           ),

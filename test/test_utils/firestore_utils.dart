@@ -27,3 +27,13 @@ Future<void> addTestSavedNewsToFirestore(FakeFirebaseFirestore firestore,
           .set(json),
   ]);
 }
+
+Future<void> addTestPieceToHistory(
+    FakeFirebaseFirestore firestore, int index, bool isSaved) async {
+  await firestore
+      .collection('users')
+      .doc(testUserId)
+      .collection('history')
+      .doc(index.toString())
+      .set(generateTestPieceJson(index, isSaved));
+}
