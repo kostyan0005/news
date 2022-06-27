@@ -10,7 +10,6 @@ import 'package:news/utils/rss_utils.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:share_plus/share_plus.dart';
 
-// todo: test
 class SearchResultsPage extends ConsumerWidget {
   final String queryText;
   final String? queryLocale;
@@ -44,9 +43,7 @@ class SearchResultsPage extends ConsumerWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   queryText,
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
               centerTitle: true,
