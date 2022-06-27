@@ -37,3 +37,19 @@ Future<void> addTestPieceToHistory(
       .doc(index.toString())
       .set(generateTestPieceJson(index, isSaved));
 }
+
+Future<void> addTestSubscription(
+    FakeFirebaseFirestore firestore, String text) async {
+  final encodedText = Uri.encodeComponent(text);
+  await firestore
+      .collection('users')
+      .doc(testUserId)
+      .collection('subscriptions')
+      .doc(encodedText)
+      .set({
+    'text': encodedText,
+    'locale': 'en_US',
+    'isSubscribed': true,
+    'subscriptionDate': DateTime(2000, 1, 1).toIso8601String(),
+  });
+}
