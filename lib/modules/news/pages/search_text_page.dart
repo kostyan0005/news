@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
-// todo: test
 class SearchTextPage extends StatefulWidget {
   final String text;
 

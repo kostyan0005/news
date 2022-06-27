@@ -122,11 +122,9 @@ void main() async {
       await tester.tap(find.text('Save'));
       await tester.pumpAndSettle();
 
+      // snackbar is shown then hidden after 2 sec
       expect(find.byType(SnackBar), findsOneWidget);
-
-      await tester.pump(const Duration(seconds: 2));
-      await tester.pumpAndSettle();
-
+      await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.byType(SnackBar), findsNothing);
     });
 

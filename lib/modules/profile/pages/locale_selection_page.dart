@@ -32,22 +32,30 @@ class LocaleSelectionPage extends ConsumerWidget {
             ),
           ),
           ListTile(
-            onTap: () => _changeLocale('ru_UA', ref, context),
-            leading: const Icon(Icons.language),
-            title: const Text('Русский (Украина)'),
-            trailing: localeStream.maybeWhen(
-              data: (locale) =>
-                  locale == 'ru_UA' ? const Icon(Icons.check) : null,
-              orElse: () => null,
-            ),
-          ),
-          ListTile(
             onTap: () => _changeLocale('en_US', ref, context),
             leading: const Icon(Icons.language),
             title: const Text('English (United States)'),
             trailing: localeStream.maybeWhen(
-              data: (locale) =>
-                  locale == 'en_US' ? const Icon(Icons.check) : null,
+              data: (locale) => locale == 'en_US'
+                  ? const Icon(
+                      Icons.check,
+                      key: ValueKey('englishCheck'),
+                    )
+                  : null,
+              orElse: () => null,
+            ),
+          ),
+          ListTile(
+            onTap: () => _changeLocale('ru_UA', ref, context),
+            leading: const Icon(Icons.language),
+            title: const Text('Русский (Украина)'),
+            trailing: localeStream.maybeWhen(
+              data: (locale) => locale == 'ru_UA'
+                  ? const Icon(
+                      Icons.check,
+                      key: ValueKey('russianCheck'),
+                    )
+                  : null,
               orElse: () => null,
             ),
           ),

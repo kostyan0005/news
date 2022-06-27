@@ -26,11 +26,10 @@ void main() async {
         .thenAnswer((_) async => headlineNewsList);
   }
 
-  Finder findTabBarWithCurrentIndex(int index) => find.byWidgetPredicate(
-      (widget) =>
-          widget is TabBar &&
-          widget.controller!.index == index &&
-          widget.tabs.length == Headline.values.length);
+  Finder findTabBarWithCurrentIndex(int index) => find.byWidgetPredicate((w) =>
+      w is TabBar &&
+      w.controller!.index == index &&
+      w.tabs.length == Headline.values.length);
   Finder findTab(Headline headline) => find.text(headline.getTitle('en_US'));
   Finder findNewsListItem(Headline headline) =>
       find.text('${headline.topic} 0');

@@ -138,13 +138,9 @@ void main() async {
         expect(find.byType(NewsCard), findsNWidgets(4));
         expect(find.text('0'), findsNothing);
 
-        // check that snackbar is shown then hidden
+        // snackbar is shown then hidden after 2 sec
         expect(find.byType(SnackBar), findsOneWidget);
-
-        // wait until snackbar is hidden
-        await tester.pump(const Duration(seconds: 2));
-        await tester.pumpAndSettle();
-
+        await tester.pumpAndSettle(const Duration(seconds: 2));
         expect(find.byType(SnackBar), findsNothing);
       },
     );

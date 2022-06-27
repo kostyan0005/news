@@ -145,13 +145,9 @@ void main() async {
       await tester.tap(find.byIcon(Icons.star_border));
       await tester.pumpAndSettle();
 
-      // snackbar is shown
+      // snackbar is shown then hidden after 2 sec
       expect(find.byType(SnackBar), findsOneWidget);
-
-      await tester.pump(const Duration(seconds: 2));
-      await tester.pumpAndSettle();
-
-      // snackbar is hidden after 2 sec
+      await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.byType(SnackBar), findsNothing);
 
       // when we open options sheet now, star icon should change to delete icon
