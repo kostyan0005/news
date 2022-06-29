@@ -25,7 +25,7 @@ class LoginProviderCard extends ConsumerWidget {
     isActionInProgress = true;
     ref.read(isLoadingProvider(provider).notifier).state = true;
 
-    await AuthRepository.instance.signOut();
+    await ref.read(authRepositoryProvider).signOut();
 
     showSnackBarMessage(context, 'signed_out_message'.tr());
     isActionInProgress = false;
@@ -36,7 +36,7 @@ class LoginProviderCard extends ConsumerWidget {
     isActionInProgress = true;
     ref.read(isLoadingProvider(provider).notifier).state = true;
 
-    final result = await provider.getConnectionFunction().call();
+    final result = await provider.getConnectionFunction(ref).call();
     switch (result) {
       case SignInResult.success:
         showSnackBarMessage(

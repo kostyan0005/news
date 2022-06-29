@@ -20,9 +20,7 @@ class SignInStatus {
 final signInStatusStreamProvider = StreamProvider.autoDispose<SignInStatus>(
   (ref) => ref.read(authRepositoryProvider).userChangesStream.map((user) {
     if (user.isAnonymous) {
-      return const SignInStatus(
-        isSignedIn: false,
-      );
+      return const SignInStatus(isSignedIn: false);
     } else {
       final providerIds =
           user.providerData.map((info) => info.providerId).toList();

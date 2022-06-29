@@ -1,5 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:news/config/twitter_params.dart';
 
@@ -37,14 +38,14 @@ extension LoginProviderExtension on LoginProvider {
     }
   }
 
-  Future<SignInResult> Function() getConnectionFunction() {
+  Future<SignInResult> Function() getConnectionFunction(WidgetRef ref) {
     switch (this) {
       case LoginProvider.google:
-        return () => AuthRepository.instance.connectWithGoogle();
+        return () => ref.read(authRepositoryProvider).connectWithGoogle();
       case LoginProvider.facebook:
-        return () => AuthRepository.instance.connectWithFacebook();
+        return () => ref.read(authRepositoryProvider).connectWithFacebook();
       case LoginProvider.twitter:
-        return () => AuthRepository.instance.connectWithTwitter(
+        return () => ref.read(authRepositoryProvider).connectWithTwitter(
             twitterApiKey, twitterSecretKey, twitterRedirectUri);
       case LoginProvider.logout:
         throw Exception('This case is not supported');
