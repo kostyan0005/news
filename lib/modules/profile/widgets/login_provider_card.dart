@@ -23,7 +23,8 @@ class LoginProviderCard extends ConsumerWidget {
   void _signOut(WidgetRef ref, BuildContext context) async {
     if (isActionInProgress) return;
     isActionInProgress = true;
-    ref.read(isLoadingProvider(provider).notifier).state = true;
+    // can also be called from account in use dialog
+    ref.read(isLoadingProvider(LoginProvider.logout).notifier).state = true;
 
     await ref.read(authRepositoryProvider).signOut();
 
