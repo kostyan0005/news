@@ -10,12 +10,13 @@ void main() async {
 
   testWidgets('initial state is correct', (tester) async {
     app.main();
+    await Future.delayed(const Duration(seconds: 2));
     await tester.pumpAndSettle();
 
     const tab = HomeTab.headlines;
-    final bottomNavBarFinder = find.byWidgetPredicate((widget) =>
-        widget is PersistentTabView &&
-        widget.items![widget.controller!.index].title == tab.title);
+    final bottomNavBarFinder = find.byWidgetPredicate((w) =>
+        w is PersistentTabView &&
+        w.items![w.controller!.index].title == tab.title);
 
     expect(bottomNavBarFinder, findsOneWidget);
     expect(find.byIcon(tab.icon), findsOneWidget);

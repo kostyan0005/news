@@ -30,9 +30,9 @@ void main() async {
       .thenAnswer((_) => Stream.fromFuture(Future.value([])));
 
   Finder findBottomNavBarWithCurrentTab(HomeTab tab) =>
-      find.byWidgetPredicate((widget) =>
-          widget is PersistentTabView &&
-          widget.items![widget.controller!.index].title == tab.title);
+      find.byWidgetPredicate((w) =>
+          w is PersistentTabView &&
+          w.items![w.controller!.index].title == tab.title);
 
   Finder findProfileButton() => find.byKey(const ValueKey('profileButton'));
 
