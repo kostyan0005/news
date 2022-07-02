@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news/router.dart';
 
 Widget getTestWidgetFromInitialLocation({
@@ -7,14 +8,7 @@ Widget getTestWidgetFromInitialLocation({
   List<Override> overrides = const [],
 }) {
   final router = getRouter(initialLocation: initialLocation);
-
-  return ProviderScope(
-    overrides: overrides,
-    child: MaterialApp.router(
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
-    ),
-  );
+  return _getTestWidget(overrides, router);
 }
 
 Widget getTestWidgetFromInitialWidget({
@@ -22,14 +16,7 @@ Widget getTestWidgetFromInitialWidget({
   List<Override> overrides = const [],
 }) {
   final router = getRouter(initialWidget: Scaffold(body: initialWidget));
-
-  return ProviderScope(
-    overrides: overrides,
-    child: MaterialApp.router(
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
-    ),
-  );
+  return _getTestWidget(overrides, router);
 }
 
 Widget getTestWidgetFromInitialTabIndex({
@@ -37,10 +24,14 @@ Widget getTestWidgetFromInitialTabIndex({
   List<Override> overrides = const [],
 }) {
   final router = getRouter(initialTabIndex: initialTabIndex);
+  return _getTestWidget(overrides, router);
+}
 
+Widget _getTestWidget(List<Override> overrides, GoRouter router) {
   return ProviderScope(
     overrides: overrides,
     child: MaterialApp.router(
+      routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
     ),

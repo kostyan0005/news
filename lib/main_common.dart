@@ -86,6 +86,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp.router(
+        routeInformationProvider: _router.routeInformationProvider,
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
         title: 'News',
