@@ -5,14 +5,20 @@ import 'core/home_page.dart';
 import 'modules/news/pages/all.dart';
 import 'modules/profile/pages/locale_selection_page.dart';
 
+bool _isUrlPathStrategySet = false;
+
 GoRouter getRouter({
   Widget? initialWidget,
   String initialLocation = '/',
   int initialTabIndex = 0,
 }) {
+  if (!_isUrlPathStrategySet) {
+    GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
+    _isUrlPathStrategySet = true;
+  }
+
   return GoRouter(
     initialLocation: initialWidget != null ? '/widget' : initialLocation,
-    urlPathStrategy: UrlPathStrategy.path,
     restorationScopeId: 'router',
     routes: [
       // added for testing purposes

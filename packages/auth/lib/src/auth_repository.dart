@@ -13,6 +13,7 @@ class AuthRepository {
   static final _instance = AuthRepository();
   static AuthRepository get instance => _instance;
 
+  bool _isSet = false; // for cases where multiple tests are running
   late final FirebaseAuth _auth;
   late final bool _isProd;
 
@@ -24,8 +25,11 @@ class AuthRepository {
   Stream<String> get uidStream => userChangesStream.map((u) => u.uid);
 
   void setAuthInstance(FirebaseAuth auth, bool isProd) {
-    _auth = auth;
-    _isProd = isProd;
+    if (!_isSet) {
+      _auth = auth;
+      _isProd = isProd;
+      _isSet = true;
+    }
   }
 
   Future<void> signInAnonymouslyIfNeeded() async {

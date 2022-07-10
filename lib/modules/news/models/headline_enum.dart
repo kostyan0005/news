@@ -14,7 +14,7 @@ enum Headline {
 
 extension HeadlineExtension on Headline {
   String getTitle(String locale) {
-    final isRu = locale.startsWith('ru');
+    final isRu = locale == 'ru_UA';
 
     switch (this) {
       case Headline.latest:

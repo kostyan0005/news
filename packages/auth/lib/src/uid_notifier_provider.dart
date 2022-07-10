@@ -7,6 +7,8 @@ final uidNotifierProvider = StateNotifierProvider<UidNotifier, String>(
 
 class UidNotifier extends StateNotifier<String> {
   UidNotifier(AuthRepository repo) : super(repo.myId) {
-    repo.uidStream.listen((uid) => state != uid ? state = uid : null);
+    repo.uidStream.listen((uid) {
+      if (mounted && state != uid) state = uid;
+    });
   }
 }

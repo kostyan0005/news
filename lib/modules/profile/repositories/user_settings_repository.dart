@@ -17,6 +17,8 @@ class UserSettingsRepository {
   UserSettingsRepository(String myId, FirebaseFirestore firestore)
       : _mySettingsRef = firestore.collection('users').doc(myId);
 
+  static String getSupportedLocale(bool isRu) => isRu ? 'ru_UA' : 'en_US';
+
   Stream<UserSettings> getSettingsStream() {
     final initialStream = _mySettingsRef.snapshots().handleError((e) =>
         // do not log permission-denied error
@@ -26,8 +28,8 @@ class UserSettingsRepository {
 
     final filteredStream = initialStream.where((snap) {
       if (!snap.exists) {
-        final isRu = Intl.systemLocale.contains(RegExp(r'(ru|ua)_UA'));
-        setInitialSettings(isRu ? 'ru_UA' : 'en_US');
+        final isSystemRu = Intl.systemLocale.contains(RegExp(r'(ru|ua)_UA'));
+        setInitialSettings(getSupportedLocale(isSystemRu));
       }
       return snap.exists;
     });
