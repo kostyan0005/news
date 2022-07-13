@@ -40,9 +40,7 @@ class _NewsItemState extends ConsumerState<NewsCard> {
   void _onSelectableTextTap() {
     if (!_isSelecting) {
       Future.delayed(const Duration(milliseconds: 200), () {
-        if (!_isSelecting) {
-          _goToNewsPiecePage();
-        }
+        if (!_isSelecting) _goToNewsPiecePage();
       });
     }
   }

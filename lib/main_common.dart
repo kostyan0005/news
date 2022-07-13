@@ -17,7 +17,7 @@ import 'utils/custom_ru_messages.dart';
 import 'utils/register_web_webview_stub.dart'
     if (dart.library.html) 'utils/register_web_webview.dart';
 
-Future<void> mainCommon({required bool isProd}) async {
+Future<void> mainCommon({bool isProd = false}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   EasyLocalization.logger.enableLevels = [

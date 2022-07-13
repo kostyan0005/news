@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="chrome intergration tests" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_tests.dart -d chrome" />
+  <configuration default="false" name="chrome intergration test" type="ShConfigurationType">
+    <option name="SCRIPT_TEXT" value="flutter drive --driver=test_driver/integration_test.dart --target=integration_test/some_test.dart -d chrome" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
