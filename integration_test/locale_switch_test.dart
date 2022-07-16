@@ -42,7 +42,6 @@ Future<void> testLocaleSwitchLogic(WidgetTester tester) async {
 
   // switch actual locale
   await tester.tap(find.text(_getLocaleTileText(expectedLocale)));
-  await Future.delayed(const Duration(milliseconds: 200));
   await tester.pumpAndSettle();
 
   // verify that locale check is placed on switched locale tile
