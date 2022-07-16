@@ -85,7 +85,7 @@ Future<void> _savePiece(WidgetTester tester, int index) async {
   await tester.tap(find.byIcon(Icons.star_border).hitTestable());
   await tester.pumpAndSettle();
 
-  // wait for stack bar to hide
+  // wait for snackbar to hide
   await _waitForSnackBar(tester);
 }
 
@@ -94,7 +94,7 @@ Future<void> _removePieceFromSaved(WidgetTester tester) async {
   await tester.tap(find.byIcon(Icons.delete_outlined));
   await tester.pumpAndSettle();
 
-  // wait for stack bar to hide
+  // wait for snackbar to hide
   await _waitForSnackBar(tester);
 }
 
