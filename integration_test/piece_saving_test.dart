@@ -11,7 +11,6 @@ void main() async {
   testWidgets('news piece saving logic works', testPieceSavingLogic);
 }
 
-// todo: modify for desktop due to drawer addition
 Future<void> testPieceSavingLogic(WidgetTester tester) async {
   await app.mainCommon();
   await tester.pumpAndSettle();
@@ -26,6 +25,11 @@ Future<void> testPieceSavingLogic(WidgetTester tester) async {
   await _savePiece(tester, 1);
 
   // go to saved news tab
+  if (kIsWeb) {
+    // open drawer on web
+    await tester.tapAt(const Offset(0, 0));
+    await tester.pumpAndSettle();
+  }
   await tester.tap(find.byIcon(Icons.star_border));
   await tester.pumpAndSettle();
 
@@ -41,7 +45,7 @@ Future<void> testPieceSavingLogic(WidgetTester tester) async {
 
   // remove first piece from saved
   // its index is 1 because it was saved earlier and thus it's located lower
-  await tester.tap(find.byIcon(Icons.more_horiz).at(1));
+  await tester.tap(find.byIcon(Icons.more_horiz).hitTestable().at(1));
   await tester.pumpAndSettle();
   await _removePieceFromSaved(tester);
 
@@ -60,7 +64,7 @@ Future<void> testPieceSavingLogic(WidgetTester tester) async {
   expect(find.byType(NewsPiecePage), findsOneWidget);
 
   // remove second piece from saved via its page
-  await tester.tap(find.byIcon(Icons.more_horiz));
+  await tester.tap(find.byIcon(Icons.more_horiz).hitTestable());
   await tester.pumpAndSettle();
   await _removePieceFromSaved(tester);
 

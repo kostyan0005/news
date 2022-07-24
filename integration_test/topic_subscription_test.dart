@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -12,13 +13,12 @@ void main() async {
   testWidgets('topic subscription logic works', testTopicSubscriptionLogic);
 }
 
-// todo: modify for desktop due to drawer addition
 Future<void> testTopicSubscriptionLogic(WidgetTester tester) async {
   await app.mainCommon();
   await tester.pumpAndSettle();
 
   // open search page
-  await tester.tap(find.byIcon(Icons.search));
+  await tester.tap(find.byIcon(Icons.search).hitTestable());
   await tester.pumpAndSettle();
 
   // search for and subscribe to 'Apple' and 'Google' topics
@@ -28,6 +28,11 @@ Future<void> testTopicSubscriptionLogic(WidgetTester tester) async {
   // go back and switch to subscriptions tab
   await tester.tap(find.byType(BackButton));
   await tester.pumpAndSettle();
+  if (kIsWeb) {
+    // open drawer on web
+    await tester.tapAt(const Offset(0, 0));
+    await tester.pumpAndSettle();
+  }
   await tester.tap(find.byIcon(Icons.subscriptions_outlined));
   await tester.pumpAndSettle();
 

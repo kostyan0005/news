@@ -13,7 +13,6 @@ void main() async {
   testWidgets('locale switch logic works', testLocaleSwitchLogic);
 }
 
-// todo: modify for desktop due to drawer addition
 Future<void> testLocaleSwitchLogic(WidgetTester tester) async {
   await app.mainCommon();
   await tester.pumpAndSettle();
@@ -29,7 +28,7 @@ Future<void> testLocaleSwitchLogic(WidgetTester tester) async {
   expect(find.text(Headline.latest.getTitle(expectedLocale)), findsOneWidget);
 
   // go to locale selection page
-  await tester.tap(find.byKey(const ValueKey('profileButton')));
+  await tester.tap(find.byKey(const ValueKey('profileButton')).hitTestable());
   await tester.pumpAndSettle();
   await tester.tap(find.text('language_region'.tr()));
   await tester.pumpAndSettle();
