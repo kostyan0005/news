@@ -11,6 +11,7 @@ void main() async {
   testWidgets('news piece saving logic works', testPieceSavingLogic);
 }
 
+// todo: modify for desktop due to drawer addition
 Future<void> testPieceSavingLogic(WidgetTester tester) async {
   await app.mainCommon();
   await tester.pumpAndSettle();

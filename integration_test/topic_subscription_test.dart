@@ -12,6 +12,7 @@ void main() async {
   testWidgets('topic subscription logic works', testTopicSubscriptionLogic);
 }
 
+// todo: modify for desktop due to drawer addition
 Future<void> testTopicSubscriptionLogic(WidgetTester tester) async {
   await app.mainCommon();
   await tester.pumpAndSettle();

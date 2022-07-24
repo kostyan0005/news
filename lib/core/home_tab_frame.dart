@@ -2,6 +2,7 @@ import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:news/config/constants.dart';
 
 import 'home_page.dart';
 
@@ -18,17 +19,21 @@ class HomeTabFrame extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDesktop = MediaQuery.of(context).size.width >= kMinDesktopWidth;
+    final searchButton = IconButton(
+      icon: const Icon(Icons.search),
+      onPressed: () => context.goNamed('search_text'),
+    );
+
     return NestedScrollView(
       floatHeaderSlivers: true,
       headerSliverBuilder: (_, __) => [
         SliverAppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () => context.goNamed('search_text'),
-          ),
+          leading: !isDesktop ? searchButton : null,
           title: Text(title),
           centerTitle: true,
           actions: [
+            if (isDesktop) searchButton,
             IconButton(
               key: const ValueKey('profileButton'),
               icon: ref.watch(photoUrlStreamProvider).maybeWhen(

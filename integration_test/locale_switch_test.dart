@@ -13,6 +13,7 @@ void main() async {
   testWidgets('locale switch logic works', testLocaleSwitchLogic);
 }
 
+// todo: modify for desktop due to drawer addition
 Future<void> testLocaleSwitchLogic(WidgetTester tester) async {
   await app.mainCommon();
   await tester.pumpAndSettle();

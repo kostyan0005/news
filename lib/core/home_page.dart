@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news/config/constants.dart';
 import 'package:news/modules/news/pages/all.dart';
 import 'package:news/modules/profile/pages/profile_dialog_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -21,6 +22,12 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
+  static const _screens = [
+    HeadlineTabsPage(),
+    SubscriptionsPage(),
+    SavedNewsPage(),
+  ];
+
   late final _controller =
       PersistentTabController(initialIndex: widget.initialTabIndex);
   late final _selectedIndex = RestorableInt(widget.initialTabIndex);
@@ -65,6 +72,8 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width >= kMinDesktopWidth;
+
     ref.listen(
       shouldShowProfileDialogProvider,
       (bool? isShown, bool shouldShow) =>
@@ -72,36 +81,57 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
     );
 
     return Scaffold(
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        navBarStyle: NavBarStyle.style8,
-        decoration: NavBarDecoration(
-          border: Border(
-            top: BorderSide(color: Colors.grey.shade100),
-          ),
-        ),
-        screens: const [
-          HeadlineTabsPage(),
-          SubscriptionsPage(),
-          SavedNewsPage(),
-        ],
-        items: [
-          for (final tab in HomeTab.values)
-            PersistentBottomNavBarItem(
-              icon: Icon(tab.icon),
-              title: tab.title,
-              activeColorPrimary: Colors.teal,
-              inactiveColorPrimary: CupertinoColors.systemGrey,
+      drawer: isDesktop
+          ? Drawer(
+              child: Column(
+                children: [
+                  for (final tab in HomeTab.values)
+                    ListTile(
+                      selected: tab.index == _selectedIndex.value,
+                      leading: Icon(tab.icon),
+                      title: Text(tab.title),
+                      onTap: () {
+                        if (tab.index != _selectedIndex.value) {
+                          setState(() => _selectedIndex.value = tab.index);
+                        }
+                        Navigator.pop(context);
+                      },
+                    ),
+                ],
+              ),
+            )
+          : null,
+      body: isDesktop
+          ? IndexedStack(
+              index: _selectedIndex.value,
+              children: _screens,
+            )
+          : PersistentTabView(
+              context,
+              controller: _controller,
+              navBarStyle: NavBarStyle.style8,
+              decoration: NavBarDecoration(
+                border: Border(
+                  top: BorderSide(color: Colors.grey.shade100),
+                ),
+              ),
+              screens: _screens,
+              items: [
+                for (final tab in HomeTab.values)
+                  PersistentBottomNavBarItem(
+                    icon: Icon(tab.icon),
+                    title: tab.title,
+                    activeColorPrimary: Colors.teal,
+                    inactiveColorPrimary: CupertinoColors.systemGrey,
+                  ),
+              ],
+              onItemSelected: (index) {
+                if (index != _controller.index) {
+                  _controller.index = index;
+                  _selectedIndex.value = index;
+                }
+              },
             ),
-        ],
-        onItemSelected: (index) {
-          if (index != _controller.index) {
-            _controller.index = index;
-            _selectedIndex.value = index;
-          }
-        },
-      ),
     );
   }
 }
