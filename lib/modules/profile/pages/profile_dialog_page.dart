@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:news/config/constants.dart';
 import 'package:news/modules/profile/models/login_provider_enum.dart';
 import 'package:news/modules/profile/widgets/login_provider_card.dart';
-import 'package:news/utils/snackbar_utils.dart';
 import 'package:news/widgets/indicators.dart';
 
 class ProfileDialogPage extends ConsumerWidget {
@@ -150,15 +149,6 @@ class ProfileDialogPage extends ConsumerWidget {
                                         height: 20,
                                       ),
                                     ],
-                                  ),
-                                ),
-                                ListTile(
-                                  onTap: () =>
-                                      showNotImplementedMessage(context),
-                                  contentPadding: tilePadding,
-                                  title: Text(
-                                    'notification_settings'.tr(),
-                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ),
                                 ListTile(

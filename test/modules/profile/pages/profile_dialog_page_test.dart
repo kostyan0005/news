@@ -52,7 +52,6 @@ void main() async {
       expect(find.byType(ExpansionTile), findsOneWidget);
       expect(find.text('Sign in/out'), findsOneWidget);
       expect(find.text('Not signed in', findRichText: true), findsOneWidget);
-      expect(find.text('Notification settings'), findsOneWidget);
       expect(find.text('Language and region'), findsOneWidget);
     });
 
@@ -82,27 +81,6 @@ void main() async {
 
       expect(find.byType(ProfileDialogPage), findsNothing);
     });
-
-    testWidgets(
-      'tapping on notification settings tile pops not implemented message',
-      (tester) async {
-        await tester.pumpWidget(testWidget);
-        await tester.tap(findProfileButton());
-        await tester.pumpAndSettle();
-
-        await tester.tap(find.text('Notification settings'));
-        await tester.pumpAndSettle();
-
-        final snackBarFinder = find.byWidgetPredicate((w) =>
-            w is SnackBar &&
-            w.content is Text &&
-            (w.content as Text).data == 'Not implemented yet');
-
-        expect(snackBarFinder, findsOneWidget);
-        await tester.pumpAndSettle(const Duration(seconds: 2));
-        expect(snackBarFinder, findsNothing);
-      },
-    );
 
     testWidgets(
       'tapping on language and region tile opens the respective page',

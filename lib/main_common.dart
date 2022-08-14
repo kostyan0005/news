@@ -13,10 +13,11 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'firebase_options_dev.dart' as dev;
 import 'firebase_options_prod.dart' as prod;
 import 'router.dart';
-import 'utils/custom_ru_messages.dart';
 import 'utils/register_web_webview_stub.dart'
     if (dart.library.html) 'utils/register_web_webview.dart';
+import 'utils/custom_ru_messages.dart';
 
+// todo: document the whole project
 Future<void> mainCommon({bool isProd = false}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
