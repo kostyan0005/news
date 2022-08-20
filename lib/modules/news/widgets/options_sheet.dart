@@ -32,10 +32,10 @@ class OptionsSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (piece.isSaved)
-              // piece comes from saved news
+              // The piece comes from saved news.
               _RemoveListTile(piece.id)
             else
-              // get piece's saved status
+              // Get the saved status of the piece.
               Consumer(
                 builder: (_, ref, __) =>
                     ref.watch(pieceSavedStatusProvider(piece.id)).maybeWhen(
@@ -123,7 +123,7 @@ void showOptionsSheetOnNewsPiecePage({
 }) async {
   if (kIsWeb) {
     Future.delayed(
-      const Duration(milliseconds: 250), // wait until bottom sheet is shown
+      const Duration(milliseconds: 250), // Wait until bottom sheet is shown.
       () => ref.read(webBottomSheetVisibilityProvider.notifier).state = true,
     );
   }

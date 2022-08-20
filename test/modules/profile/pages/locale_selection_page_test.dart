@@ -43,7 +43,7 @@ void main() async {
       expect(find.byType(BackButton), findsOneWidget);
       expect(find.text('English (United States)'), findsOneWidget);
       expect(find.text('Русский (Украина)'), findsOneWidget);
-      // no item is selected initially, as stream hasn't returned anything yet
+      // No item is selected initially, as stream hasn't returned anything yet.
       expect(find.byIcon(Icons.check), findsNothing);
     });
 
@@ -82,7 +82,7 @@ void main() async {
       expect(find.byKey(const ValueKey('russianCheck')), findsOneWidget);
       expect(find.byKey(const ValueKey('englishCheck')), findsNothing);
 
-      // snackbar is shown then hidden after 2 sec
+      // Snackbar is shown then hidden after 2 sec.
       expect(find.byType(SnackBar), findsOneWidget);
       await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.byType(SnackBar), findsNothing);
@@ -105,13 +105,13 @@ void main() async {
         expect(find.text('Последние'), findsNothing);
         expect(find.text('Украина'), findsNothing);
 
-        // open profile dialog and go to locale selection page
+        // Open profile dialog and go to locale selection page.
         await tester.tap(find.byKey(const ValueKey('profileButton')));
         await tester.pumpAndSettle();
         await tester.tap(find.text('Language and region'));
         await tester.pumpAndSettle();
 
-        // switch language from English to Russian and go back to home page
+        // Switch language from English to Russian and go back to home page.
         await tester.tap(find.text('Русский (Украина)'));
         await tester.tap(find.byType(BackButton));
         await tester.pumpAndSettle();

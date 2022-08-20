@@ -152,7 +152,7 @@ void main() async {
       ]);
 
       when(() => authRepository.connectWithGoogle()).thenAnswer((_) async {
-        await Future.delayed(Duration.zero); // wait till next frame
+        await Future.delayed(Duration.zero); // Wait till next frame.
         signInCompleter
             .complete(const SignInStatus(isSignedIn: true, withGoogle: true));
         return SignInResult.success;
@@ -200,7 +200,7 @@ void main() async {
       ]);
 
       when(() => authRepository.signOut()).thenAnswer((_) async {
-        await Future.delayed(Duration.zero); // wait till next frame
+        await Future.delayed(Duration.zero); // Wait till next frame.
         signOutCompleter.complete(const SignInStatus(isSignedIn: false));
       });
 
@@ -246,7 +246,7 @@ void main() async {
       ]);
 
       when(() => authRepository.connectWithFacebook()).thenAnswer((_) async {
-        await Future.delayed(Duration.zero); // wait till next frame
+        await Future.delayed(Duration.zero); // Wait till next frame.
         connectWithFacebookCompleter.complete(const SignInStatus(
             isSignedIn: true, withGoogle: true, withFacebook: true));
         return SignInResult.success;
@@ -340,7 +340,7 @@ void main() async {
               .data!
               .startsWith('An unexpected error has occurred.'));
 
-      // error message is shown not for 2 but for 5 seconds
+      // Error message is shown not for 2 but for 5 seconds.
       expect(errorSnackBarFinder, findsOneWidget);
       await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(errorSnackBarFinder, findsOneWidget);

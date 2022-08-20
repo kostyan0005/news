@@ -56,12 +56,12 @@ void main() async {
     });
 
     testWidgets('error indicator is shown in case of error', (tester) async {
-      // error response needs to be mocked
+      // Error response needs to be mocked.
       final historyRepository = MockHistoryRepository();
       when(() => historyRepository.getPieceFromHistory('0', null))
           .thenAnswer((_) async => throw Exception());
 
-      // create new test widget with additional override
+      // Create new test widget with additional override.
       testWidget = getTestWidgetFromInitialLocation(
         initialLocation: '/piece/0',
         overrides: (testWidget as ProviderScope).overrides
@@ -141,16 +141,16 @@ void main() async {
       await tester.tap(find.byIcon(Icons.more_horiz));
       await tester.pumpAndSettle();
 
-      // save news piece
+      // Save news piece.
       await tester.tap(find.byIcon(Icons.star_border));
       await tester.pumpAndSettle();
 
-      // snackbar is shown then hidden after 2 sec
+      // Snackbar is shown then hidden after 2 sec.
       expect(find.byType(SnackBar), findsOneWidget);
       await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.byType(SnackBar), findsNothing);
 
-      // when we open options sheet now, star icon should change to delete icon
+      // When we open options sheet now, star icon should change to delete icon.
       await tester.tap(find.byIcon(Icons.more_horiz));
       await tester.pumpAndSettle();
 
@@ -175,7 +175,7 @@ void main() async {
       await tester.tap(find.byIcon(Icons.more_horiz));
       await tester.pumpAndSettle();
 
-      // options sheet shows the option to remove from saved instead of saving
+      // Options sheet shows the option to remove from saved instead of saving.
       expect(find.byIcon(Icons.delete_outlined), findsOneWidget);
       expect(find.byIcon(Icons.star_border), findsNothing);
     });

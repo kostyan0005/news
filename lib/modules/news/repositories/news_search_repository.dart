@@ -29,7 +29,7 @@ class NewsSearchRepository {
       return parseNewsFromXml(response.body);
     } on http.ClientException {
       if (kIsWeb) {
-        // fetching news on the web does not work, so return example pieces
+        // Fetching news on the web does not work, so return example pieces.
         return parseNewsFromXml(generateExampleXml());
       } else {
         rethrow;

@@ -43,7 +43,7 @@ class HistoryRepository {
   static Future<NewsPiece?> getPieceFromCacheThenServer(
       String pieceId, CollectionReference<NewsPiece?> collectionRef) async {
     try {
-      // try getting from cache
+      // Try getting from cache.
       final cachedSnap = await collectionRef
           .doc(pieceId)
           .get(const GetOptions(source: Source.cache));
@@ -52,10 +52,10 @@ class HistoryRepository {
         return cachedSnap.data()!;
       }
     } catch (_) {
-      // for some reason error is thrown if not present in cache
+      // For some reason error is thrown if not present in cache.
     }
 
-    // try getting from server
+    // Try getting from server.
     return await collectionRef
         .doc(pieceId)
         .get(const GetOptions(source: Source.server))

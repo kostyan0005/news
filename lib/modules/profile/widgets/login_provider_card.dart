@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auth/auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -18,23 +20,23 @@ class LoginProviderCard extends ConsumerWidget {
     required this.isSignedIn,
   }) : super(key: ValueKey(provider));
 
-  static bool isActionInProgress = false;
+  static bool _isActionInProgress = false;
 
+  /// Signs the user out and shows the respective snack bar message.
   void _signOut(WidgetRef ref, BuildContext context) async {
-    if (isActionInProgress) return;
-    isActionInProgress = true;
-    // can also be called from account in use dialog
+    if (_isActionInProgress) return;
+    _isActionInProgress = true;
     ref.read(isLoadingProvider(LoginProvider.logout).notifier).state = true;
 
     await ref.read(authRepositoryProvider).signOut();
 
     showSnackBarMessage(context, 'signed_out_message'.tr());
-    isActionInProgress = false;
+    _isActionInProgress = false;
   }
 
   void _connectWithProvider(WidgetRef ref, BuildContext context) async {
-    if (isActionInProgress) return;
-    isActionInProgress = true;
+    if (_isActionInProgress) return;
+    _isActionInProgress = true;
     ref.read(isLoadingProvider(provider).notifier).state = true;
 
     final result = await provider.getConnectionFunction(ref).call();
@@ -53,7 +55,7 @@ class LoginProviderCard extends ConsumerWidget {
         break;
     }
 
-    isActionInProgress = false;
+    _isActionInProgress = false;
     ref.read(isLoadingProvider(provider).notifier).state = false;
   }
 

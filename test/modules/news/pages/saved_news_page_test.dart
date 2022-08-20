@@ -60,12 +60,12 @@ void main() async {
 
     testWidgets('indicates when error happens while getting saved news',
         (tester) async {
-      // error response needs to be mocked
+      // Error response needs to be mocked.
       final savedNewsRepository = MockSavedNewsRepository();
       when(() => savedNewsRepository.getSavedNewsStream())
           .thenAnswer((_) => Stream.error(Error()));
 
-      // create new test widget with additional override
+      // Create new test widget with additional override.
       testWidget = getTestWidgetFromInitialTabIndex(
         initialTabIndex: 2,
         overrides: (testWidget as ProviderScope).overrides
@@ -122,23 +122,23 @@ void main() async {
         await tester.pumpWidget(testWidget);
         await tester.pumpAndSettle();
 
-        // check that piece is initially present among saved news
+        // Check that piece is initially present among saved news.
         expect(find.byType(NewsCard), findsNWidgets(5));
         expect(find.text('0'), findsOneWidget);
 
-        // open options sheet
+        // Open options sheet.
         await tester.longPress(find.text('0'));
         await tester.pumpAndSettle();
 
-        // tap on remove tile
+        // Tap on remove tile.
         await tester.tap(find.text('Remove from saved news'));
         await tester.pumpAndSettle();
 
-        // check that piece is removed from saved news
+        // Check that piece is removed from saved news.
         expect(find.byType(NewsCard), findsNWidgets(4));
         expect(find.text('0'), findsNothing);
 
-        // snackbar is shown then hidden after 2 sec
+        // Snackbar is shown then hidden after 2 sec.
         expect(find.byType(SnackBar), findsOneWidget);
         await tester.pumpAndSettle(const Duration(seconds: 2));
         expect(find.byType(SnackBar), findsNothing);
@@ -151,14 +151,14 @@ void main() async {
       await tester.pumpWidget(testWidget);
       await tester.pumpAndSettle();
 
-      // check that navbar is visible initially
+      // Check that navbar is visible initially.
       expect(find.byIcon(HomeTab.headlines.icon).hitTestable(), findsOneWidget);
 
-      // open options sheet
+      // Open options sheet.
       await tester.longPress(find.text('0'));
       await tester.pumpAndSettle();
 
-      // check that options sheet covers navbar
+      // Check that options sheet covers navbar.
       expect(find.byType(OptionsSheet), findsOneWidget);
       expect(find.byIcon(HomeTab.headlines.icon).hitTestable(), findsNothing);
     });

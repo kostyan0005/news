@@ -18,8 +18,8 @@ Future<void> _loadTranslationsForLocale(String locale) async {
   final content = await File('assets/translations/$locale.json').readAsString();
   final data = jsonDecode(content) as Map<String, dynamic>;
 
-  // load needed translations directly so that we don't need to deal with any
-  // wrapper widgets and waiting/pumping in widget tests
+  // Load needed translations directly so that we don't need to deal with any
+  // wrapper widgets and waiting/pumping in widget tests.
   Localization.load(
     Locale(locale),
     translations: Translations(data),

@@ -17,7 +17,7 @@ import 'utils/register_web_webview_stub.dart'
     if (dart.library.html) 'utils/register_web_webview.dart';
 import 'utils/custom_ru_messages.dart';
 
-// todo: document the whole project
+/// todo
 Future<void> mainCommon({bool isProd = false}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -36,12 +36,12 @@ Future<void> mainCommon({bool isProd = false}) async {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
   ]);
 
-  // switch to emulators
+  // Switch to emulators.
   // final host = Platform.isAndroid ? '10.0.2.2' : 'localhost';
   // FirebaseFirestore.instance.useFirestoreEmulator(host, 8080);
   // await FirebaseAuth.instance.useAuthEmulator(host, 9099);
 
-  // set auth instance and sign in
+  // Set the auth instance and sign in.
   AuthRepository.instance.setAuthInstance(FirebaseAuth.instance, isProd);
   await AuthRepository.instance.signInAnonymouslyIfNeeded();
 
@@ -69,10 +69,13 @@ Future<void> mainCommon({bool isProd = false}) async {
     ),
   );
 
-  // platform-dependent
+  // Enable web views for the web platform.
   registerWebViewWebImplementation();
 }
 
+/// The main application widget.
+///
+/// todo
 class App extends StatefulWidget {
   const App();
 

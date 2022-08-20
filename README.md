@@ -17,7 +17,7 @@ This app was created in my free time for training purposes. It has the following
 - Slightly different app **layouts** are available based on the screen size.
 
 <br/>
-<p float="left">
+<p>
   <img src="screenshots/headlines.png" width="200" />
   <img src="screenshots/subscriptions.png" width="200" /> 
   <img src="screenshots/saved_news.png" width="200" /> 

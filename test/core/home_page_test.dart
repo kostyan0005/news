@@ -119,15 +119,15 @@ void main() async {
         await tester.tap(find.byIcon(HomeTab.savedNews.icon));
         await tester.pumpAndSettle();
 
-        // app bar is shown initially
+        // App bar is shown initially.
         expect(find.byType(SliverAppBar), findsOneWidget);
 
-        // app bar is hidden after scrolling down
+        // App bar is hidden after scrolling down.
         await tester.scrollUntilVisible(find.text('Piece 19'), 500,
             scrollable: find.byType(Scrollable).first);
         expect(find.byType(SliverAppBar), findsNothing);
 
-        // app bar is shown again after scrolling up
+        // App bar is shown again after scrolling up.
         await tester.scrollUntilVisible(find.text('Piece 0'), -500,
             scrollable: find.byType(Scrollable).first);
         expect(find.byType(SliverAppBar), findsOneWidget);

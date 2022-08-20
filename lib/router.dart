@@ -15,7 +15,7 @@ GoRouter getRouter({
     urlPathStrategy: UrlPathStrategy.path,
     restorationScopeId: 'router',
     routes: [
-      // added for testing purposes
+      // Added for testing purposes.
       if (initialWidget != null)
         GoRoute(
           path: '/widget',

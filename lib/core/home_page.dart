@@ -37,7 +37,8 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
   void initState() {
     super.initState();
 
-    // use WidgetsBinding, as ref is probably not available yet in restoreState
+    // Use ref in a post-frame callback, as it is not available yet when
+    // restoreState is called right after initState.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_showingProfileDialog.value) {
         ref.read(shouldShowProfileDialogProvider.notifier).state = true;

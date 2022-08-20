@@ -1,2 +1,3 @@
-// non-web implementation is empty
-void registerWebViewWebImplementation() {}
+void registerWebViewWebImplementation() {
+  // No implementation is needed for mobile devices.
+}

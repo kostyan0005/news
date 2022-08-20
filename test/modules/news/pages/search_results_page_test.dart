@@ -77,12 +77,12 @@ void main() async {
       expect(find.byIcon(Icons.star), findsOneWidget);
       expect(find.byIcon(Icons.star_border), findsNothing);
 
-      // snackbar is shown then hidden after 2 sec
+      // Snackbar is shown then hidden after 2 sec.
       expect(find.byType(SnackBar), findsOneWidget);
       await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.byType(SnackBar), findsNothing);
 
-      // go back to home screen and switch to subscriptions page
+      // Go back to home screen and switch to subscriptions page.
       await tester.pageBack();
       await tester.pumpAndSettle();
       await tester.pageBack();
@@ -105,12 +105,12 @@ void main() async {
       expect(find.byIcon(Icons.star_border), findsOneWidget);
       expect(find.byIcon(Icons.star), findsNothing);
 
-      // snackbar is shown then hidden after 2 sec
+      // Snackbar is shown then hidden after 2 sec.
       expect(find.byType(SnackBar), findsOneWidget);
       await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.byType(SnackBar), findsNothing);
 
-      // go back to home screen and switch to subscriptions page
+      // Go back to home screen and switch to subscriptions page.
       await tester.pageBack();
       await tester.pumpAndSettle();
       await tester.pageBack();

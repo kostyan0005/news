@@ -64,12 +64,12 @@ void main() async {
 
     testWidgets('indicates when error happens while getting subscriptions',
         (tester) async {
-      // error response needs to be mocked
+      // Error response needs to be mocked.
       final subscriptionsRepository = MockSubscriptionsRepository();
       when(() => subscriptionsRepository.getSubscriptionsStream())
           .thenAnswer((_) => Stream.error(Error()));
 
-      // create new test widget with additional override
+      // Create new test widget with additional override.
       testWidget = getTestWidgetFromInitialTabIndex(
         initialTabIndex: 1,
         overrides: (testWidget as ProviderScope).overrides
@@ -136,7 +136,7 @@ void main() async {
         expect(find.byType(SubscriptionItem), findsNWidgets(4));
         expect(find.text('0'), findsNothing);
 
-        // snackbar is shown then hidden after 2 sec
+        // Snackbar is shown then hidden after 2 sec.
         expect(find.byType(SnackBar), findsOneWidget);
         await tester.pumpAndSettle(const Duration(seconds: 2));
         expect(find.byType(SnackBar), findsNothing);
@@ -151,14 +151,14 @@ void main() async {
       await tester.pumpAndSettle();
 
       expect(find.byType(SubscriptionsPage), findsOneWidget);
-      expect(find.text('0'), findsOneWidget); // card text
+      expect(find.text('0'), findsOneWidget); // Card text.
 
       await tester.tap(find.text('0'));
       await tester.pumpAndSettle();
 
       expect(find.byType(SubscriptionsPage), findsNothing);
       expect(find.byType(SearchResultsPage), findsOneWidget);
-      expect(find.text('0'), findsOneWidget); // page title
+      expect(find.text('0'), findsOneWidget); // Page title.
     });
 
     testWidgets('subscriptions can be scrolled', (tester) async {
@@ -170,13 +170,13 @@ void main() async {
       expect(find.text('9'), findsOneWidget);
       expect(find.text('0'), findsNothing);
 
-      // scroll down
+      // Scroll down.
       await tester.scrollUntilVisible(find.text('0'), 500,
           scrollable: find.byType(Scrollable).first);
       expect(find.text('0'), findsOneWidget);
       expect(find.text('9'), findsNothing);
 
-      // scroll up
+      // Scroll up.
       await tester.scrollUntilVisible(find.text('9'), -500,
           scrollable: find.byType(Scrollable).first);
       expect(find.text('9'), findsOneWidget);

@@ -39,7 +39,7 @@ void main() async {
   group('NewsCard and OptionsSheet', () {
     late Widget testWidget;
 
-    // show options sheet
+    // Show options sheet.
     Future<void> pumpWidgetAndTapMoreIcon(WidgetTester tester) async {
       await tester.pumpWidget(testWidget);
       await tester.tap(find.byIcon(Icons.more_horiz));
@@ -122,7 +122,7 @@ void main() async {
       await tester.tap(find.text('Save'));
       await tester.pumpAndSettle();
 
-      // snackbar is shown then hidden after 2 sec
+      // Snackbar is shown then hidden after 2 sec.
       expect(find.byType(SnackBar), findsOneWidget);
       await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.byType(SnackBar), findsNothing);

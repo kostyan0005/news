@@ -7,13 +7,24 @@ import 'package:logger/logger.dart';
 import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
 
+enum SignInResult {
+  success,
+  failed,
+  cancelled,
+  accountInUse,
+}
+
 final authRepositoryProvider = Provider((_) => AuthRepository.instance);
 
 class AuthRepository {
   static final _instance = AuthRepository();
   static AuthRepository get instance => _instance;
 
-  bool _isSet = false; // for cases where multiple tests are running
+  /// Whether [_auth] instance has already been set.
+  ///
+  /// Needed in case multiple integration tests are running sequentially.
+  bool _isSet = false;
+
   late final FirebaseAuth _auth;
   late final bool _isProd;
 
@@ -34,7 +45,8 @@ class AuthRepository {
 
   Future<void> signInAnonymouslyIfNeeded() async {
     if (kIsWeb) {
-      // on web, wait so that currentUser has up-to-date value
+      // On the web, we need to wait until the first auth state is emitted
+      // in order to have up-to-date user data.
       await _auth.authStateChanges().first;
     }
 
@@ -55,21 +67,21 @@ class AuthRepository {
     } on FirebaseAuthException catch (e, s) {
       if (e.code == 'credential-already-in-use') {
         if (_me.isAnonymous) {
-          // user is not signed in yet
+          // The user is not signed in yet.
           try {
             await _auth.signInWithCredential(credential);
             return SignInResult.success;
           } on FirebaseAuthException catch (e, s) {
-            // log an unexpected error
+            // Log an unexpected error.
             Logger().e(e.message, e, s);
             return SignInResult.failed;
           }
         } else {
-          // user is already singed in with another account
+          // The user is already singed in with the another account.
           return SignInResult.accountInUse;
         }
       } else {
-        // log unexpected error
+        // Log an unexpected error.
         Logger().e(e.message, e, s);
         return SignInResult.failed;
       }
@@ -150,11 +162,4 @@ class AuthRepository {
     );
     return await _connectWithCredential(credential);
   }
-}
-
-enum SignInResult {
-  success,
-  failed,
-  cancelled,
-  accountInUse,
 }
