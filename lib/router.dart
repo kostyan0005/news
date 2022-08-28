@@ -5,6 +5,11 @@ import 'core/home_page.dart';
 import 'modules/news/pages/all.dart';
 import 'modules/profile/pages/locale_selection_page.dart';
 
+/// Defines the router with the list of routes available in the app
+/// and the initial location.
+///
+/// [initialWidget], [initialLocation] and [initialTabIndex] parameters are
+/// added in order to fine-grain the initial location in test cases.
 GoRouter getRouter({
   Widget? initialWidget,
   String initialLocation = '/',
@@ -15,7 +20,7 @@ GoRouter getRouter({
     urlPathStrategy: UrlPathStrategy.path,
     restorationScopeId: 'router',
     routes: [
-      // Added for testing purposes.
+      // Used in test cases.
       if (initialWidget != null)
         GoRoute(
           path: '/widget',

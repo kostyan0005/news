@@ -17,7 +17,10 @@ import 'utils/register_web_webview_stub.dart'
     if (dart.library.html) 'utils/register_web_webview.dart';
 import 'utils/custom_ru_messages.dart';
 
-/// todo
+/// Runs the application in the generic environment, based on [isProd] parameter.
+///
+/// In addition to running the app, some initializations are made, including
+/// signing the user in anonymously if he's not signed in yet.
 Future<void> mainCommon({bool isProd = false}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -73,9 +76,11 @@ Future<void> mainCommon({bool isProd = false}) async {
   registerWebViewWebImplementation();
 }
 
-/// The main application widget.
+/// The main widget of the app.
 ///
-/// todo
+/// It specifies that the app is the router material app using *go_router* package
+/// for navigation management and *riverpod* as the main state management solution.
+/// In addition, light theme, localization and restoration data is defined here.
 class App extends StatefulWidget {
   const App();
 
