@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
 
+/// The result of the sign-in attempt.
 enum SignInResult {
   success,
   failed,
@@ -14,10 +15,16 @@ enum SignInResult {
   accountInUse,
 }
 
+/// The provider of [AuthRepository] instance.
 final authRepositoryProvider = Provider((_) => AuthRepository.instance);
 
+/// The singleton repository which handles signing in/connecting the user with
+/// different authentication providers, getting the result of these sign-in
+/// attempts and signing out.
 class AuthRepository {
   static final _instance = AuthRepository();
+
+  /// A single instance of this repository.
   static AuthRepository get instance => _instance;
 
   /// Whether [_auth] instance has already been set.
@@ -31,10 +38,17 @@ class AuthRepository {
   User get _me => _auth.currentUser!;
   String get myId => _me.uid;
 
+  /// The stream of current user data changes.
   Stream<User> get userChangesStream =>
       _auth.userChanges().where((u) => u != null).cast<User>();
+
+  /// The stream of current user uid changes.
   Stream<String> get uidStream => userChangesStream.map((u) => u.uid);
 
+  /// Sets the [auth] instance passed from the core application and specifies
+  /// which environment is used.
+  ///
+  /// If the [auth] instance has already been set previously, do not reset it.
   void setAuthInstance(FirebaseAuth auth, bool isProd) {
     if (!_isSet) {
       _auth = auth;
@@ -43,6 +57,7 @@ class AuthRepository {
     }
   }
 
+  /// Signs the user in anonymously if he is not signed in yet.
   Future<void> signInAnonymouslyIfNeeded() async {
     if (kIsWeb) {
       // On the web, we need to wait until the first auth state is emitted
@@ -55,11 +70,21 @@ class AuthRepository {
     }
   }
 
+  /// Signs the user out and immediately signs him in anonymously.
+  ///
+  /// This is done so that the user is always signed in with some account
+  /// (the anonymous one by default) while using the app.
   Future<void> signOut() async {
     await _auth.signOut();
     await _auth.signInAnonymously();
   }
 
+  /// Tries to connect the current user account with the authentication
+  /// provider that has the given [credential].
+  ///
+  /// Returns the result of this connection attempt, of [SignInResult] type.
+  /// Used as a helper function in [connectWithGoogle], [connectWithFacebook]
+  /// and [connectWithTwitter] methods.
   Future<SignInResult> _connectWithCredential(AuthCredential credential) async {
     try {
       await _me.linkWithCredential(credential);
@@ -88,6 +113,7 @@ class AuthRepository {
     }
   }
 
+  /// Tries to connect the current user account with Google auth provider.
   Future<SignInResult> connectWithGoogle() async {
     late final GoogleSignInAccount? googleUser;
     try {
@@ -116,6 +142,7 @@ class AuthRepository {
     return await _connectWithCredential(credential);
   }
 
+  /// Tries to connect the current user account with Facebook auth provider.
   Future<SignInResult> connectWithFacebook() async {
     final result = await FacebookAuth.instance.login();
     final status = result.status;
@@ -132,6 +159,7 @@ class AuthRepository {
     return await _connectWithCredential(credential);
   }
 
+  /// Tries to connect the current user account with Twitter auth provider.
   Future<SignInResult> connectWithTwitter(
       String apiKey, String secretKey, String redirectUri) async {
     late final AuthResult result;

@@ -3,6 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'auth_repository.dart';
 
+/// The sign-in status of the user.
+///
+/// Indicates whether the user is signed or not and tells which
+/// authentication providers are connected with the corresponding account.
 class SignInStatus {
   final bool isSignedIn;
   final bool withGoogle;
@@ -17,6 +21,7 @@ class SignInStatus {
   });
 }
 
+/// The provider of the current user [SignInStatus] stream.
 final signInStatusStreamProvider = StreamProvider.autoDispose<SignInStatus>(
   (ref) => ref.read(authRepositoryProvider).userChangesStream.map((user) {
     if (user.isAnonymous) {

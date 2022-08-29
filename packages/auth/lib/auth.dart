@@ -1,4 +1,8 @@
-/// todo
+/// The library containing useful authentication helpers.
+///
+/// Supported functionality includes signing in with different providers,
+/// getting the result of the sign-in attempt, stream providers with user uid,
+/// photo url and sign-in status data.
 library auth;
 
 export 'src/auth_repository.dart'
