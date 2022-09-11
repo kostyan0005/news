@@ -13,12 +13,12 @@ void showAccountInUseDialog(BuildContext context, Function signOutFunc) {
             Navigator.pop(dialogContext);
             signOutFunc.call();
           },
-          style: TextButton.styleFrom(primary: Colors.red),
+          style: TextButton.styleFrom(foregroundColor: Colors.red),
           child: Text('sign_out'.tr()),
         ),
         TextButton(
           onPressed: () => Navigator.pop(dialogContext),
-          style: TextButton.styleFrom(primary: Colors.blue),
+          style: TextButton.styleFrom(foregroundColor: Colors.blue),
           child: Text('dismiss'.tr()),
         ),
       ],

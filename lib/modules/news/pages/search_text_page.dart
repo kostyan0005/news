@@ -134,7 +134,7 @@ class _SearchTextPageState extends State<SearchTextPage> with RestorationMixin {
               child: TextButton(
                 onPressed: () => _goToSearchResults(),
                 style: TextButton.styleFrom(
-                  primary: Colors.white,
+                  foregroundColor: Colors.white,
                   backgroundColor: Colors.teal,
                   textStyle: const TextStyle(fontSize: 15),
                   padding: const EdgeInsets.symmetric(horizontal: 20),

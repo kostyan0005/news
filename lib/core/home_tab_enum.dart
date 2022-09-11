@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+/// Available home page tabs.
 enum HomeTab {
   headlines,
   subscriptions,
@@ -8,6 +9,7 @@ enum HomeTab {
 }
 
 extension HomeTabExtension on HomeTab {
+  /// The icon for the particular tab.
   IconData get icon {
     switch (this) {
       case HomeTab.headlines:
@@ -19,6 +21,7 @@ extension HomeTabExtension on HomeTab {
     }
   }
 
+  /// The localized title of the particular tab.
   String get title {
     switch (this) {
       case HomeTab.headlines:

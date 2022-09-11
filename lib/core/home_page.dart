@@ -8,9 +8,18 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'home_tab_enum.dart';
 
+/// Provider that indicates whether the profile dialog should be shown.
 final shouldShowProfileDialogProvider = StateProvider((_) => false);
 
+/// The home page of the application.
+///
+/// Contains 3 navigation tabs, which can be shown either in a bottom navigation
+/// bar or in a drawer, depending on the screen size. State restoration is
+/// implemented for this page.
 class HomePage extends ConsumerStatefulWidget {
+  /// Initially active tab index for the home page tab bar.
+  ///
+  /// Useful when we need to provide initially active tab while testing.
   final int initialTabIndex;
 
   const HomePage({
@@ -41,6 +50,7 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
     // restoreState is called right after initState.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_showingProfileDialog.value) {
+        // Show the profile dialog if it was opened before the app state was lost.
         ref.read(shouldShowProfileDialogProvider.notifier).state = true;
       }
     });
@@ -59,6 +69,7 @@ class _HomePageState extends ConsumerState<HomePage> with RestorationMixin {
     }
   }
 
+  /// Opens the profile dialog and updates the state when it's closed.
   void _showProfileDialog() async {
     _showingProfileDialog.value = true;
 

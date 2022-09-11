@@ -6,6 +6,11 @@ import 'package:news/config/constants.dart';
 
 import 'home_page.dart';
 
+/// The widget which encapsulates home page tabs, providing each of them with
+/// an identical app bar, which scrolls together with the content.
+///
+/// In addition, each tab's appbar will stay in it's own scroll position.
+/// The position of the appbar icons is determined based on the screen size.
 class HomeTabFrame extends ConsumerWidget {
   final String title;
   final Widget body;
@@ -62,6 +67,9 @@ class HomeTabFrame extends ConsumerWidget {
   }
 }
 
+/// The default look of the profile icon.
+///
+/// If user is logged in, his social account avatar will be shown instead.
 class _DefaultAvatar extends StatelessWidget {
   const _DefaultAvatar();
 
