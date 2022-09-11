@@ -1,5 +1,7 @@
+import 'package:news/modules/news/pages/headline_tabs_page.dart';
 import 'package:news/utils/rss_utils.dart';
 
+/// Available [HeadlineTabsPage] headlines.
 enum Headline {
   latest,
   nation,
@@ -13,6 +15,7 @@ enum Headline {
 }
 
 extension HeadlineExtension on Headline {
+  /// Gets localized title of the current headline.
   String getTitle(String locale) {
     final isRu = locale == 'ru_UA';
 
@@ -38,8 +41,11 @@ extension HeadlineExtension on Headline {
     }
   }
 
+  /// The name of the current headline.
   String get topic => toString().replaceAll('Headline.', '').toUpperCase();
 
+  /// Gets the url from which the news corresponding to the current headline
+  /// would be fetched.
   String getRssUrl(String locale) {
     switch (this) {
       case Headline.latest:

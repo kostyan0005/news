@@ -7,10 +7,14 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../models/rss_news_state.dart';
 import '../repositories/news_search_repository.dart';
 
+/// The provider of [RssNewsNotifier].
 final rssNewsNotifierProvider = StateNotifierProvider.autoDispose
     .family<RssNewsNotifier, RssNewsState, String>((ref, rssUrl) =>
         RssNewsNotifier(ref.read(newsSearchRepositoryProvider), rssUrl));
 
+/// The notifier of the current news fetching state changes.
+///
+/// Also updates the state of refresh [controller].
 class RssNewsNotifier extends StateNotifier<RssNewsState> {
   final NewsSearchRepository _newsSearchRepository;
   final String _rssUrl;
@@ -21,6 +25,7 @@ class RssNewsNotifier extends StateNotifier<RssNewsState> {
     getRssNews();
   }
 
+  /// Requests the new portion of news and updates the state based on the result.
   Future<void> getRssNews() async {
     await _newsSearchRepository.getNewsFromRssUrl(_rssUrl).then((newsPieces) {
       if (mounted) {
@@ -39,5 +44,6 @@ class RssNewsNotifier extends StateNotifier<RssNewsState> {
     });
   }
 
+  /// Refreshes fetched news.
   Future<void> refresh() => getRssNews();
 }
