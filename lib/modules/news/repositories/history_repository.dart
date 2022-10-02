@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/core/firestore_provider.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 
+/// todo
 final historyRepositoryProvider = Provider((ref) => HistoryRepository(
     ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
+/// todo
 class HistoryRepository {
   final FirebaseFirestore _firestore;
   final CollectionReference<NewsPiece?> _myHistoryCollectionRef;

@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/core/firestore_provider.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 
+/// todo
 final subscriptionsRepositoryProvider = Provider((ref) =>
     SubscriptionsRepository(
         ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
+/// todo
 class SubscriptionsRepository {
   final CollectionReference<SearchQuery> _mySubscriptionsCollectionRef;
 

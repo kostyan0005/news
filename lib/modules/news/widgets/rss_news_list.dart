@@ -8,6 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'news_list.dart';
 
+/// todo
 class RssNewsList extends ConsumerWidget {
   final String rssUrl;
 
@@ -30,6 +31,7 @@ class RssNewsList extends ConsumerWidget {
   }
 }
 
+/// todo
 class _CustomRefresherHeader extends StatefulWidget {
   const _CustomRefresherHeader();
 

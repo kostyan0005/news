@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:news/config/twitter_params.dart';
 
-/// todo
+/// Possible login providers implemented in the app.
+///
+/// [logout] is also present in this enum for convenience.
 enum LoginProvider {
   google,
   facebook,
@@ -39,6 +41,7 @@ extension LoginProviderExtension on LoginProvider {
     }
   }
 
+  /// Gets the function used to connect with the corresponding provider.
   Future<SignInResult> Function() getConnectionFunction(WidgetRef ref) {
     switch (this) {
       case LoginProvider.google:

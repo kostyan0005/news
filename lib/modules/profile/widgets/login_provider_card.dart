@@ -8,13 +8,20 @@ import 'package:news/modules/profile/models/login_provider_enum.dart';
 import 'package:news/utils/account_in_use_dialog.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
-/// todo
+/// The family of providers that indicates whether the process of connecting
+/// with the particular login provider is currently happening or not.
 final isLoadingProvider =
     StateProvider.autoDispose.family<bool, LoginProvider>((ref, _) => false);
 
-/// todo
+/// The card which gives the user the option to sign in/connect with
+/// the particular login [provider].
+///
+/// The logout option is also possible with the [LoginProvider.logout] provider.
 class LoginProviderCard extends ConsumerWidget {
   final LoginProvider provider;
+
+  /// The indicator of whether the user should be signed in or connected with
+  /// the particular [provider].
   final bool isSignedIn;
 
   LoginProviderCard({
@@ -22,6 +29,8 @@ class LoginProviderCard extends ConsumerWidget {
     required this.isSignedIn,
   }) : super(key: ValueKey(provider));
 
+  /// The indicator of whether the process of connecting with any login provider
+  /// is currently taking place.
   static bool _isActionInProgress = false;
 
   /// Signs the user out and shows the respective snack bar message.
@@ -36,6 +45,9 @@ class LoginProviderCard extends ConsumerWidget {
     _isActionInProgress = false;
   }
 
+  /// Tries to sign in or connect with the particular login [provider].
+  ///
+  /// Additionally, the snackbar message is shown for each possible outcome.
   void _connectWithProvider(WidgetRef ref, BuildContext context) async {
     if (_isActionInProgress) return;
     _isActionInProgress = true;

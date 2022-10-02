@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:news/modules/news/models/news_piece_model.dart';
+import 'package:news/utils/generate_example_xml.dart';
 import 'package:xml/xml.dart';
 
-import '../../../utils/generate_example_xml.dart';
-import '../models/news_piece_model.dart';
-
+/// todo
 final newsSearchRepositoryProvider = Provider((_) => NewsSearchRepository());
 
+/// todo
 class NewsSearchRepository {
   final _client = http.Client();
 

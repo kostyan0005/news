@@ -4,6 +4,7 @@ import 'package:news/modules/news/models/news_piece_model.dart';
 
 import 'news_card.dart';
 
+/// todo
 class NewsList extends CustomScrollView {
   final List<NewsPiece> newsPieces;
 

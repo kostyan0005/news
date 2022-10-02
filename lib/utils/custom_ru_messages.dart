@@ -1,5 +1,6 @@
 import 'package:timeago/timeago.dart';
 
+/// todo
 class CustomRuMessages implements LookupMessages {
   @override
   String prefixAgo() => '';

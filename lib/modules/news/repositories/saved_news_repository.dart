@@ -6,9 +6,11 @@ import 'package:news/modules/news/models/news_piece_model.dart';
 
 import 'history_repository.dart';
 
+/// todo
 final savedNewsRepositoryProvider = Provider((ref) => SavedNewsRepository(
     ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
+/// todo
 class SavedNewsRepository {
   final CollectionReference<NewsPiece?> _mySavedNewsCollectionRef;
 

@@ -3,6 +3,7 @@ const _headlinePart = '/headlines/section/topic/';
 // const _geoPart = '/headlines/section/geo/';
 const _searchPart = '/search?q=';
 
+/// todo
 String _getSuffix(String locale) {
   final localeParts = locale.split('_');
   final langCode = localeParts[0];

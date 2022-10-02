@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+/// todo
 void showAccountInUseDialog(BuildContext context, Function signOutFunc) {
   showDialog(
     context: context,

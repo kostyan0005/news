@@ -6,6 +6,7 @@ import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/repositories/subscriptions_repository.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
+/// todo
 class SubscriptionItem extends ConsumerWidget {
   final SearchQuery subscription;
 
