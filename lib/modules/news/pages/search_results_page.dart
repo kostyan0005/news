@@ -10,9 +10,15 @@ import 'package:news/utils/rss_utils.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:share_plus/share_plus.dart';
 
+/// The page showing news pieces found with the [queryText] search query.
 class SearchResultsPage extends ConsumerWidget {
   final String queryText;
+
+  /// The locale in which the search is conducted and results are displayed.
   final String? queryLocale;
+
+  /// The indicator of whether the current user is subscribed to [queryText]
+  /// topic or not.
   final bool isSubscribed;
 
   const SearchResultsPage({
@@ -70,6 +76,7 @@ class SearchResultsPage extends ConsumerWidget {
   }
 }
 
+/// The button to subscribe to the [searchQuery] topic.
 class _SubscribeButton extends ConsumerWidget {
   final SearchQuery searchQuery;
 
@@ -89,6 +96,7 @@ class _SubscribeButton extends ConsumerWidget {
   }
 }
 
+/// The button to unsubscribe from the [searchQuery] topic.
 class _UnsubscribeButton extends ConsumerWidget {
   final SearchQuery searchQuery;
 

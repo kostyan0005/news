@@ -8,9 +8,11 @@ import 'package:news/modules/profile/models/login_provider_enum.dart';
 import 'package:news/utils/account_in_use_dialog.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
+/// todo
 final isLoadingProvider =
     StateProvider.autoDispose.family<bool, LoginProvider>((ref, _) => false);
 
+/// todo
 class LoginProviderCard extends ConsumerWidget {
   final LoginProvider provider;
   final bool isSignedIn;

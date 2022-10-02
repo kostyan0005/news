@@ -9,6 +9,11 @@ import 'package:news/modules/profile/models/login_provider_enum.dart';
 import 'package:news/modules/profile/widgets/login_provider_card.dart';
 import 'package:news/widgets/indicators.dart';
 
+/// The page displaying the current authentication status of the user and
+/// other profile settings.
+///
+/// Signing in and out is conducted on this page.
+/// Also, this page is displayed inside a popup dialog.
 class ProfileDialogPage extends ConsumerWidget {
   const ProfileDialogPage();
 
@@ -181,6 +186,10 @@ class ProfileDialogPage extends ConsumerWidget {
   }
 }
 
+/// The decorator for the [icon] of each authentication provider.
+///
+/// Extends [WidgetSpan], so that all icons can be displayed in one line,
+/// together with some text.
 class _IconSpan extends WidgetSpan {
   final IconData icon;
 

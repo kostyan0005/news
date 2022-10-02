@@ -9,6 +9,9 @@ import 'package:news/modules/news/widgets/rss_news_list.dart';
 import 'package:news/modules/profile/providers/locale_stream_provider.dart';
 import 'package:news/widgets/indicators.dart';
 
+/// The page that consists of a tab bar with different news categories as tabs.
+///
+/// State restoration is implemented for this page.
 class HeadlineTabsPage extends ConsumerStatefulWidget {
   const HeadlineTabsPage();
 

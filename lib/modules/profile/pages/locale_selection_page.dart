@@ -5,6 +5,7 @@ import 'package:news/modules/profile/providers/locale_stream_provider.dart';
 import 'package:news/modules/profile/repositories/user_settings_repository.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
+/// The page where you can view the current locale and change it if needed.
 class LocaleSelectionPage extends ConsumerWidget {
   const LocaleSelectionPage();
 

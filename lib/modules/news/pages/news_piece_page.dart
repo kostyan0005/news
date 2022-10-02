@@ -11,18 +11,29 @@ import 'package:news/modules/news/widgets/link_view.dart';
 import 'package:news/modules/news/widgets/options_sheet.dart';
 import 'package:news/widgets/indicators.dart';
 
+/// The family of providers of the piece taken from user's piece history.
+///
+/// [_Args] class is used as a family argument.
 final historyPieceProvider = FutureProvider.autoDispose
     .family<NewsPiece?, _Args>((ref, args) => ref
         .watch(historyRepositoryProvider)
         .getPieceFromHistory(args.pieceId, args.sharedFrom));
 
+/// The family of providers of the piece taken from user's saved piece collection.
 final savedPieceProvider = FutureProvider.autoDispose
     .family<NewsPiece?, String>((ref, pieceId) =>
         ref.watch(savedNewsRepositoryProvider).getSavedPiece(pieceId));
 
+/// The page displaying the particular news piece with [pieceId].
+///
+/// Web view is used for displaying the news piece via its link.
 class NewsPiecePage extends ConsumerWidget {
   final String pieceId;
+
+  /// The indicator of whether this piece comes from current user's saved news list.
   final bool fromSaved;
+
+  /// The id of the user from whom this piece is shared.
   final String? sharedFrom;
 
   const NewsPiecePage({
@@ -75,6 +86,11 @@ class NewsPiecePage extends ConsumerWidget {
   }
 }
 
+/// The class serving as the argument for [historyPieceProvider] provider family.
+///
+/// Created to pass multiple variables as one argument to the provider family.
+/// An alternative would be to concatenated these multiple variable into one string,
+/// but the current solution seems better to the author of this repository.
 class _Args {
   final String pieceId;
   final String? sharedFrom;

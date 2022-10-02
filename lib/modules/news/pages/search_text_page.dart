@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
+import 'search_results_page.dart';
+
+/// The page on which the search query [text] is entered.
+///
+/// State restoration is implemented for this page.
 class SearchTextPage extends StatefulWidget {
   final String text;
 
@@ -60,10 +65,11 @@ class _SearchTextPageState extends State<SearchTextPage> with RestorationMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
+  /// Go to the [SearchResultsPage] if entered text is not empty.
   void _goToSearchResults() {
     final text = _controller.text.trim();
     if (text.isNotEmpty) {

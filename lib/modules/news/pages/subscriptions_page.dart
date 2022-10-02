@@ -7,9 +7,14 @@ import 'package:news/modules/news/repositories/subscriptions_repository.dart';
 import 'package:news/modules/news/widgets/subscription_item.dart';
 import 'package:news/widgets/indicators.dart';
 
+/// The provider of the subscriptions stream of the current user.
 final subscriptionsStreamProvider = StreamProvider<List<SearchQuery>>((ref) =>
     ref.watch(subscriptionsRepositoryProvider).getSubscriptionsStream());
 
+/// The page where all the subscriptions of the current user are displayed.
+///
+/// Subscriptions are topics to which current user is subscribed.
+/// They are sorted from latest to earliest subscribed.
 class SubscriptionsPage extends ConsumerWidget {
   const SubscriptionsPage();
 
