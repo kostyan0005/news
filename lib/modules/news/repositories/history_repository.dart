@@ -4,11 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/core/firestore_provider.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 
-/// todo
+/// The provider of [HistoryRepository] instance.
+///
+/// Updates when [uidNotifierProvider] value changes.
 final historyRepositoryProvider = Provider((ref) => HistoryRepository(
     ref.watch(uidNotifierProvider), ref.read(firestoreProvider)));
 
-/// todo
+/// The repository responsible for saving and retrieving news pieces from user's
+/// view history.
 class HistoryRepository {
   final FirebaseFirestore _firestore;
   final CollectionReference<NewsPiece?> _myHistoryCollectionRef;
@@ -16,10 +19,15 @@ class HistoryRepository {
   HistoryRepository(String myId, this._firestore)
       : _myHistoryCollectionRef = _getHistoryCollectionRef(myId, _firestore);
 
+  /// Adds the [piece] viewed by the current user to the view history.
   Future<void> addPieceToHistory(NewsPiece piece) async {
     await _myHistoryCollectionRef.doc(piece.id).set(piece);
   }
 
+  /// Gets the piece with [pieceId] from user's view history.
+  ///
+  /// If [sharedFrom] is specified, get the piece from the history of the user
+  /// from whom this piece is shared.
   Future<NewsPiece?> getPieceFromHistory(String pieceId, String? sharedFrom) {
     return getPieceFromCacheThenServer(
       pieceId,
@@ -29,6 +37,7 @@ class HistoryRepository {
     );
   }
 
+  /// Gets the reference to the view history collection of the user with [userId].
   static CollectionReference<NewsPiece?> _getHistoryCollectionRef(
           String userId, FirebaseFirestore firestore) =>
       firestore
@@ -42,6 +51,10 @@ class HistoryRepository {
               ..addAll({'lastVisited': DateTime.now().toIso8601String()}),
           );
 
+  /// Try to get the news piece with [pieceId] from the particular [collectionRef].
+  ///
+  /// First tries to get this piece from cache, and if not there, then tries to
+  /// find it in the server database.
   static Future<NewsPiece?> getPieceFromCacheThenServer(
       String pieceId, CollectionReference<NewsPiece?> collectionRef) async {
     try {
