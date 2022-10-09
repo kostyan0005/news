@@ -1,5 +1,7 @@
-/// todo
-String generateExampleXml() {
+/// Returns the example XML for the case when the app runs on the web and
+/// getting the real XML from Google News RSS Feed is not possible because of
+/// CORS policy.
+String getExampleXml() {
   return r'''
   <rss xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
     <channel>

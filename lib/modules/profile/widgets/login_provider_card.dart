@@ -1,11 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:auth/auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/profile/models/login_provider_enum.dart';
-import 'package:news/utils/account_in_use_dialog.dart';
+import 'package:news/modules/profile/utils/account_in_use_dialog.dart';
 import 'package:news/utils/snackbar_utils.dart';
 
 /// The family of providers that indicates whether the process of connecting
@@ -38,10 +36,11 @@ class LoginProviderCard extends ConsumerWidget {
     if (_isActionInProgress) return;
     _isActionInProgress = true;
     ref.read(isLoadingProvider(LoginProvider.logout).notifier).state = true;
+    final messengerState = ScaffoldMessenger.of(context);
 
     await ref.read(authRepositoryProvider).signOut();
 
-    showSnackBarMessage(context, 'signed_out_message'.tr());
+    displaySnackBarMessage(messengerState, 'signed_out_message'.tr());
     _isActionInProgress = false;
   }
 
@@ -52,17 +51,19 @@ class LoginProviderCard extends ConsumerWidget {
     if (_isActionInProgress) return;
     _isActionInProgress = true;
     ref.read(isLoadingProvider(provider).notifier).state = true;
+    final messengerState = ScaffoldMessenger.of(context);
 
     final result = await provider.getConnectionFunction(ref).call();
     switch (result) {
       case SignInResult.success:
-        showSnackBarMessage(
-            context, 'connected_message'.tr(args: [provider.name]));
+        displaySnackBarMessage(
+            messengerState, 'connected_message'.tr(args: [provider.name]));
         break;
       case SignInResult.failed:
-        showUnexpectedErrorMessage(context);
+        showUnexpectedErrorMessage(messengerState);
         break;
       case SignInResult.accountInUse:
+        // ignore: use_build_context_synchronously
         showAccountInUseDialog(context, () => _signOut(ref, context));
         break;
       case SignInResult.cancelled:

@@ -4,7 +4,9 @@ import 'package:news/modules/news/models/news_piece_model.dart';
 
 import 'news_card.dart';
 
-/// todo
+/// The scrollable list of [NewsCard]s.
+///
+/// A proper text is displayed when there are no cards to display.
 class NewsList extends CustomScrollView {
   final List<NewsPiece> newsPieces;
 

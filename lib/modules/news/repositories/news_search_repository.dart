@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:news/modules/news/models/news_piece_model.dart';
-import 'package:news/utils/generate_example_xml.dart';
+import 'package:news/utils/example_xml.dart';
 import 'package:xml/xml.dart';
 
 /// The provider of [NewsSearchRepository] instance.
@@ -22,7 +22,7 @@ class NewsSearchRepository {
   Future<List<NewsPiece>> getNewsFromRssUrl(String url) async {
     if (kIsWeb) {
       // Fetching news on the web does not work, so return the example pieces.
-      return parseNewsFromXml(generateExampleXml());
+      return parseNewsFromXml(getExampleXml());
     }
 
     final uri = Uri.parse(url);

@@ -6,18 +6,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news/config/constants.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
+import 'package:news/modules/news/pages/all.dart';
 import 'package:news/modules/news/repositories/saved_news_repository.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'link_view.dart';
 
-/// todo
+/// The family of providers which determine for the particular [pieceId] whether
+/// it is currently saved or not.
 final pieceSavedStatusProvider = FutureProvider.autoDispose
     .family<bool, String>((ref, pieceId) =>
         ref.read(savedNewsRepositoryProvider).isPieceSaved(pieceId));
 
-/// todo
+/// The bottom sheet which presents the options available for
+/// the particular news [piece].
 class OptionsSheet extends StatelessWidget {
   final NewsPiece piece;
 
@@ -80,7 +83,7 @@ class OptionsSheet extends StatelessWidget {
   }
 }
 
-/// todo
+/// The list tile used for adding the news [piece] to saved news.
 class _SaveListTile extends ConsumerWidget {
   final NewsPiece piece;
 
@@ -100,7 +103,7 @@ class _SaveListTile extends ConsumerWidget {
   }
 }
 
-/// todo
+/// The list tile used for removing the news piece with [pieceId] from saved news.
 class _RemoveListTile extends ConsumerWidget {
   final String pieceId;
 
@@ -120,7 +123,7 @@ class _RemoveListTile extends ConsumerWidget {
   }
 }
 
-/// todo
+/// Shows the [OptionsSheet] on the [NewsPiecePage] of the particular news [piece].
 void showOptionsSheetOnNewsPiecePage({
   required WidgetRef ref,
   required BuildContext context,

@@ -6,10 +6,11 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import 'options_sheet.dart';
 
-/// todo
+/// The provider which indicates whether the modal bottom sheet is opened on top
+/// of [LinkView] widget on the web.
 final webBottomSheetVisibilityProvider = StateProvider((_) => false);
 
-/// todo
+/// The web view which displays the contents of the particular [link].
 class LinkView extends ConsumerStatefulWidget {
   final String link;
 
@@ -33,7 +34,12 @@ class _LinkViewState extends ConsumerState<LinkView> {
       children: [
         Padding(
           padding: EdgeInsets.only(
+            // Add some space for loading indicator when needed.
             top: _isFullyLoaded ? 0 : indicatorHeight,
+            // Add some bottom padding on the web when the bottom sheet is opened
+            // in order to free up some space for it, cause bottom sheet touch
+            // events are not received when the sheet is displayed on top of
+            // the web view.
             bottom: kIsWeb && isWebBottomSheetVisible
                 ? OptionsSheet.height + MediaQuery.of(context).padding.bottom
                 : 0,

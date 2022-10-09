@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
+import 'package:news/modules/news/pages/news_piece_page.dart';
 import 'package:news/modules/news/repositories/history_repository.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'options_sheet.dart';
 
-/// todo
+/// The card displaying the overview of the particular news [piece].
 class NewsCard extends ConsumerStatefulWidget {
   final NewsPiece piece;
 
@@ -38,6 +39,9 @@ class _NewsItemState extends ConsumerState<NewsCard> {
     );
   }
 
+  /// Handles the tap on the card text.
+  ///
+  /// If text selection is not triggered after some delay, go to [NewsPiecePage].
   void _onSelectableTextTap() {
     if (!_isSelecting) {
       Future.delayed(const Duration(milliseconds: 200), () {
@@ -46,6 +50,7 @@ class _NewsItemState extends ConsumerState<NewsCard> {
     }
   }
 
+  /// Handles card text selection state change.
   void _onSelectionChanged(TextSelection selection, _) {
     if (selection.isCollapsed) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

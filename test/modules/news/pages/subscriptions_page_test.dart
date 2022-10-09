@@ -8,7 +8,7 @@ import 'package:news/core/firestore_provider.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/pages/all.dart';
 import 'package:news/modules/news/repositories/all.dart';
-import 'package:news/modules/news/widgets/subscription_item.dart';
+import 'package:news/modules/news/widgets/subscription_card.dart';
 import 'package:news/utils/rss_utils.dart';
 import 'package:news/widgets/indicators.dart';
 
@@ -59,7 +59,7 @@ void main() async {
       await tester.pumpAndSettle();
 
       expect(find.text('You have no subscriptions'), findsOneWidget);
-      expect(find.byType(SubscriptionItem), findsNothing);
+      expect(find.byType(SubscriptionCard), findsNothing);
     });
 
     testWidgets('indicates when error happens while getting subscriptions',
@@ -89,7 +89,7 @@ void main() async {
       await tester.pumpWidget(testWidget);
       await tester.pumpAndSettle();
 
-      expect(find.byType(SubscriptionItem), findsNWidgets(5));
+      expect(find.byType(SubscriptionCard), findsNWidgets(5));
     });
 
     testWidgets('subscription stream changes are reflected', (tester) async {
@@ -100,7 +100,7 @@ void main() async {
       await tester.pumpWidget(testWidget);
       await tester.pumpAndSettle();
 
-      expect(find.byType(SubscriptionItem), findsNWidgets(5));
+      expect(find.byType(SubscriptionCard), findsNWidgets(5));
       expect(find.text('4'), findsOneWidget);
       expect(find.text('5'), findsNothing);
 
@@ -108,13 +108,13 @@ void main() async {
           .subscribe(SearchQuery.fromJson(generateTestSubscriptionJson(5)));
       await tester.pumpAndSettle();
 
-      expect(find.byType(SubscriptionItem), findsNWidgets(6));
+      expect(find.byType(SubscriptionCard), findsNWidgets(6));
       expect(find.text('5'), findsOneWidget);
 
       await subscriptionsRepository.unsubscribe('5');
       await tester.pumpAndSettle();
 
-      expect(find.byType(SubscriptionItem), findsNWidgets(5));
+      expect(find.byType(SubscriptionCard), findsNWidgets(5));
       expect(find.text('5'), findsNothing);
     });
 
@@ -127,13 +127,13 @@ void main() async {
         await tester.pumpWidget(testWidget);
         await tester.pumpAndSettle();
 
-        expect(find.byType(SubscriptionItem), findsNWidgets(5));
+        expect(find.byType(SubscriptionCard), findsNWidgets(5));
         expect(find.text('0'), findsOneWidget);
 
         await tester.tap(find.byKey(const ValueKey('0_delete')));
         await tester.pumpAndSettle();
 
-        expect(find.byType(SubscriptionItem), findsNWidgets(4));
+        expect(find.byType(SubscriptionCard), findsNWidgets(4));
         expect(find.text('0'), findsNothing);
 
         // Snackbar is shown then hidden after 2 sec.

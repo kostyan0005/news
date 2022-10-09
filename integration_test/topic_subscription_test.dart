@@ -6,7 +6,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:news/main_common.dart' as app;
 import 'package:news/modules/news/pages/all.dart';
 import 'package:news/modules/news/widgets/news_card.dart';
-import 'package:news/modules/news/widgets/subscription_item.dart';
+import 'package:news/modules/news/widgets/subscription_card.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +39,7 @@ Future<void> testTopicSubscriptionLogic(WidgetTester tester) async {
 
   // Check that two subscriptions are present.
   expect(find.byType(SubscriptionsPage), findsOneWidget);
-  expect(find.byType(SubscriptionItem), findsNWidgets(2));
+  expect(find.byType(SubscriptionCard), findsNWidgets(2));
   expect(find.text('Apple'), findsOneWidget);
   expect(find.text('Google'), findsOneWidget);
 
@@ -48,7 +48,7 @@ Future<void> testTopicSubscriptionLogic(WidgetTester tester) async {
   await tester.pumpAndSettle();
 
   // Check that only one subscription is left.
-  expect(find.byType(SubscriptionItem), findsOneWidget);
+  expect(find.byType(SubscriptionCard), findsOneWidget);
   expect(find.text('Apple'), findsNothing);
   expect(find.text('Google'), findsOneWidget);
 
@@ -56,7 +56,7 @@ Future<void> testTopicSubscriptionLogic(WidgetTester tester) async {
   await _waitForSnackBar(tester);
 
   // Open 'Google' topic page.
-  await tester.tap(find.byType(SubscriptionItem));
+  await tester.tap(find.byType(SubscriptionCard));
   await tester.pumpAndSettle();
 
   // Check that we are already subscribed to this topic.
@@ -80,7 +80,7 @@ Future<void> testTopicSubscriptionLogic(WidgetTester tester) async {
 
   // Check that no subscriptions are left.
   expect(find.byType(SubscriptionsPage), findsOneWidget);
-  expect(find.byType(SubscriptionItem), findsNothing);
+  expect(find.byType(SubscriptionCard), findsNothing);
 }
 
 /// Searches for the topic with particular [topicName] and subscribes to it.

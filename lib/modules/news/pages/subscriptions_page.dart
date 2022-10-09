@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/core/home_tab_frame.dart';
 import 'package:news/modules/news/models/search_query_model.dart';
 import 'package:news/modules/news/repositories/subscriptions_repository.dart';
-import 'package:news/modules/news/widgets/subscription_item.dart';
+import 'package:news/modules/news/widgets/subscription_card.dart';
 import 'package:news/widgets/indicators.dart';
 
 /// The provider of the subscriptions stream of the current user.
@@ -31,7 +31,7 @@ class SubscriptionsPage extends ConsumerWidget {
                         sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (_, index) =>
-                                SubscriptionItem(subscriptions[index]),
+                                SubscriptionCard(subscriptions[index]),
                             childCount: subscriptions.length,
                           ),
                         ),

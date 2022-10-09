@@ -8,7 +8,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'news_list.dart';
 
-/// todo
+/// The refreshable list of fetched news pieces.
+///
+/// The news are fetched from [rssUrl]. Pulling down triggers the refresh
+/// (reloading) of fetched pieces.
 class RssNewsList extends ConsumerWidget {
   final String rssUrl;
 
@@ -31,7 +34,12 @@ class RssNewsList extends ConsumerWidget {
   }
 }
 
-/// todo
+/// The custom indicator which can trigger the refresh of fetched news and
+/// shows a loading indicator while it is happening.
+///
+/// The news list needs to be pulled down far enough so as to trigger the
+/// refresh process. While the list is pulled down, it is animated with a
+/// filling circle.
 class _CustomRefresherHeader extends StatefulWidget {
   const _CustomRefresherHeader();
 

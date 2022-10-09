@@ -1,6 +1,7 @@
 import 'package:timeago/timeago.dart';
 
-/// todo
+/// Custom [LookupMessages] overrides for phrases in the Russian language
+/// indicating how much time has passed since the particular moment.
 class CustomRuMessages implements LookupMessages {
   @override
   String prefixAgo() => '';

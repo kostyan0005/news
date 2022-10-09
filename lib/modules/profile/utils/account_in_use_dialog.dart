@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-/// todo
+/// Shows the dialog telling that the provider the user tries to connect with
+/// is already in use by an another account.
+///
+/// Gives the user the option to log out of the current account to sign in with
+/// the desired provider.
 void showAccountInUseDialog(BuildContext context, Function signOutFunc) {
   showDialog(
     context: context,
