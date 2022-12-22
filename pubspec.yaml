@@ -1,7 +1,8 @@
 name: news
 description: A constantly evolving news app created for training purposes.
 publish_to: 'none'
-version: 1.0.0
+version: 0.0.1
+homepage: https://github.com/kostyan0005/news
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
