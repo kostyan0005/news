@@ -1,8 +1,7 @@
 name: news
 description: A constantly evolving news app created for training purposes.
-
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
