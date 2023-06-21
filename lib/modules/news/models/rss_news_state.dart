@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'news_piece_model.dart';
+import 'package:news/modules/news/models/news_piece_model.dart';
 
 part 'rss_news_state.freezed.dart';
 

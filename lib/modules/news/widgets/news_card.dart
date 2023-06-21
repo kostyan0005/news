@@ -5,9 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 import 'package:news/modules/news/pages/news_piece_page.dart';
 import 'package:news/modules/news/repositories/history_repository.dart';
+import 'package:news/modules/news/widgets/options_sheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
-
-import 'options_sheet.dart';
 
 /// The card displaying the overview of the particular news [piece].
 class NewsCard extends ConsumerStatefulWidget {

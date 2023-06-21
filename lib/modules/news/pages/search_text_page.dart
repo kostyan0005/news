@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:news/modules/news/pages/search_results_page.dart';
 import 'package:news/utils/snackbar_utils.dart';
-
-import 'search_results_page.dart';
 
 /// The page on which the search query [text] is entered.
 ///

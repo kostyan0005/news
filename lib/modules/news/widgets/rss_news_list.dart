@@ -3,10 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news/modules/news/providers/rss_news_notifier_provider.dart';
+import 'package:news/modules/news/widgets/news_list.dart';
 import 'package:news/widgets/indicators.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import 'news_list.dart';
 
 /// The refreshable list of fetched news pieces.
 ///

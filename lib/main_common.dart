@@ -8,14 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:timeago/timeago.dart' as timeago;
-
-import 'firebase_options_dev.dart' as dev;
-import 'firebase_options_prod.dart' as prod;
-import 'router.dart';
-import 'utils/register_web_webview_stub.dart'
+import 'package:news/firebase_options_dev.dart' as dev;
+import 'package:news/firebase_options_prod.dart' as prod;
+import 'package:news/router.dart';
+import 'package:news/utils/custom_ru_messages.dart';
+import 'package:news/utils/register_web_webview_stub.dart'
     if (dart.library.html) 'utils/register_web_webview.dart';
-import 'utils/custom_ru_messages.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 /// Runs the application in the generic environment, based on [isProd] parameter.
 ///

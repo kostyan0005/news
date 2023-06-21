@@ -1,9 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-
-import 'core/home_page.dart';
-import 'modules/news/pages/all.dart';
-import 'modules/profile/pages/locale_selection_page.dart';
+import 'package:news/core/home_page.dart';
+import 'package:news/modules/news/pages/all.dart';
+import 'package:news/modules/profile/pages/locale_selection_page.dart';
 
 /// Defines the router with the list of routes available in the app
 /// and the initial location.

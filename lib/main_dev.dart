@@ -1,4 +1,4 @@
-import 'main_common.dart';
+import 'package:news/main_common.dart';
 
 /// Runs the application in dev environment.
 void main() {

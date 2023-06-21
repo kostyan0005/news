@@ -8,10 +8,9 @@ import 'package:news/config/constants.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
 import 'package:news/modules/news/pages/all.dart';
 import 'package:news/modules/news/repositories/saved_news_repository.dart';
+import 'package:news/modules/news/widgets/link_view.dart';
 import 'package:news/utils/snackbar_utils.dart';
 import 'package:share_plus/share_plus.dart';
-
-import 'link_view.dart';
 
 /// The family of providers which determine for the particular [pieceId] whether
 /// it is currently saved or not.

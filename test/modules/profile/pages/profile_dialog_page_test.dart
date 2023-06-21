@@ -163,8 +163,9 @@ void main() async {
       testWidget = getTestWidgetFromInitialLocation(
         initialLocation: '/',
         overrides: (testWidget as ProviderScope).overrides
-          ..add(signInStatusStreamProvider.overrideWithProvider(
-              StreamProvider.autoDispose((_) => signInStatusStream))),
+          ..add(
+            signInStatusStreamProvider.overrideWith((_) => signInStatusStream),
+          ),
       );
 
       await tester.pumpWidget(testWidget);
@@ -209,8 +210,9 @@ void main() async {
       testWidget = getTestWidgetFromInitialLocation(
         initialLocation: '/',
         overrides: (testWidget as ProviderScope).overrides
-          ..add(signInStatusStreamProvider.overrideWithProvider(
-              StreamProvider.autoDispose((_) => signInStatusStream))),
+          ..add(
+            signInStatusStreamProvider.overrideWith((_) => signInStatusStream),
+          ),
       );
 
       await tester.pumpWidget(testWidget);
@@ -257,8 +259,9 @@ void main() async {
       testWidget = getTestWidgetFromInitialLocation(
         initialLocation: '/',
         overrides: (testWidget as ProviderScope).overrides
-          ..add(signInStatusStreamProvider.overrideWithProvider(
-              StreamProvider.autoDispose((_) => signInStatusStream))),
+          ..add(
+            signInStatusStreamProvider.overrideWith((_) => signInStatusStream),
+          ),
       );
 
       await tester.pumpWidget(testWidget);
@@ -414,8 +417,9 @@ void main() async {
       testWidget = getTestWidgetFromInitialLocation(
         initialLocation: '/',
         overrides: (testWidget as ProviderScope).overrides
-          ..add(signInStatusStreamProvider.overrideWithProvider(
-              StreamProvider.autoDispose((_) => signInStatusStream))),
+          ..add(
+            signInStatusStreamProvider.overrideWith((_) => signInStatusStream),
+          ),
       );
 
       await tester.pumpWidget(testWidget);

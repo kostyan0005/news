@@ -2,10 +2,9 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:news/modules/news/models/rss_news_state.dart';
+import 'package:news/modules/news/repositories/news_search_repository.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../models/rss_news_state.dart';
-import '../repositories/news_search_repository.dart';
 
 /// The provider of [RssNewsNotifier].
 final rssNewsNotifierProvider = StateNotifierProvider.autoDispose

@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:news/modules/news/models/news_piece_model.dart';
-
-import 'news_card.dart';
+import 'package:news/modules/news/widgets/news_card.dart';
 
 /// The scrollable list of [NewsCard]s.
 ///

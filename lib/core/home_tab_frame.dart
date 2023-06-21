@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news/config/constants.dart';
-
-import 'home_page.dart';
+import 'package:news/core/home_page.dart';
 
 /// The widget which encapsulates home page tabs, providing each of them with
 /// an identical app bar, which scrolls together with the content.

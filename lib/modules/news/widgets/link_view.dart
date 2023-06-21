@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news/modules/news/widgets/options_sheet.dart';
 import 'package:news/widgets/indicators.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import 'options_sheet.dart';
 
 /// The provider which indicates whether the modal bottom sheet is opened on top
 /// of [LinkView] widget on the web.
