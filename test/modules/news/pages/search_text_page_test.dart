@@ -1,7 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news/core/firestore_provider.dart';
@@ -27,8 +26,8 @@ void main() async {
       testWidget = getTestWidgetFromInitialLocation(
         initialLocation: '/search',
         overrides: [
-          signInStatusStreamProvider.overrideWithValue(
-              const AsyncValue.data(SignInStatus(isSignedIn: false))),
+          signInStatusStreamProvider.overrideWith(
+              (_) => Stream.value(const SignInStatus(isSignedIn: false))),
           authRepositoryProvider.overrideWithValue(authRepository),
           firestoreProvider.overrideWithValue(firestore),
         ],

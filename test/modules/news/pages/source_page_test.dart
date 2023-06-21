@@ -30,8 +30,8 @@ void main() async {
         initialLocation: '/source?name=The+New+York+Times'
             '&link=https%3A%2F%2Fwww.nytimes.com',
         overrides: [
-          signInStatusStreamProvider.overrideWithValue(
-              const AsyncValue.data(SignInStatus(isSignedIn: false))),
+          signInStatusStreamProvider.overrideWith(
+              (_) => Stream.value(const SignInStatus(isSignedIn: false))),
           authRepositoryProvider.overrideWithValue(authRepository),
           firestoreProvider.overrideWithValue(firestore),
         ],

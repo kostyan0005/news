@@ -32,8 +32,8 @@ void main() async {
       testWidget = getTestWidgetFromInitialLocation(
         initialLocation: '/piece/0',
         overrides: [
-          signInStatusStreamProvider.overrideWithValue(
-              const AsyncValue.data(SignInStatus(isSignedIn: false))),
+          signInStatusStreamProvider.overrideWith(
+              (_) => Stream.value(const SignInStatus(isSignedIn: false))),
           authRepositoryProvider.overrideWithValue(authRepository),
           firestoreProvider.overrideWithValue(firestore),
         ],

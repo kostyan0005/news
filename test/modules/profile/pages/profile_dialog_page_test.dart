@@ -31,8 +31,8 @@ void main() async {
       testWidget = getTestWidgetFromInitialLocation(
         initialLocation: '/',
         overrides: [
-          signInStatusStreamProvider.overrideWithValue(
-              const AsyncData(SignInStatus(isSignedIn: false))),
+          signInStatusStreamProvider.overrideWith(
+              (_) => Stream.value(const SignInStatus(isSignedIn: false))),
           authRepositoryProvider.overrideWithValue(authRepository),
           firestoreProvider.overrideWithValue(firestore),
         ],
@@ -125,8 +125,10 @@ void main() async {
         testWidget = getTestWidgetFromInitialLocation(
           initialLocation: '/',
           overrides: (testWidget as ProviderScope).overrides
-            ..add(signInStatusStreamProvider
-                .overrideWithValue(const AsyncData(signInStatusOverride))),
+            ..add(
+              signInStatusStreamProvider
+                  .overrideWith((_) => Stream.value(signInStatusOverride)),
+            ),
         );
 
         await tester.pumpWidget(testWidget);
@@ -358,8 +360,10 @@ void main() async {
       testWidget = getTestWidgetFromInitialLocation(
         initialLocation: '/',
         overrides: (testWidget as ProviderScope).overrides
-          ..add(signInStatusStreamProvider
-              .overrideWithValue(const AsyncData(signInStatusOverride))),
+          ..add(
+            signInStatusStreamProvider
+                .overrideWith((_) => Stream.value(signInStatusOverride)),
+          ),
       );
 
       await tester.pumpWidget(testWidget);

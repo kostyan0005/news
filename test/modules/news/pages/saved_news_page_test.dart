@@ -33,8 +33,8 @@ void main() async {
       testWidget = getTestWidgetFromInitialTabIndex(
         initialTabIndex: 2,
         overrides: [
-          signInStatusStreamProvider.overrideWithValue(
-              const AsyncValue.data(SignInStatus(isSignedIn: false))),
+          signInStatusStreamProvider.overrideWith(
+              (_) => Stream.value(const SignInStatus(isSignedIn: false))),
           authRepositoryProvider.overrideWithValue(authRepository),
           firestoreProvider.overrideWithValue(firestore),
         ],

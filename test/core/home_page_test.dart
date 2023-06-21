@@ -1,6 +1,5 @@
 import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news/core/home_tab_enum.dart';
@@ -48,8 +47,8 @@ void main() async {
           subscriptionsRepositoryProvider
               .overrideWithValue(subscriptionsRepository),
           savedNewsRepositoryProvider.overrideWithValue(savedNewsRepository),
-          signInStatusStreamProvider.overrideWithValue(
-              const AsyncValue.data(SignInStatus(isSignedIn: false))),
+          signInStatusStreamProvider.overrideWith(
+              (_) => Stream.value(const SignInStatus(isSignedIn: false))),
         ],
       );
     });
